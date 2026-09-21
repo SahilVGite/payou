@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import Select from "../common/Select";
+import Dropdown from "../common/Dropdown";
 
 const filters = ["All", "PERSONAL LOAN", "HOME LOAN", "BUSINESS LOAN", "LAP"];
 
@@ -79,19 +79,13 @@ export default function RateComparison() {
         </p>
 
         <div className="mb-4 lg:hidden">
-          <Select
+          <Dropdown
             value={activeFilter}
-            onChange={(event) => setActiveFilter(event.target.value)}
-            className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
-            chevronClassName="text-[#10192b]"
-            aria-label="Filter lenders"
-          >
-            {filters.map((filter) => (
-              <option key={filter} value={filter}>
-                {filter}
-              </option>
-            ))}
-          </Select>
+            onChange={setActiveFilter}
+            options={filters}
+            className="rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-4.5 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg"
+            ariaLabel="Filter lenders"
+          />
         </div>
 
         <div className="mb-4 hidden gap-3 overflow-x-auto lg:flex">

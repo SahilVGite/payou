@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, ChevronDown, Plus } from "lucide-react";
 import Collapse from "../common/Collapse";
-import Select from "../common/Select";
+import Dropdown from "../common/Dropdown";
 
 const categories = ["General FAQ's", "Loans", "Insurance", "Investment", "EMI"];
 
@@ -123,22 +123,16 @@ export default function FaqSection() {
           </div>
 
           <div className="mb-2.5 lg:hidden">
-            <Select
+            <Dropdown
               value={activeCategory}
-              onChange={(event) => {
-                setActiveCategory(event.target.value);
+              onChange={(nextCategory) => {
+                setActiveCategory(nextCategory);
                 setOpenIndex(0);
               }}
-              className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
-              chevronClassName="text-[#10192b]"
-              aria-label="Choose a category"
-            >
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </Select>
+              options={categories}
+              className="rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-4.5 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg"
+              ariaLabel="Choose a category"
+            />
           </div>
 
           <div className="flex flex-col gap-3">

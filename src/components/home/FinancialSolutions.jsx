@@ -18,7 +18,7 @@ import {
 import "swiper/css";
 import "swiper/css/navigation";
 import Collapse from "../common/Collapse";
-import Select from "../common/Select";
+import Dropdown from "../common/Dropdown";
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
 import HomeLoanIcon from "../../../public/icons/HomeLoanIcon";
 import BusinessLoanIcon from "../../../public/icons/BusinessLoanIcon";
@@ -162,23 +162,16 @@ export default function FinancialSolutions() {
         </p>
 
         <div className="mb-4 lg:hidden">
-          <Select
+          <Dropdown
             value={activeTab}
-            onChange={(event) => {
-              const nextTab = event.target.value;
+            onChange={(nextTab) => {
               setActiveTab(nextTab);
               setActiveItem(sidebarByTab[nextTab][0]);
             }}
-            className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
-            chevronClassName="text-[#10192b]"
-            aria-label="Choose a category"
-          >
-            {tabs.map(({ label }) => (
-              <option key={label} value={label}>
-                {label}
-              </option>
-            ))}
-          </Select>
+            options={tabs.map(({ label }) => label)}
+            className="rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-4.5 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg"
+            ariaLabel="Choose a category"
+          />
         </div>
 
         <div className="mx-auto mb-10 hidden justify-evenly w-full max-w-3xl gap-1 rounded-xl bg-white/15 shadow-[1px_1px_12px_rgba(0,0,0,0.1)] overflow-x-auto overflow-y-hidden lg:flex">
@@ -257,19 +250,13 @@ export default function FinancialSolutions() {
           </div>
 
           <div className="lg:hidden">
-            <Select
+            <Dropdown
               value={activeItem}
-              onChange={(event) => setActiveItem(event.target.value)}
-              className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
-              chevronClassName="text-[#10192b]"
-              aria-label="Choose a product"
-            >
-              {sidebarItems.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </Select>
+              onChange={setActiveItem}
+              options={sidebarItems}
+              className="rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-4.5 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg"
+              ariaLabel="Choose a product"
+            />
           </div>
 
           <div className="relative min-w-0 flex flex-col justify-between">

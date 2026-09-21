@@ -86,14 +86,17 @@ export default function Header() {
         <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4">
           <div className="flex items-center gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
             <Phone size={17} />
-            <a href="tel:02027350055">020 2735 0055 / + 91 9175535507</a>
+            <span>
+              <a href="tel:02027350055">020 2735 0055 / </a>
+              <a href="tel:+919175535507"> + 91 9175535507</a>
+            </span>
             <span className="border-l border-white/70 h-5" />
             <Mail size={17} />
             <a href="mailto:info@payyouadvisory.com">info@payyouadvisory.com</a>
           </div>
           <nav
             aria-label="Quick links"
-            className="flex items-center gap-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-[1024px]:ml-auto"
+            className="flex items-center gap-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-[1024px]:ml-auto"
           >
             <Link href="/about-us">ABOUT US</Link>
             <span className="border-l border-white/70 h-5" />
@@ -103,7 +106,7 @@ export default function Header() {
           </nav>
         </div>
       </div>
-      <div className="relative bg-white shadow-[0_4px_13px_rgba(16,25,43,0.09)]">
+      <div className="relative bg-white shadow-[0_4px_13px_rgba(16,25,43,0.09)] px-4">
         <div className="px-[clamp(0rem,-6.625rem+8.2813vw,3.3125rem)] mx-auto flex max-w-(--header-width) items-center gap-8 px-4 py-2 md:py-3 max-[1050px]:gap-4 max-[1024px]:flex-wrap max-[1024px]:justify-center">
           <Link href="/" className="shrink-0 mr-auto">
             <Image
@@ -112,7 +115,7 @@ export default function Header() {
               width={124}
               height={65}
               priority
-              className="h-auto max-sm:max-w-25"
+              className="h-auto max-sm:max-w-20"
             />
           </Link>
           <button
@@ -163,7 +166,7 @@ export default function Header() {
             </label>
             <Link
               href="/contact-us"
-              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
+              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
             >
               <UserRound size={16} /> APPLY NOW
             </Link>

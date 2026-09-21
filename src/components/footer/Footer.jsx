@@ -21,7 +21,7 @@ import InstagramIcon from "../../../public/icons/InstagramIcon";
 import LinkedinIcon from "../../../public/icons/LinkedinIcon";
 import YouTubeIcon from "../../../public/icons/YouTubeIcon";
 import Collapse from "../common/Collapse";
-import Select from "../common/Select";
+import Dropdown from "../common/Dropdown";
 import { footerCategories } from "../../data/navigation";
 
 const quickLinks = [
@@ -124,23 +124,35 @@ export default function Footer() {
           </div>
         </div>
         <div className="[@media(max-width:1023px)]:mt-8">
-          <div className="mb-3">
-            <Select
+          <div className="mb-3 md:hidden">
+            <Dropdown
               value={activeTab}
-              onChange={(event) => {
-                setActiveTab(event.target.value);
+              onChange={(nextTab) => {
+                setActiveTab(nextTab);
                 setOpenLink(null);
               }}
-              className="block w-full rounded-full border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-10 font-cairo text-[12px] md:text-[14px] font-bold text-[#10192b] backdrop-blur-lg focus:outline-none"
-              chevronClassName="text-[#10192b]"
-              aria-label="Choose a footer category"
-            >
-              {footerTabs.map((tab) => (
-                <option key={tab} value={tab}>
-                  {tab}
-                </option>
-              ))}
-            </Select>
+              options={footerTabs}
+              className="rounded-full border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-4.5 font-cairo text-[12px] font-bold text-[#10192b] backdrop-blur-lg"
+              ariaLabel="Choose a footer category"
+            />
+          </div>
+
+          <div className="mb-3 hidden flex-wrap gap-2 md:flex">
+            {footerTabs.map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => {
+                  setActiveTab(tab);
+                  setOpenLink(null);
+                }}
+                className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[16px] font-bold cursor-pointer transition ${
+                  activeTab === tab ? "bg-[#b11f24] text-white" : "bg-white text-[#134B96] hover:bg-white/90"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
           </div>
           {links.map((item) => {
             const isOpen = item.label === openLink;

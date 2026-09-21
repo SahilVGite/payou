@@ -19,7 +19,7 @@ export default function HeroSection() {
 
     return (
         <section className="relative bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_180%)]">
-            <div className="relative min-h-[86dvh] secGap flex flex-col justify-center bg-white">
+            <div className="relative min-h-[80dvh] secGap flex flex-col justify-center bg-white">
                 <video
                     className="absolute inset-0 h-full w-full object-cover lg:object-contain object-bottom lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
                     autoPlay
