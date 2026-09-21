@@ -8,7 +8,7 @@ export default function GoalsCta() {
     >
       <div className="relative mx-auto grid max-w-(--content-width) rounded-[28px] overflow-hidden bg-primary grid-cols-[1.5fr_1fr] items-center gap-10 secGap px-[calc(var(--sec-gap)/2)] lg:px-(--sec-gap) [@media(min-width:1700px)]:px-[calc(var(--sec-gap)*2)] max-[1024px]:grid-cols-1" style={{ backgroundImage: "url('/images/our_smarter_loan_solutions_bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="text-white relative z-10">
-          <h2 className="text-center md:text-left text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-semibold leading-tight max-[480px]:text-[26px]">
+          <h2 className="text-center md:text-left text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-semibold leading-tight max-[480px]:text-[26px]">
             Your Goals.
             <br />
             <strong className="font-bold">Our Smarter Loan Solutions.</strong>

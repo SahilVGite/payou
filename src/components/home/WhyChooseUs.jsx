@@ -31,11 +31,11 @@ export default function WhyChooseUs() {
       </div>
 
       <div className="relative mx-auto max-w-(--content-width)">
-        <h2 className="mb-2.5 text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
+        <h2 className="mb-2.5 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
           Why Borrowers Choose{" "}
           <strong className="font-bold text-primary">PayYou Advisory</strong>
         </h2>
-        <p className="mb-5 lg:mb-8 text-[16px] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#334155] max-w-full lg:max-w-[70%]">
+        <p className="mb-5 lg:mb-8 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#334155] max-w-full lg:max-w-[70%]">
           Direct comparison table of public and private sector banks in India.
           PayYouAdvisory negotiates institutional processing fee waivers and
           preferential interest rate spreads for qualified applicants.

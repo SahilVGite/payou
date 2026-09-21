@@ -84,7 +84,7 @@ export default function Header() {
     >
       <div className="bg-primary font-nunito font-bold text-white">
         <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4">
-          <div className="flex items-center gap-3 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
+          <div className="flex items-center gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
             <Phone size={17} />
             <a href="tel:02027350055">020 2735 0055 / + 91 9175535507</a>
             <span className="border-l border-white/70 h-5" />
@@ -104,7 +104,7 @@ export default function Header() {
         </div>
       </div>
       <div className="relative bg-white shadow-[0_4px_13px_rgba(16,25,43,0.09)]">
-        <div className="px-[clamp(0rem,-6.625rem+8.2813vw,3.3125rem)] mx-auto flex max-w-(--header-width) items-center gap-8 px-4 py-3 max-[1050px]:gap-4 max-[1024px]:flex-wrap max-[1024px]:justify-center">
+        <div className="px-[clamp(0rem,-6.625rem+8.2813vw,3.3125rem)] mx-auto flex max-w-(--header-width) items-center gap-8 px-4 py-2 md:py-3 max-[1050px]:gap-4 max-[1024px]:flex-wrap max-[1024px]:justify-center">
           <Link href="/" className="shrink-0 mr-auto">
             <Image
               src="/images/siteLogoHeader.png"
@@ -112,6 +112,7 @@ export default function Header() {
               width={124}
               height={65}
               priority
+              className="h-auto max-sm:max-w-25"
             />
           </Link>
           <button

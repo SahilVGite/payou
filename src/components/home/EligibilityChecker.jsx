@@ -84,10 +84,10 @@ export default function EligibilityChecker() {
 
         <div className="relative mt-4 md:mt-5 lg:mt-8 overflow-hidden rounded-[24px] bg-[#FBFDFF]/30 backdrop-blur-lg shadow-[0px_10px_28px_rgba(6,43,90,0.141176)]">
           <div className="relative p-8 max-[480px]:p-5">
-            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-accent">
+            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-accent">
               INSTANT PRE-QUALIFICATION CHECK
             </span>
-            <h3 className="mt-4 text-[26px] md:text-[32px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium text-white">
+            <h3 className="mt-4 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium text-white">
               Check Your <strong className="font-bold">Loan Eligibility</strong>
             </h3>
             <p className="mt-1 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-white">
@@ -112,7 +112,7 @@ export default function EligibilityChecker() {
                       {index + 1}
                     </span>
                     <span
-                      className={`mt-1 absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-white`}
+                      className={`mt-1 absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-white`}
                     >
                       {label}
                     </span>
@@ -128,7 +128,7 @@ export default function EligibilityChecker() {
 
             {step === 0 ? (
               <>
-                <p className="mt-10 mb-3 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80">
+                <p className="mt-10 mb-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80">
                   What is your employment or business profile?
                 </p>
                 <div className="grid grid-cols-4 gap-4 max-[1024px]:grid-cols-2 max-[480px]:grid-cols-1">
@@ -170,7 +170,7 @@ export default function EligibilityChecker() {
                 </div>
 
                 <div className="flex justify-between items-end flex-wrap">
-                  <label className="mt-6 block mb-3 md:mb-0 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80 w-full md:w-fit">
+                  <label className="mt-6 block mb-3 md:mb-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80 w-full md:w-fit">
                     Your Current City / Base Location
                     <Select
                       className="mt-2.5 block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-10 text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none lg:min-w-120"

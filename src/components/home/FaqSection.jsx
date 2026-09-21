@@ -77,7 +77,7 @@ export default function FaqSection() {
       style={{ backgroundImage: "url('/images/faq_section_bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
     >
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-5 md:mb-8 lg:mb-10 text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
+        <h2 className="mb-5 md:mb-8 lg:mb-10 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
           Got Questions? <strong className="font-bold text-primary">We&apos;ve Got Answers.</strong>
         </h2>
 

@@ -44,7 +44,7 @@ export default function LoanCalculator() {
   return (
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2 md:mb-3 text-center text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
+        <h2 className="mb-2 md:mb-3 text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
           Plan Your Loan with{" "}
           <strong className="font-bold text-primary">Confidence</strong>
         </h2>
@@ -53,8 +53,8 @@ export default function LoanCalculator() {
           a loan that fits your budget.
         </p>
 
-        <div className="relative z-10 mx-auto -mb-5  flex overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)]">
-          <div className="flex w-fit justify-center gap-1">
+        <div className="relative max-w-[80%] z-10 mx-auto -mb-5 justify-center flex overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)]">
+          <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;
               return (
@@ -82,7 +82,7 @@ export default function LoanCalculator() {
         <div className="relative overflow-hidden rounded-4xl bg-primary pt-16">
           <div className="grid grid-cols-[1.15fr_48%] gap-10 px-[clamp(0.9375rem,-0.375rem+6.5625vw,7.5rem)] pb-10 max-[1024px]:grid-cols-1 max-[480px]:px-6">
             <div>
-              <h3 className="mb-8 text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] tracking-[-1px] text-white">
+              <h3 className="mb-8 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] tracking-[-1px] text-white">
                 Flexible Online{" "}
                 <strong className="font-bold">Loan Calculator</strong>
               </h3>

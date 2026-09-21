@@ -181,17 +181,23 @@
     width: 12px;
     height: 12px;
   }
+
   .testimonials-pagination .swiper-pagination-bullet-active {
     width: 22px;
-}
+  }
 }
 
 @media only screen and (max-width: 850px) {
+  :root {
+    --sec-gap: 40px;
+  }
+
   .testimonials-pagination .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
   }
+
   .testimonials-pagination .swiper-pagination-bullet-active {
     width: 18px;
-}
+  }
 }

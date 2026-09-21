@@ -191,13 +191,13 @@ export default function FinancialSolutions() {
       }}
     >
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2 text-center text-ink text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
+        <h2 className="mb-2 text-center text-ink text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
           Financial Solutions:{" "}
           <strong className="font-bold text-primary">
             Tailored For All Your Needs
           </strong>
         </h2>
-        <p className="mx-auto mb-9 text-[16px] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-center text-[#5f6a7b]">
+        <p className="mx-auto mb-9 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-center text-[#5f6a7b]">
           Smart solutions. Stronger future. We help you achieve your financial
           goals with confidence.
         </p>
@@ -253,7 +253,7 @@ export default function FinancialSolutions() {
                   </button>
                   <Collapse open={isActive}>
                     <div
-                      className={`bg-[#E5E7EB] p-4 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
+                      className={`bg-[#E5E7EB] p-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
                     >
                       <p className="m-0">{expandedDescription}</p>
                       <div className="mt-3 flex flex-col text-center gap-2">

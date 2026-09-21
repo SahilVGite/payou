@@ -69,7 +69,7 @@ export default function Testimonials() {
   return (
     <section className="secGapT px-[4%]">
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-[1.2857em] text-center text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
+        <h2 className="mb-[1.2857em] text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
           Trusted by people{" "}
           <strong className="font-bold text-primary">Who Choose Us</strong>
         </h2>
@@ -107,10 +107,10 @@ export default function Testimonials() {
                         />
                       ))}
                     </div>
-                    <span className="rounded-full bg-[#eaf1fb] px-2.5 py-1 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary w-fit mt-3">
+                    <span className="rounded-full bg-[#eaf1fb] px-2.5 py-1 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary w-fit mt-3">
                       {testimonial.badge}
                     </span>
-                    <h3 className="mt-4 text-[16px] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] font-semibold text-ink">
+                    <h3 className="mt-4 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] font-semibold text-ink">
                       &ldquo;{testimonial.heading}&rdquo;
                     </h3>
                     <p className="mt-3 flex-1 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] text-[#657084]">
@@ -124,10 +124,10 @@ export default function Testimonials() {
                         <p className="mb-1 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-[#17243A]">
                           {testimonial.name}
                         </p>
-                        <p className="m-0 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#657084]">
+                        <p className="m-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#657084]">
                           {testimonial.role}
                         </p>
-                        <p className="m-0 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">
+                        <p className="m-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">
                           {testimonial.location}
                         </p>
                       </div>

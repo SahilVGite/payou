@@ -65,11 +65,11 @@ export default function Footer() {
             Leading loan advisory in Pune, connecting you with trusted banking and financial partners for personal, business, home, and property loans.
           </p>
           <div className="flex flex-wrap gap-2">
-            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
+            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
               <Lock size={14} className="font-bold" />
               100% Secure Process
             </span>
-            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
+            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
               <Users size={14} className="font-bold" />
               25+ Lending Partners
             </span>

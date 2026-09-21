@@ -63,11 +63,11 @@ export default function RateComparison() {
   return (
     <section className="secGap px-[4%]" style={{ backgroundImage: "url('/images/Indias_Top_Lenders_Bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2.5 text-[28px] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] tracking-[-1px] text-ink">
+        <h2 className="mb-2.5 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] tracking-[-1px] text-ink">
           Live Interest Rate Comparison Across{" "}
           <strong className="font-bold text-primary">India&apos;s Top Lenders</strong>
         </h2>
-        <p className="mb-[2.7em] text-[16px] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
+        <p className="mb-[2.7em] text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
           Compare public &amp; private banks, with PayYouAdvisory securing fee waivers and preferential rates for
           eligible applicants.
         </p>
@@ -78,7 +78,7 @@ export default function RateComparison() {
               key={filter}
               type="button"
               onClick={() => setActiveFilter(filter)}
-              className={`rounded-2xl px-[3.5em] py-[1.1428em] text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-white tracking-wide whitespace-nowrap cursor-pointer transition ${
+              className={`rounded-2xl px-[3.5em] py-[1.1428em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-white tracking-wide whitespace-nowrap cursor-pointer transition ${
                 activeFilter === filter
                   ? "bg-accent shadow-[0_6px_14px_rgba(177,31,36,0.28)]"
                   : "bg-[#134b96] hover:bg-primary"
@@ -116,10 +116,10 @@ export default function RateComparison() {
                         </span>
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#10192C]">{lender.facility}</td>
-                    <td className="px-6 py-4 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-accent">{lender.rate}</td>
-                    <td className="px-6 py-4 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-ink">{lender.fee}</td>
-                    <td className="px-6 py-4 text-[11px] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">{lender.speed}</td>
+                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#10192C]">{lender.facility}</td>
+                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-accent">{lender.rate}</td>
+                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-ink">{lender.fee}</td>
+                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">{lender.speed}</td>
                     <td className="px-6 py-4 text-right">
                       <button
                         type="button"
