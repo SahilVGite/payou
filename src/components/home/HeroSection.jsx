@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Handshake, ShieldCheck, Timer, Users } from "lucide-react";
 import Select from "../common/Select";
 
@@ -16,10 +16,99 @@ const incomeTicks = ["1L", "2L", "3L", "4L", "5L", "6L"];
 
 export default function HeroSection() {
     const [income, setIncome] = useState(200000);
+    const statsRef = useRef(null);
+
+    // Repeatable scroll hijack: the moment the visitor makes a downward scroll gesture
+    // (wheel, trackpad, touch swipe, or keyboard) while still above the stats row, we
+    // preempt it with preventDefault and drive a smooth scroll straight to the stats row
+    // ourselves. Intercepting the raw input — rather than reacting to a "scroll" event
+    // after the browser has already started scrolling — matters because once native
+    // scrolling is underway, further wheel/touch input keeps overriding a `scrollTo`
+    // fired from a "scroll" listener, so the jump would get instantly cancelled and look
+    // like nothing happened. Stays armed for the page's whole lifetime: scroll back above
+    // the stats row and scroll down again, and it jumps again. The "isAnimating" guard is
+    // reset by a timer (not just once the animation naturally ends) so continuing to
+    // scroll during the jump can't leave it stuck.
+    useEffect(() => {
+        let isAnimating = false;
+        let resetTimer = null;
+
+        function computeTargetY() {
+            const statsEl = statsRef.current;
+            if (!statsEl) return null;
+            return Math.max(statsEl.getBoundingClientRect().top + window.scrollY, 0);
+        }
+
+        function jumpTo(targetY, prefersReducedMotion) {
+            isAnimating = true;
+            window.scrollTo({
+                top: targetY,
+                behavior: prefersReducedMotion ? "auto" : "smooth",
+            });
+            clearTimeout(resetTimer);
+            resetTimer = setTimeout(
+                () => {
+                    isAnimating = false;
+                },
+                prefersReducedMotion ? 0 : 800,
+            );
+        }
+
+        // Returns true (and performs the jump) only for a genuine downward gesture that's
+        // still short of the target; otherwise leaves the page alone.
+        function tryJump(isScrollingDown) {
+            if (isAnimating || !isScrollingDown) return false;
+            const targetY = computeTargetY();
+            if (targetY === null || window.scrollY >= targetY) return false;
+            const prefersReducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            jumpTo(targetY, prefersReducedMotion);
+            return true;
+        }
+
+        function handleWheel(event) {
+            if (tryJump(event.deltaY > 0)) event.preventDefault();
+        }
+
+        let touchStartY = null;
+        function handleTouchStart(event) {
+            touchStartY = event.touches[0]?.clientY ?? null;
+        }
+        function handleTouchMove(event) {
+            if (touchStartY === null) return;
+            const currentY = event.touches[0]?.clientY ?? touchStartY;
+            if (tryJump(touchStartY - currentY > 5)) event.preventDefault();
+        }
+
+        const SCROLL_DOWN_KEYS = new Set(["ArrowDown", "PageDown", " ", "Spacebar"]);
+        function handleKeyDown(event) {
+            if (!SCROLL_DOWN_KEYS.has(event.key)) return;
+            const target = event.target;
+            const isFormField =
+                target instanceof HTMLElement &&
+                ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(target.tagName);
+            if (isFormField) return;
+            if (tryJump(true)) event.preventDefault();
+        }
+
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        window.addEventListener("touchstart", handleTouchStart, { passive: true });
+        window.addEventListener("touchmove", handleTouchMove, { passive: false });
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            clearTimeout(resetTimer);
+            window.removeEventListener("wheel", handleWheel);
+            window.removeEventListener("touchstart", handleTouchStart);
+            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     return (
         <section className="relative bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_180%)]">
-            <div className="relative min-h-[80dvh] secGap flex flex-col justify-center bg-white">
+            <div className="relative min-h-[80dvh] secGap [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-center bg-white">
                 <video
                     className="absolute inset-0 h-full w-full object-cover lg:object-contain object-bottom lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
                     autoPlay
@@ -133,7 +222,10 @@ export default function HeroSection() {
                     </form>
                 </div>
             </div>
-            <div className="[@media(max-width:1023px)]:py-(--sec-gap) px-[4%] lg:absolute lg:-bottom-12 lg:inset-x-0 z-10 mx-auto grid max-w-290 grid-cols-4 gap-5 max-[1024px]:grid-cols-2">
+            <div
+                ref={statsRef}
+                className="[@media(max-width:1023px)]:py-(--sec-gap) px-[4%] lg:absolute lg:-bottom-12 lg:inset-x-0 z-10 mx-auto grid max-w-290 grid-cols-4 gap-5 max-[1024px]:grid-cols-2"
+            >
                 {stats.map(([Icon, value, label]) => (
                     <div
                         key={label}

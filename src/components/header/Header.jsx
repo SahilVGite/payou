@@ -135,7 +135,7 @@ export default function Header() {
               <span
                 key={label}
                 onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
-                className={`flex items-center gap-1.5 pt-[22px] pb-1 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
+                className={`flex items-center gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.4375rem+0.4688vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
                   isActive
                     ? "border-b-2 border-primary text-primary"
                     : "border-b-2 border-transparent text-[#364152] hover:text-primary"
@@ -153,7 +153,7 @@ export default function Header() {
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-3 max-[1024px]:ml-0">
-            <label className="flex w-[260px] items-center justify-between rounded-full border border-primary bg-white pl-4 py-2 pr-1.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-primary max-[1050px]:w-[170px] max-[1024px]:hidden">
+            <label className="flex w-[16.25em] items-center justify-between rounded-full border border-primary bg-white pl-4 py-[0.5em] pr-1.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-primary max-[1050px]:w-[170px] max-[1024px]:hidden">
               <input
                 type="text"
                 name="search"
