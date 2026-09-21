@@ -1,26 +1,197 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-primary: #134b96;
+  --brand-accent: #b11f24;
+  --brand-ink: #10192b;
+  --brand-white: #ffffff;
+  --brand-hero: #dbe7f5;
+  --brand-soft-blue: #e5ebf3;
+  --brand-muted: #5f6a7b;
+  --brand-border: #dce1e7;
+  --color-footer-line: rgba(255, 255, 255, 0.32);
+  --background: var(--brand-white);
+  --foreground: var(--brand-ink);
+  --font-family-inter: var(--font-inter-next), sans-serif;
+  --font-family-nunito: var(--font-nunito-next), sans-serif;
+  --font-family-poppins: var(--font-poppins-next), sans-serif;
+  --font-family-cairo: var(--font-cairo-next), sans-serif;
+  --font-size-body: 16px;
+  --font-size-small: 12px;
+  --font-size-nav: 14px;
+  --font-size-hero: clamp(28px, 2.55vw, 42px);
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --header-width: 1856px;
+  --content-width: 1650px;
+  --sec-gap: 60px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--brand-primary);
+  --color-accent: var(--brand-accent);
+  --color-ink: var(--brand-ink);
+  --color-hero: var(--brand-hero);
+  --color-soft-blue: var(--brand-soft-blue);
+  --color-muted: var(--brand-muted);
+  --color-border: var(--brand-border);
+  --font-sans: var(--font-family-nunito);
+  --font-inter: var(--font-family-inter);
+  --font-nunito: var(--font-family-nunito);
+  --font-poppins: var(--font-family-poppins);
+  --font-cairo: var(--font-family-cairo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.secGap {
+  @apply py-(--sec-gap)
+}
+
+.secGapT {
+  @apply pt-(--sec-gap)
+}
+
+.secGapB {
+  @apply pb-(--sec-gap)
+}
+
+/* Custom range slider (Hero income slider + Loan calculator sliders) */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right,
+      var(--brand-primary) 0%,
+      var(--brand-primary) var(--range-progress, 50%),
+      rgba(255, 255, 255, 0.55) var(--range-progress, 50%),
+      rgba(255, 255, 255, 0.55) 100%);
+  outline: none;
+  cursor: pointer;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand-white);
+  border: 3px solid var(--brand-primary);
+  box-shadow: 0 2px 6px rgba(16, 25, 43, 0.35);
+  cursor: pointer;
+}
+
+.range-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand-white);
+  border: 3px solid var(--brand-primary);
+  box-shadow: 0 2px 6px rgba(16, 25, 43, 0.35);
+  cursor: pointer;
+}
+
+.range-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.range-slider--dark {
+  background: linear-gradient(to right,
+      var(--brand-accent) 0%,
+      var(--brand-accent) var(--range-progress, 50%),
+      rgba(255, 255, 255, 0.22) var(--range-progress, 50%),
+      rgba(255, 255, 255, 0.22) 100%);
+}
+
+.range-slider--dark::-webkit-slider-thumb {
+  border-color: var(--brand-accent);
+}
+
+.range-slider--dark::-moz-range-thumb {
+  border-color: var(--brand-accent);
+}
+
+/* Swiper overrides to match brand colors */
+.swiper-button-disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+}
+
+.testimonials-pagination .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--brand-primary);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.testimonials-pagination .swiper-pagination-bullet-active {
+  width: 32px;
+  background: var(--brand-primary);
+}
+
+/* Equal-height slides: Swiper's own `.swiper-slide { height: 100% }` doesn't stretch
+   reliably against an auto-height `.swiper` container, so force it explicitly. */
+.testimonials-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.testimonials-swiper .swiper-slide {
+  height: auto;
+  align-self: stretch;
+}
+
+.financial-solutions-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.financial-solutions-swiper .swiper-slide {
+  height: auto;
+  align-self: stretch;
+}
+
+/* Continuous logo marquee (PartnerLogos) — pure CSS transform, no JS-driven loop resets */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media only screen and (max-width: 1366px) {
+  .testimonials-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+  }
+  .testimonials-pagination .swiper-pagination-bullet-active {
+    width: 22px;
+}
+}
+
+@media only screen and (max-width: 850px) {
+  .testimonials-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+  .testimonials-pagination .swiper-pagination-bullet-active {
+    width: 18px;
+}
 }
