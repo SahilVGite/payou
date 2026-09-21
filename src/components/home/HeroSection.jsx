@@ -55,9 +55,12 @@ export default function HeroSection() {
         }
 
         // Returns true (and performs the jump) only for a genuine downward gesture that's
-        // still short of the target; otherwise leaves the page alone.
+        // still short of the target; otherwise leaves the page alone. Desktop-only (>=1024px)
+        // — on tablet/mobile the hero and stats already stack in normal document flow, so
+        // hijacking the scroll there isn't wanted.
         function tryJump(isScrollingDown) {
             if (isAnimating || !isScrollingDown) return false;
+            if (!window.matchMedia("(min-width: 1024px)").matches) return false;
             const targetY = computeTargetY();
             if (targetY === null || window.scrollY >= targetY) return false;
             const prefersReducedMotion = window.matchMedia(

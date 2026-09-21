@@ -335,7 +335,7 @@ export default function FinancialSolutions() {
               <p className="mb-[0.5454em] text-[18px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-medium text-ink tracking-[-0.44px]">
                 Popular Products
               </p>
-              <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-2">
+              <div className="grid [@media(min-width:1366px)]:grid-cols-4 gap-5 md:grid-cols-2">
                 {popularProducts.map(([Icon, eyebrow, label]) => (
                   <Link
                     href="/contact-us"

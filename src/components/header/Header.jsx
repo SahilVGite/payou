@@ -115,7 +115,7 @@ export default function Header() {
               width={124}
               height={65}
               priority
-              className="h-auto max-sm:max-w-20"
+              className="h-auto max-lg:max-w-20"
             />
           </Link>
           <button
@@ -135,7 +135,7 @@ export default function Header() {
               <span
                 key={label}
                 onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
-                className={`flex items-center gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.4375rem+0.4688vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
+                className={`flex items-center gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
                   isActive
                     ? "border-b-2 border-primary text-primary"
                     : "border-b-2 border-transparent text-[#364152] hover:text-primary"

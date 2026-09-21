@@ -64,7 +64,7 @@ export default function LoanCalculator() {
           />
         </div>
 
-        <div className="relative hidden max-w-[80%] z-10 mx-auto -mb-5 justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
+        <div className="relative hidden max-w-[90%] z-10 mx-auto -mb-5 [@media(min-width:1500px)]:justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
           <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;
@@ -73,7 +73,7 @@ export default function LoanCalculator() {
                   key={label}
                   type="button"
                   onClick={() => setActiveTab(label)}
-                  className={`relative flex items-center gap-2 rounded-full px-4 md:px-6 py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap transition ${
+                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap transition ${
                     isActive
                       ? "text-primary "
                       : "text-[#092B49] hover:text-[#134b96]"
