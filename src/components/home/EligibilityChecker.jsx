@@ -55,12 +55,12 @@ export default function EligibilityChecker() {
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(103.18deg,#6F1212_1.14%,#B52024_58.49%,#F74C4A_100%)] secGap px-[4%]">
       <div className="relative mx-auto max-w-(--content-width)">
-        <div className="grid grid-cols-[0.65fr_0.65fr_1fr] items-start gap-8 max-[1024px]:grid-cols-1">
+        <div className="grid grid-cols-[0.85fr_0.65fr_1fr] items-start gap-8 max-[1024px]:grid-cols-1">
           <h2 className="text-[28px] md:text-[38px] lg:text-[clamp(2.125rem,1.2679rem+1.3393vw,2.875rem)] font-semibold leading-tight text-white">
             Smart Loans
-            <br />
-            Expert Guidance
-            <br />
+            <br className="[@media(max-width:1024px)]:hidden" />
+            Expert Guidance{" "}
+            <br className="[@media(max-width:767px)]:hidden" />
             All In One Place
           </h2>
           <ul className="flex flex-col gap-3 pt-2 text-[14px] md:text-[16px] lg:text-[clamp(0.875rem,0.5893rem+0.4464vw,1.125rem)] font-semibold text-white">

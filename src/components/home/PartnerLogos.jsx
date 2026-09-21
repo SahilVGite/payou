@@ -18,10 +18,10 @@ export default function PartnerLogos() {
   return (
     <section className="overflow-hidden bg-primary secGap px-[4%]">
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2.5 text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-white">
+        <h2 className="mb-2.5 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-white">
           Backed by 50+ Top Banks, <strong className="font-bold">NBFCs &amp; Fintech Institutions</strong>
         </h2>
-        <p className="mb-(--sec-gap) text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-white/70">
+        <p className="mb-(--sec-gap) text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#F0F5FE]">
           Authorized Direct Selling Partner operating under strict Reserve Bank of India compliance guidelines.
         </p>
       </div>

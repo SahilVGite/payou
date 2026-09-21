@@ -69,7 +69,7 @@ export default function Testimonials() {
   return (
     <section className="secGapT px-[4%] [@media(max-width:767px)]:pb-(--sec-gap)">
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-[1.2857em] text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
+        <h2 className="mb-[1.2857em] text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
           Trusted by people{" "}
           <strong className="font-bold text-primary">Who Choose Us</strong>
         </h2>

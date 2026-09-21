@@ -150,13 +150,13 @@ export default function FinancialSolutions() {
       }}
     >
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2 text-center text-ink text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
+        <h2 className="mb-2 text-left md:text-center text-ink text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
           Financial Solutions:{" "}
           <strong className="font-bold text-primary">
             Tailored For All Your Needs
           </strong>
         </h2>
-        <p className="mx-auto mb-9 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-center text-[#5f6a7b]">
+        <p className="mx-auto mb-9 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-left md:text-center text-[#5f6a7b]">
           Smart solutions. Stronger future. We help you achieve your financial
           goals with confidence.
         </p>
@@ -174,7 +174,7 @@ export default function FinancialSolutions() {
           />
         </div>
 
-        <div className="mx-auto mb-10 hidden justify-evenly w-full max-w-3xl gap-1 rounded-xl bg-white/15 shadow-[1px_1px_12px_rgba(0,0,0,0.1)] overflow-x-auto overflow-y-hidden lg:flex">
+        <div className="mx-auto mb-10 hidden justify-evenly w-full max-w-[1179px] gap-1 rounded-xl bg-white/15 shadow-[1px_1px_12px_rgba(0,0,0,0.1)] overflow-x-auto overflow-y-hidden lg:flex">
           {tabs.map(({ label, icon: Icon }) => {
             const isActive = activeTab === label;
             return (

@@ -45,11 +45,11 @@ export default function LoanCalculator() {
   return (
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width)">
-        <h2 className="mb-2 md:mb-3 text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
+        <h2 className="mb-2 md:mb-3 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
           Plan Your Loan with{" "}
           <strong className="font-bold text-primary">Confidence</strong>
         </h2>
-        <p className="mx-auto mb-(--sec-gap) text-center text-[16px] md:text-[16px] lg:text-[20px] text-[#4B5563]">
+        <p className="mx-auto mb-(--sec-gap) text-left md:text-center text-[16px] md:text-[16px] lg:text-[20px] text-[#4B5563]">
           Calculate your EMI, interest, and total repayment instantly to choose
           a loan that fits your budget.
         </p>
@@ -76,7 +76,7 @@ export default function LoanCalculator() {
                   className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap transition ${
                     isActive
                       ? "text-primary "
-                      : "text-[#092B49] hover:text-[#134b96]"
+                      : "text-[#092B49] hover:text-primary"
                   }`}
                 >
                   <Icon size={15} />

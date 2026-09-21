@@ -8,25 +8,21 @@ export default function GoalsCta() {
     >
       <div className="relative mx-auto grid max-w-(--content-width) rounded-[28px] overflow-hidden bg-primary grid-cols-[1.5fr_1fr] items-center gap-10 secGap px-[calc(var(--sec-gap)/2)] lg:px-(--sec-gap) [@media(min-width:1700px)]:px-[calc(var(--sec-gap)*2)] max-[1024px]:grid-cols-1" style={{ backgroundImage: "url('/images/our_smarter_loan_solutions_bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="text-white relative z-10">
-          <h2 className="text-center md:text-left text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-semibold leading-tight max-[480px]:text-[26px]">
+          <h2 className="text-left text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-semibold leading-tight max-[480px]:text-[26px]">
             Your Goals.
             <br />
             <strong className="font-bold">Our Smarter Loan Solutions.</strong>
           </h2>
-          <p className="text-center md:text-left mt-4 max-w-lg text-[15px] leading-relaxed text-white/85">
-            Whatever you&apos;re planning next, our advisors help you find the right loan, at the right rate, without
-            the runaround.
-          </p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
             <Link
               href="/contact-us"
-              className="w-full md:w-fit text-center rounded-full bg-[#b11f24] px-8 py-3.5 text-xs font-bold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+              className="w-full md:w-fit text-center rounded-full border border-white px-8 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white transition hover:bg-white hover:text-[#134b96]"
             >
               GET STARTED TODAY
             </Link>
             <Link
               href="/contact-us"
-              className="w-full md:w-fit text-center rounded-full border border-white px-8 py-3.5 text-xs font-bold text-white transition hover:bg-white hover:text-[#134b96]"
+              className="w-full md:w-fit text-center rounded-full bg-[#b11f24] px-8 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
             >
               TALK TO OUR EXPERT NOW
             </Link>

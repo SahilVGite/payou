@@ -79,7 +79,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-20 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${menuOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
+      className={`sticky top-0 z-9999 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${menuOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
       onMouseLeave={closeLoansMenuOnLeave}
     >
       <div className="bg-primary font-nunito font-bold text-white">
@@ -96,7 +96,7 @@ export default function Header() {
           </div>
           <nav
             aria-label="Quick links"
-            className="flex items-center gap-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-[1024px]:ml-auto"
+            className="flex items-center font-semibold gap-5 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-[1024px]:ml-auto"
           >
             <Link href="/about-us">ABOUT US</Link>
             <span className="border-l border-white/70 h-5" />
@@ -129,13 +129,17 @@ export default function Header() {
           </button>
           <nav
             aria-label="Main navigation"
-            className={`flex flex-1 items-center justify-center gap-7 max-[1050px]:gap-4 max-[1024px]:order-4 max-[1024px]:basis-full max-[1024px]:flex-col max-[1024px]:items-start max-[1024px]:gap-0 max-[1024px]:pb-3 ${menuOpen ? "max-[1024px]:flex" : "max-[1024px]:hidden"}`}
+            className={`flex flex-1 items-center justify-center gap-[clamp(2.5rem,-0.5rem+3.75vw,4rem)] max-[1050px]:gap-4 max-[1024px]:order-4 max-[1024px]:basis-full max-[1024px]:flex-col max-[1024px]:items-start max-[1024px]:gap-0 max-[1024px]:pb-3 ${menuOpen ? "max-[1024px]:flex" : "max-[1024px]:hidden"}`}
           >
-            {navLinks.map(([label, href, hasChevron, isActive]) => (
+            {navLinks.map(([label, href, hasChevron, isActive], index) => (
               <span
                 key={label}
                 onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
-                className={`flex items-center gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
+                className={`relative flex items-center gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
+                  index > 0
+                    ? "before:content-[''] before:absolute before:-left-[clamp(1.25rem,-0.25rem+1.875vw,2rem)] before:top-1/2 before:h-[15px] before:w-px before:-translate-y-1/2 before:bg-[#BFCFE6] max-[1050px]:before:-left-2 max-[1024px]:before:hidden"
+                    : ""
+                } ${
                   isActive
                     ? "border-b-2 border-primary text-primary"
                     : "border-b-2 border-transparent text-[#364152] hover:text-primary"
@@ -148,7 +152,7 @@ export default function Header() {
                 ) : (
                   <Link href={href}>{label}</Link>
                 )}
-                {hasChevron ? <ChevronDown size={15} /> : null}
+                {hasChevron ? <ChevronDown size={22} /> : null}
               </span>
             ))}
           </nav>
@@ -166,7 +170,7 @@ export default function Header() {
             </label>
             <Link
               href="/contact-us"
-              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
+              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
             >
               <UserRound size={16} /> APPLY NOW
             </Link>

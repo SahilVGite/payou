@@ -15,10 +15,10 @@ export default function ContactHero() {
           </span>
         </div>
       </div>
-      <section className="bg-primary px-[4%] py-14 text-center text-white md:py-16">
+      <section className="bg-primary px-[4%] py-[clamp(0.9375rem,-0.2885rem+5.4487vw,6.25rem)] text-center text-white">
         <div className="mx-auto max-w-(--content-width)">
-          <h1 className="text-[32px] font-semibold md:text-[44px]">Contact Us</h1>
-          <p className="mx-auto mt-3 max-w-xl text-[14px] text-white/85 md:text-[16px]">
+          <h1 className="text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-bold">Contact Us</h1>
+          <p className="mx-auto mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-white">
             Connect with us through any of our support channels and our team will ensure you receive timely and helpful assistance.
           </p>
         </div>

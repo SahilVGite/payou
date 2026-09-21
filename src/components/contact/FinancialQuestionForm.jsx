@@ -44,20 +44,20 @@ export default function FinancialQuestionForm() {
       <div className="mx-auto max-w-(--content-width) rounded-[28px] bg-primary p-6 md:p-10 lg:p-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="text-white">
-            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-bold text-primary md:text-[13px]">
+            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
               GET EXPERT GUIDANCE
             </span>
-            <h2 className="mt-4 text-[28px] font-medium leading-tight md:text-[34px]">
+            <h2 className="mt-4 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight">
               Have a <strong className="font-bold">Financial Question?</strong>
             </h2>
-            <p className="mt-3 text-[14px] leading-relaxed text-white/80 md:text-[15px]">
+            <p className="mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] leading-relaxed text-white">
               Get personalized advice from our loan experts. We&apos;ll help you find the right solution for your needs.
             </p>
 
             <div className="mt-7 grid grid-cols-2 gap-4">
               {highlights.map(([Icon, label], index) => (
                 <div key={`${label}-${index}`} className="flex items-center gap-2.5 text-[13px] font-semibold md:text-[14px]">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
+                  <span className="flex h-9 w-9 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
                     <Icon size={18} />
                   </span>
                   {label}
@@ -70,9 +70,9 @@ export default function FinancialQuestionForm() {
                 <a
                   key={label}
                   href={href}
-                  className="flex items-center gap-3 rounded-2xl bg-white/10 px-5 py-3.5 transition hover:bg-white/15"
+                  className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/30 px-5 py-3.5 transition hover:bg-white/15"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15">
+                  <span className="flex h-10 w-10 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
                     <Icon size={20} />
                   </span>
                   <span className="flex flex-col">
@@ -92,16 +92,16 @@ export default function FinancialQuestionForm() {
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="grid gap-2 text-[13px] font-semibold text-white">
-                Full Name <span className="text-[#ff8c7a]">*</span>
+                <span className="flex">Full Name <span className="text-accent">*</span></span>
                 <input
                   required
                   name="name"
                   placeholder="Enter your name"
-                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#8b93a1]"
+                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
               <label className="grid gap-2 text-[13px] font-semibold text-white">
-                Mobile Number <span className="text-[#ff8c7a]">*</span>
+                <span className="flex">Mobile Number <span className="text-accent">*</span></span>
                 <span className="flex items-center gap-2 rounded-full bg-white px-4 py-3">
                   <span className="text-[13px] text-[#8b93a1]">+91</span>
                   <input
@@ -109,22 +109,22 @@ export default function FinancialQuestionForm() {
                     type="tel"
                     name="mobile"
                     placeholder="Enter Mobile Number"
-                    className="w-full text-[13px] text-ink outline-none placeholder:text-[#8b93a1]"
+                    className="w-full text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
                   />
                 </span>
               </label>
               <label className="grid gap-2 text-[13px] font-semibold text-white">
-                Email Address <span className="text-[#ff8c7a]">*</span>
+                <span className="flex">Email Address <span className="text-accent">*</span></span>
                 <input
                   required
                   type="email"
                   name="email"
                   placeholder="Enter email address"
-                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#8b93a1]"
+                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
               <label className="grid gap-2 text-[13px] font-semibold text-white">
-                Select Service <span className="text-[#ff8c7a]">*</span>
+                <span className="flex">Select Service <span className="text-accent">*</span></span>
                 <Select
                   required
                   name="service"
@@ -141,7 +141,7 @@ export default function FinancialQuestionForm() {
             </div>
 
             <label className="mt-5 grid gap-2 text-[13px] font-semibold text-white">
-              Message <span className="text-[#ff8c7a]">*</span>
+              <span className="flex">Message <span className="text-accent">*</span></span>
               <span className="relative block">
                 <textarea
                   required
@@ -151,9 +151,9 @@ export default function FinancialQuestionForm() {
                   placeholder="Tell us how we can help you"
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  className="w-full resize-none rounded-2xl bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#8b93a1]"
+                  className="w-full resize-none rounded-2xl bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
                 />
-                <span className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-[#8b93a1]">
+                <span className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-[#4B5563]">
                   {message.length}/500
                 </span>
               </span>

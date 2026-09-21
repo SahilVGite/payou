@@ -126,19 +126,19 @@ export default function HeroSection() {
                 <div className="relative w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
                     <div className="flex-1 pb-12 max-[800px]:pb-4 w-full">
                         <h1 className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-white lg:text-ink">
-                            Compare, Apply &amp; Get Fast
-                            <br />
-                            Loan Disbursal with India&apos;s
-                            <br />
+                            Compare, Apply &amp; Get Fast{" "}
+                            <br className="[@media(max-width:1024px)]:hidden" />
+                            Loan Disbursal with India&apos;s{" "}
+                            <br className="[@media(max-width:1024px)]:hidden" />
                             <strong className="font-bold text-accent">
                                 Trusted DSA Partner
                             </strong>
                         </h1>
                         <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-white lg:text-ink max-[800px]:text-[15px]">
                             PayYouAdvisory is an authorized partner for
-                            <br className="max-[480px]:hidden" /> 50+
+                            <br className="[@media(max-width:1024px)]:hidden" /> 50+
                             RBI-regulated banks &amp; NBFCs, offering
-                            <br className="max-[480px]:hidden" /> competitive
+                            <br className="[@media(max-width:1024px)]:hidden" /> competitive
                             rates from 8.30% p.a.
                         </p>
                         <div className="flex gap-2 md:gap-4.5 max-[480px]:flex-col">

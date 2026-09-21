@@ -25,7 +25,7 @@ export default function WhyChooseUs() {
           src="/images/Why_Borrowers_Choose_bg.png"
           alt="Happy family with their advisor"
           fill
-          className="object-cover object-bottom-left lg:object-bottom-right"
+          className="object-cover object-bottom-left [@media(min-width:1280px)]:object-bottom-right"
           priority={false}
         />
       </div>
@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
           preferential interest rate spreads for qualified applicants.
         </p>
 
-        <div className="grid grid-cols-[1fr_1fr_25%] gap-6 max-[1100px]:grid-cols-1">
+        <div className="grid grid-cols-[1fr_1fr_28%] gap-6 max-[1100px]:grid-cols-1">
           <div className="rounded-2xl bg-primary/15 p-7 shadow-[0px_8px_18px_rgba(0,46,102,0.14902)] backdrop-blur-lg">
             <div className="flex items-center justify-between">
               <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-primary">
@@ -59,7 +59,7 @@ export default function WhyChooseUs() {
                 >
                   <div className="flex w-full items-center gap-3">
                     <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white lg:h-[27px] lg:w-[27px]">
-                      <ShieldCheckIcon size={16} />
+                      <ShieldCheckIcon size={20} />
                     </span>
                     <span
                       className={`flex-1 py-3 ${index !== comparisonPoints.length - 1 ? "border-b border-white/18" : ""}`}
@@ -84,7 +84,7 @@ export default function WhyChooseUs() {
                 >
                   <div className="flex w-full items-center gap-3">
                     <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white lg:h-[27px] lg:w-[27px]">
-                      <CircleXIcon size={16} />
+                      <CircleXIcon size={20} />
                     </span>
                     <span
                       className={`flex-1 py-3 ${index !== comparisonPoints.length - 1 ? "border-b border-[#B5BBC1]" : ""}`}

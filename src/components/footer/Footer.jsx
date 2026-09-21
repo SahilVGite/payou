@@ -52,8 +52,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
-      <div className="mx-auto max-w-(--content-width) grid grid-cols-[31%_1fr] lg:gap-[7%] pb-8 secGapT max-[800px]:grid-cols-1">
-        <div className="lg:max-w-[424px]">
+      <div className="mx-auto max-w-(--content-width) grid [@media(min-width:1025px)]:grid-cols-[31%_1fr] gap-10 [@media(min-width:1025px)]:gap-[7%] pb-8 secGapT max-[1024px]:grid-cols-1">
+        <div className="[@media(min-width:1025px)]:max-w-[424px]">
           <div className="flex items-center justify-center">
             <Image
               src="/images/siteLogoFooter.png"
@@ -63,7 +63,7 @@ export default function Footer() {
               className="h-auto max-sm:max-w-32"
             />
           </div>
-          <p className="my-6 text-[14px] md:text-[16px] lg:text-[19px] leading-relaxed">
+          <p className="my-6 text-[13px] md:text-[16px] lg:text-[19px] leading-relaxed">
             Leading loan advisory in Pune, connecting you with trusted banking and financial partners for personal, business, home, and property loans.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -132,7 +132,7 @@ export default function Footer() {
                 setOpenLink(null);
               }}
               options={footerTabs}
-              className="rounded-full border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-4.5 font-cairo text-[12px] font-bold text-[#10192b] backdrop-blur-lg"
+              className="rounded-full text-white border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-4.5 font-cairo text-[13px] font-bold text-[#10192b] backdrop-blur-lg"
               ariaLabel="Choose a footer category"
             />
           </div>
@@ -176,7 +176,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => setOpenLink(isOpen ? null : item.label)}
-                  className="flex w-full items-center justify-between py-2.5 text-left font-poppins text-base font-bold"
+                  className="flex w-full items-center justify-between py-2.5 text-left text-[13px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-black"
                 >
                   {item.label}
                   <ChevronDown
@@ -203,7 +203,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="mx-auto max-w-(--content-width) w-full border-t border-white/55 py-3 md:py-4 lg:py-6">
-        <h3 className="mb-2 md:mb-4 text-[clamp(0.85rem,0.6397rem+0.4902vw,0.875rem)] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">QUICK LINKS</h3>
+        <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">QUICK LINKS</h3>
         <div className="grid grid-cols-2 gap-y-2 text-left md:hidden">
           {quickLinks.map(([label, href]) => (
             <Link
@@ -218,7 +218,7 @@ export default function Footer() {
         <div className="hidden flex-wrap gap-y-2 md:flex">
           {quickLinks.map(([label, href]) => (
             <Link
-              className="mr-3 border-r border-white/55 pr-3 text-[11px] md:text-[13px] lg:text-[15px] font-bold leading-[1.3em]"
+              className="mr-3 border-r border-white/55 pr-3 text-[13px] md:text-[13px] lg:text-[15px] font-bold leading-[1.3em]"
               href={href}
               key={label}
             >
@@ -234,7 +234,7 @@ export default function Footer() {
         <div className="flex flex-wrap gap-2">
           {partners.map((partner) => (
             <span
-              className="rounded bg-white px-[1.25em] py-[0.625em] text-center text-[11px] md:text-[14px] lg:text-[16px] font-bold font-inter text-primary"
+              className="rounded bg-white px-[1.25em] py-[0.625em] text-center text-[13px] md:text-[14px] lg:text-[16px] font-bold font-inter text-primary"
               key={partner}
             >
               {partner}
@@ -242,7 +242,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto max-w-(--content-width) w-full border-y border-white/55 py-3 md:py-4 lg:py-6 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed font-normal">
+      <div className="mx-auto max-w-(--content-width) w-full border-y border-white/55 py-3 md:py-4 lg:py-6 text-[clamp(0.65rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.875rem,0.5rem+0.4688vw,1.0625rem)] leading-relaxed font-normal text-white">
         Disclaimer: Payyou Advisory Private Ltd. is a digital loan referral and
         financial advisory platform. We are not a registered bank, Non-Banking
         Financial Company (NBFC), or direct lender. All loan approvals, interest
@@ -251,9 +251,9 @@ export default function Footer() {
         based on your credit profile and eligibility. We do not charge customers
         any upfront fees for loan facilitation.
       </div>
-      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap [@media(max-width:767px)]:items-center justify-between gap-2 py-3 md:py-4 lg:py-6 text-[clamp(0.75rem,0.6397rem+0.4902vw,0.875rem)] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
+      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
-        <span className="[@media(max-width:767px)]:text-center">
+        <span>
           <Link href="/privacy-policy">Privacy Policy</Link> &nbsp;|&nbsp;{" "}
           <Link href="/privacy-policy">Terms &amp; Conditions</Link>{" "}
           &nbsp;|&nbsp; <Link href="/privacy-policy">Cookie Policy</Link>{" "}
