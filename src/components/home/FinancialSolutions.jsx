@@ -18,6 +18,7 @@ import {
 import "swiper/css";
 import "swiper/css/navigation";
 import Collapse from "../common/Collapse";
+import Select from "../common/Select";
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
 import HomeLoanIcon from "../../../public/icons/HomeLoanIcon";
 import BusinessLoanIcon from "../../../public/icons/BusinessLoanIcon";
@@ -63,106 +64,64 @@ const sidebarByTab = {
 const expandedDescription =
   "Flexible financing for vehicles and essential purchases. Easy repayment options to fit your needs.";
 
-const baseCardsByTab = {
-  Loans: [
-    {
-      title: "Two-Wheeler Loan",
-      description:
-        "Easy financing for your two-wheeler with flexible repayment options and fast approval.",
-      image: "/images/financial_solutions_card1.png",
-      icon: TwoWheelerLoanIcon,
-    },
-    {
-      title: "Used Car / Pre-Owned Vehicle Loan",
-      description:
-        "Affordable funding for quality pre-owned vehicles with competitive interest rates.",
-      image: "/images/financial_solutions_card2.png",
-      icon: UsedCarLoanIcon,
-    },
-    {
-      title: "Consumer Durable Loan",
-      description:
-        "Instant financing for appliances and gadgets with zero down-payment options.",
-      image: "/images/financial_solutions_card3.png",
-      icon: ConsumerDurableLoanIcon,
-    },
-    {
-      title: "Car Loan",
-      description:
-        "Flexible financing for your dream car with attractive rates and quick disbursal.",
-      image: "/images/financial_solutions_card4.png",
-      icon: CarLoanIcon,
-    },
-  ],
-  Insurance: [
-    {
-      title: "Term Insurance",
-      description:
-        "Comprehensive life cover for your family at affordable premiums.",
-      image: "/images/financial_solutions_card1.png",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Health Insurance",
-      description:
-        "Cashless treatment across a wide hospital network with fast claim settlement.",
-      image: "/images/financial_solutions_card2.png",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Motor Insurance",
-      description:
-        "Complete protection for your vehicle against damage and theft.",
-      image: "/images/financial_solutions_card3.png",
-      icon: Car,
-    },
-    {
-      title: "Home Insurance",
-      description:
-        "Safeguard your property and belongings against unforeseen risks.",
-      image: "/images/financial_solutions_card4.png",
-      icon: Home,
-    },
-  ],
-  Investments: [
-    {
-      title: "Mutual Funds",
-      description:
-        "Grow your wealth with expert-curated mutual fund portfolios.",
-      image: "/images/financial_solutions_card1.png",
-      icon: TrendingUp,
-    },
-    {
-      title: "Fixed Deposits",
-      description: "Secure, guaranteed returns with flexible tenure options.",
-      image: "/images/financial_solutions_card2.png",
-      icon: Landmark,
-    },
-    {
-      title: "Bonds",
-      description:
-        "Stable, fixed-income investment options for long-term goals.",
-      image: "/images/financial_solutions_card3.png",
-      icon: Landmark,
-    },
-    {
-      title: "Portfolio Advisory",
-      description:
-        "Personalized investment guidance from certified financial advisors.",
-      image: "/images/financial_solutions_card4.png",
-      icon: TrendingUp,
-    },
-  ],
+// Dummy slider content: every sidebar item gets its own 5-card set so picking a different
+// item (desktop click or mobile select) actually swaps the slider. Reuses the existing 4
+// stock images and a rotating icon set per tab until real per-product imagery/copy exists.
+const CARDS_PER_ITEM = 5;
+
+const cardImages = [
+  "/images/financial_solutions_card1.png",
+  "/images/financial_solutions_card2.png",
+  "/images/financial_solutions_card3.png",
+  "/images/financial_solutions_card4.png",
+];
+
+const cardIconsByTab = {
+  Loans: [LoansTabIcon, TwoWheelerLoanIcon, UsedCarLoanIcon, ConsumerDurableLoanIcon, CarLoanIcon],
+  Insurance: [ShieldCheck, Car, Home, ShieldCheck, Home],
+  Investments: [TrendingUp, Landmark, TrendingUp, Landmark, TrendingUp],
 };
 
-// Padded with a couple of repeats so every tab has enough slides for a smooth infinite loop.
-const cardsByTab = Object.fromEntries(
-  Object.entries(baseCardsByTab).map(([tab, cards]) => [
+const descriptionByTab = {
+  Loans: (item) =>
+    `Quick approval, flexible EMIs, and minimal documentation tailored to your ${item.toLowerCase()} needs.`,
+  Insurance: (item) =>
+    `Comprehensive ${item.toLowerCase()} coverage with hassle-free claims and premiums that fit your budget.`,
+  Investments: (item) =>
+    `Expert-guided ${item.toLowerCase()} options to help you grow and protect your wealth steadily.`,
+};
+
+const cardsByTabAndItem = Object.fromEntries(
+  Object.entries(sidebarByTab).map(([tab, items]) => [
     tab,
-    [...cards, ...cards.slice(0, 2)].map((card, index) => ({
-      ...card,
-      id: `${card.title}-${index}`,
-    })),
+    Object.fromEntries(
+      items.map((item) => [
+        item,
+        Array.from({ length: CARDS_PER_ITEM }, (_, i) => ({
+          id: `${tab}-${item}-${i}`,
+          title: `${item} Plan ${i + 1}`,
+          description: descriptionByTab[tab](item),
+          image: cardImages[i % cardImages.length],
+          icon: cardIconsByTab[tab][i % cardIconsByTab[tab].length],
+        })),
+      ]),
+    ),
+  ]),
+);
+
+// Padded with a couple of repeats so every item's card set has enough slides for a smooth infinite loop.
+const paddedCardsByTabAndItem = Object.fromEntries(
+  Object.entries(cardsByTabAndItem).map(([tab, itemMap]) => [
+    tab,
+    Object.fromEntries(
+      Object.entries(itemMap).map(([item, cards]) => [
+        item,
+        [...cards, ...cards.slice(0, 2)].map((card, index) => ({
+          ...card,
+          id: `${card.id}-${index}`,
+        })),
+      ]),
+    ),
   ]),
 );
 
@@ -175,11 +134,11 @@ const popularProducts = [
 
 export default function FinancialSolutions() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
-  const [activeItem, setActiveItem] = useState(sidebarByTab.Loans[6]);
+  const [activeItem, setActiveItem] = useState(sidebarByTab[tabs[0].label][0]);
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   const sidebarItems = sidebarByTab[activeTab];
-  const cards = cardsByTab[activeTab];
+  const cards = paddedCardsByTabAndItem[activeTab][activeItem];
 
   return (
     <section
@@ -202,7 +161,27 @@ export default function FinancialSolutions() {
           goals with confidence.
         </p>
 
-        <div className="mx-auto mb-10 flex justify-evenly w-full max-w-3xl gap-1 rounded-xl bg-white/15 shadow-[1px_1px_12px_rgba(0,0,0,0.1)] overflow-x-auto overflow-y-hidden">
+        <div className="mb-4 lg:hidden">
+          <Select
+            value={activeTab}
+            onChange={(event) => {
+              const nextTab = event.target.value;
+              setActiveTab(nextTab);
+              setActiveItem(sidebarByTab[nextTab][0]);
+            }}
+            className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
+            chevronClassName="text-[#10192b]"
+            aria-label="Choose a category"
+          >
+            {tabs.map(({ label }) => (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            ))}
+          </Select>
+        </div>
+
+        <div className="mx-auto mb-10 hidden justify-evenly w-full max-w-3xl gap-1 rounded-xl bg-white/15 shadow-[1px_1px_12px_rgba(0,0,0,0.1)] overflow-x-auto overflow-y-hidden lg:flex">
           {tabs.map(({ label, icon: Icon }) => {
             const isActive = activeTab === label;
             return (
@@ -230,7 +209,7 @@ export default function FinancialSolutions() {
         </div>
 
         <div className="grid grid-cols-[290px_1fr] gap-8 max-[1024px]:grid-cols-1">
-          <div className="flex flex-col overflow-hidden rounded-2xl border border-[#dce1e7] bg-white">
+          <div className="hidden flex-col overflow-hidden rounded-2xl border border-[#dce1e7] bg-white lg:flex">
             {sidebarItems.map((item, index) => {
               const isActive = item === activeItem;
               const isLast = index === sidebarItems.length - 1;
@@ -238,7 +217,7 @@ export default function FinancialSolutions() {
                 <div key={item}>
                   <button
                     type="button"
-                    onClick={() => setActiveItem(isActive ? null : item)}
+                    onClick={() => setActiveItem(item)}
                     className={`flex w-full items-center justify-between px-5 py-4 text-left text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold transition ${
                       isActive
                         ? "bg-[#E5E7EB] text-primary"
@@ -275,6 +254,22 @@ export default function FinancialSolutions() {
                 </div>
               );
             })}
+          </div>
+
+          <div className="lg:hidden">
+            <Select
+              value={activeItem}
+              onChange={(event) => setActiveItem(event.target.value)}
+              className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
+              chevronClassName="text-[#10192b]"
+              aria-label="Choose a product"
+            >
+              {sidebarItems.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </Select>
           </div>
 
           <div className="relative min-w-0 flex flex-col justify-between">

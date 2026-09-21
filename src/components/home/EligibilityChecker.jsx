@@ -82,7 +82,7 @@ export default function EligibilityChecker() {
           </div>
         </div>
 
-        <div className="relative mt-4 md:mt-5 lg:mt-8 overflow-hidden rounded-[24px] bg-[#FBFDFF]/30 backdrop-blur-lg shadow-[0px_10px_28px_rgba(6,43,90,0.141176)]">
+        <div className="relative mt-(--sec-gap) lg:mt-4 md:mt-5 lg:mt-8 overflow-hidden rounded-[24px] bg-[#FBFDFF]/30 backdrop-blur-lg shadow-[0px_10px_28px_rgba(6,43,90,0.141176)]">
           <div className="relative p-8 max-[480px]:p-5">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-accent">
               INSTANT PRE-QUALIFICATION CHECK

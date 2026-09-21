@@ -67,7 +67,7 @@ export default function Testimonials() {
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   return (
-    <section className="secGapT px-[4%]">
+    <section className="secGapT px-[4%] [@media(max-width:767px)]:pb-(--sec-gap)">
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-[1.2857em] text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
           Trusted by people{" "}
@@ -136,7 +136,7 @@ export default function Testimonials() {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className="absolute z-50 top-1/2 -translate-y-1/2 flex items-center justify-between w-[calc(100%+60px)] [@media(min-width:1700px)]:w-[calc(100%+140px)] left-[-30px] [@media(min-width:1700px)]:left-[-70px] px-2.5 max-[767px]:hidden">
+            <div className="absolute z-50 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center gap-4 md:justify-between w-[calc(100%+60px)] [@media(min-width:1700px)]:w-[calc(100%+140px)] left-1/2 [@media(max-width:767px)]:-translate-x-1/2 md:left-[-30px] [@media(min-width:1700px)]:left-[-70px] px-2.5 [@media(max-width:767px)]:max-w-fit">
               <button
                 type="button"
                 onClick={() => swiperInstance?.slidePrev()}
@@ -156,7 +156,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className="mt-3 md:mt-6 lg:mt-8 flex items-center justify-center gap-6">
+          <div className="mt-3 md:mt-6 lg:mt-8 flex items-center justify-center gap-6 max-[767px]:hidden">
             {/* <button
               type="button"
               onClick={() => swiperInstance?.slidePrev()}

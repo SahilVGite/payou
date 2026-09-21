@@ -8,6 +8,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
+import Select from "../common/Select";
 
 const tabs = [
   { label: "Personal Loan EMI Calculator", icon: LoansTabIcon },
@@ -53,7 +54,23 @@ export default function LoanCalculator() {
           a loan that fits your budget.
         </p>
 
-        <div className="relative max-w-[80%] z-10 mx-auto -mb-5 justify-center flex overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)]">
+        <div className="mb-4 lg:hidden">
+          <Select
+            value={activeTab}
+            onChange={(event) => setActiveTab(event.target.value)}
+            className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
+            chevronClassName="text-[#10192b]"
+            aria-label="Choose a calculator"
+          >
+            {tabs.map(({ label }) => (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            ))}
+          </Select>
+        </div>
+
+        <div className="relative hidden max-w-[80%] z-10 mx-auto -mb-5 justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
           <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;

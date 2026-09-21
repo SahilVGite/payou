@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
+import Select from "../common/Select";
 
 const filters = ["All", "PERSONAL LOAN", "HOME LOAN", "BUSINESS LOAN", "LAP"];
 
@@ -60,6 +61,11 @@ const toneClasses = {
 export default function RateComparison() {
   const [activeFilter, setActiveFilter] = useState("All");
 
+  const visibleLenders =
+    activeFilter === "All"
+      ? lenders
+      : lenders.filter((lender) => lender.facility === activeFilter);
+
   return (
     <section className="secGap px-[4%]" style={{ backgroundImage: "url('/images/Indias_Top_Lenders_Bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="mx-auto max-w-(--content-width)">
@@ -72,7 +78,23 @@ export default function RateComparison() {
           eligible applicants.
         </p>
 
-        <div className="mb-4 flex gap-3 overflow-x-auto">
+        <div className="mb-4 lg:hidden">
+          <Select
+            value={activeFilter}
+            onChange={(event) => setActiveFilter(event.target.value)}
+            className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
+            chevronClassName="text-[#10192b]"
+            aria-label="Filter lenders"
+          >
+            {filters.map((filter) => (
+              <option key={filter} value={filter}>
+                {filter}
+              </option>
+            ))}
+          </Select>
+        </div>
+
+        <div className="mb-4 hidden gap-3 overflow-x-auto lg:flex">
           {filters.map((filter) => (
             <button
               key={filter}
@@ -103,7 +125,7 @@ export default function RateComparison() {
                 </tr>
               </thead>
               <tbody>
-                {lenders.map((lender, index) => (
+                {visibleLenders.map((lender, index) => (
                   <tr
                     key={lender.id}
                     className={`border-t border-[#eef0f3] transition hover:bg-[#f5f8fc] backdrop-blur-xs`}

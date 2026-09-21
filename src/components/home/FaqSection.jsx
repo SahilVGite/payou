@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, ChevronDown, Plus } from "lucide-react";
 import Collapse from "../common/Collapse";
+import Select from "../common/Select";
 
 const categories = ["General FAQ's", "Loans", "Insurance", "Investment", "EMI"];
 
@@ -82,7 +83,7 @@ export default function FaqSection() {
         </h2>
 
         <div className="grid grid-cols-[400px_1fr] gap-2.5 max-[1024px]:grid-cols-1">
-          <div className="flex flex-col bg-white/20 rounded-lg backdrop-blur-sm shadow-[0px_4px_8px_2px_rgba(0,0,0,0.15)] p-6">
+          <div className="hidden flex-col bg-white/20 rounded-lg backdrop-blur-sm shadow-[0px_4px_8px_2px_rgba(0,0,0,0.15)] p-6 lg:flex">
             <p className="text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.3254rem+1.083vw,1.625rem)] font-semibold text-[#18181B]">Categories</p>
             <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-black/60 mt-1 md:mt-2 mb-4 md:mb-6">Choose from our specific range of topics to address all your digital banking queries.</p>
             <div className="w-full flex flex-col gap-2.5">
@@ -121,6 +122,25 @@ export default function FaqSection() {
             </div>
           </div>
 
+          <div className="mb-2.5 lg:hidden">
+            <Select
+              value={activeCategory}
+              onChange={(event) => {
+                setActiveCategory(event.target.value);
+                setOpenIndex(0);
+              }}
+              className="block w-full rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-10 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg focus:outline-none"
+              chevronClassName="text-[#10192b]"
+              aria-label="Choose a category"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </Select>
+          </div>
+
           <div className="flex flex-col gap-3">
             {faqs.map((faq, index) => {
               const isOpen = index === openIndex;
@@ -134,10 +154,10 @@ export default function FaqSection() {
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                    className={`flex w-full items-center gap-4 px-6 py-5 text-left ${isOpen && "bg-primary/10"}`}
+                    className={`flex w-full items-center gap-2 md:gap-4 px-4 md:px-6 py-4 md:py-5 text-left ${isOpen && "bg-primary/10"}`}
                   >
-                    <span className={`text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-bold bg-white aspect-square rounded-full py-1 px-2 inline-flex items-center justify-center ${isOpen ? "text-[#134b96]" : "text-ink"}`}>{String(index + 1).padStart(2, "0")}</span>
-                    <span className="flex-1 text-[18px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-[#18181B]">{faq.question}</span>
+                    <span className={`text-[12px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-bold bg-white aspect-square rounded-full py-1 px-2 inline-flex items-center justify-center ${isOpen ? "text-[#134b96]" : "text-ink"}`}>{String(index + 1).padStart(2, "0")}</span>
+                    <span className="flex-1 text-[clamp(1rem,0.7794rem+0.9804vw,1.25rem)] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-[#18181B]">{faq.question}</span>
                   </button>
                   <Collapse open={isOpen}>
                     <div className={`px-6 py-5 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-medium text-[#52525B] border-t-2 ${isOpen ? "border-white" : "border-transparent"}`}>{faq.answer}</div>

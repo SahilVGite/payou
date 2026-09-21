@@ -21,6 +21,7 @@ import InstagramIcon from "../../../public/icons/InstagramIcon";
 import LinkedinIcon from "../../../public/icons/LinkedinIcon";
 import YouTubeIcon from "../../../public/icons/YouTubeIcon";
 import Collapse from "../common/Collapse";
+import Select from "../common/Select";
 import { footerCategories } from "../../data/navigation";
 
 const quickLinks = [
@@ -59,6 +60,7 @@ export default function Footer() {
               alt="PayYou Advisory Private Limited"
               width={165}
               height={85}
+              className="h-auto max-sm:max-w-32"
             />
           </div>
           <p className="my-6 text-[14px] md:text-[16px] lg:text-[19px] leading-relaxed">
@@ -122,22 +124,23 @@ export default function Footer() {
           </div>
         </div>
         <div className="[@media(max-width:1023px)]:mt-8">
-          <div className="mb-3 flex flex-wrap gap-2">
-            {footerTabs.map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => {
-                  setActiveTab(tab);
-                  setOpenLink(null);
-                }}
-                className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[16px] font-bold cursor-pointer transition ${
-                  activeTab === tab ? "bg-[#b11f24] text-white" : "bg-white text-[#134B96] hover:bg-white/90"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+          <div className="mb-3">
+            <Select
+              value={activeTab}
+              onChange={(event) => {
+                setActiveTab(event.target.value);
+                setOpenLink(null);
+              }}
+              className="block w-full rounded-full border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-10 font-cairo text-[12px] md:text-[14px] font-bold text-[#10192b] backdrop-blur-lg focus:outline-none"
+              chevronClassName="text-[#10192b]"
+              aria-label="Choose a footer category"
+            >
+              {footerTabs.map((tab) => (
+                <option key={tab} value={tab}>
+                  {tab}
+                </option>
+              ))}
+            </Select>
           </div>
           {links.map((item) => {
             const isOpen = item.label === openLink;
@@ -188,8 +191,19 @@ export default function Footer() {
         </div>
       </div>
       <div className="mx-auto max-w-(--content-width) w-full border-t border-white/55 py-3 md:py-4 lg:py-6">
-       <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">QUICK LINKS</h3>
-        <div className="flex flex-wrap gap-y-2">
+        <h3 className="mb-2 md:mb-4 text-[clamp(0.85rem,0.6397rem+0.4902vw,0.875rem)] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">QUICK LINKS</h3>
+        <div className="grid grid-cols-2 gap-y-2 text-left md:hidden">
+          {quickLinks.map(([label, href]) => (
+            <Link
+              className="text-[13px] font-bold leading-[1.3em]"
+              href={href}
+              key={label}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+        <div className="hidden flex-wrap gap-y-2 md:flex">
           {quickLinks.map(([label, href]) => (
             <Link
               className="mr-3 border-r border-white/55 pr-3 text-[11px] md:text-[13px] lg:text-[15px] font-bold leading-[1.3em]"
@@ -216,7 +230,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto max-w-(--content-width) w-full border-y border-white/55 py-3 md:py-4 lg:py-6 text-[17px] leading-relaxed font-normal">
+      <div className="mx-auto max-w-(--content-width) w-full border-y border-white/55 py-3 md:py-4 lg:py-6 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed font-normal">
         Disclaimer: Payyou Advisory Private Ltd. is a digital loan referral and
         financial advisory platform. We are not a registered bank, Non-Banking
         Financial Company (NBFC), or direct lender. All loan approvals, interest
@@ -225,9 +239,9 @@ export default function Footer() {
         based on your credit profile and eligibility. We do not charge customers
         any upfront fees for loan facilitation.
       </div>
-      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 py-3 md:py-4 lg:py-6 text-[11px] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
+      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap [@media(max-width:767px)]:items-center justify-between gap-2 py-3 md:py-4 lg:py-6 text-[clamp(0.75rem,0.6397rem+0.4902vw,0.875rem)] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
-        <span>
+        <span className="[@media(max-width:767px)]:text-center">
           <Link href="/privacy-policy">Privacy Policy</Link> &nbsp;|&nbsp;{" "}
           <Link href="/privacy-policy">Terms &amp; Conditions</Link>{" "}
           &nbsp;|&nbsp; <Link href="/privacy-policy">Cookie Policy</Link>{" "}
