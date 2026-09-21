@@ -64,7 +64,7 @@ export default function LoanCalculator() {
           />
         </div>
 
-        <div className="relative hidden max-w-[90%] z-10 mx-auto -mb-5 [@media(min-width:1500px)]:justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
+        <div className="relative hidden max-w-[90%] [@media(min-width:1500px)]:max-w-[85%] z-10 mx-auto -mb-5 [@media(min-width:1500px)]:justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
           <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;
