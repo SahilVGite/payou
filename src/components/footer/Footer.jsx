@@ -176,7 +176,7 @@ export default function Footer() {
                 <button
                   type="button"
                   onClick={() => setOpenLink(isOpen ? null : item.label)}
-                  className="flex w-full items-center justify-between py-2.5 text-left text-[13px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-black"
+                  className="flex w-full items-center justify-between py-1.5 lg:py-2.5 text-left text-[13px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-black cursor-pointer"
                 >
                   {item.label}
                   <ChevronDown

@@ -104,9 +104,21 @@ export const footerCategories = {
     { label: "Portfolio Advisory", subLinks: ["Wealth Management", "Retirement Planning"] },
   ],
   CALCULATORS: [
-    { label: "EMI Calculator", subLinks: [] },
-    { label: "Eligibility Calculator", subLinks: [] },
-    { label: "Balance Transfer Calculator", subLinks: [] },
-    { label: "Loan Comparison Calculator", subLinks: [] },
+    {
+      label: "EMI Calculator",
+      subLinks: ["Personal Loan EMI Calculator", "Home Loan EMI Calculator", "Business Loan EMI Calculator"],
+    },
+    {
+      label: "Eligibility Calculator",
+      subLinks: ["Personal Loan Eligibility", "Home Loan Eligibility", "Business Loan Eligibility"],
+    },
+    {
+      label: "Balance Transfer Calculator",
+      subLinks: ["Home Loan Balance Transfer Calculator", "Personal Loan Balance Transfer Calculator"],
+    },
+    {
+      label: "Loan Comparison Calculator",
+      subLinks: ["Compare Personal Loans", "Compare Home Loans", "Compare Business Loans"],
+    },
   ],
 };

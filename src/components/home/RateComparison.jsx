@@ -9,7 +9,7 @@ const filters = ["All", "PERSONAL LOAN", "HOME LOAN", "BUSINESS LOAN", "LAP"];
 const sbi = {
   name: "State Bank of India (SBI)",
   highlight: { text: "Lowest Secured ROI", tone: "blue" },
-  facility: "HOME LOAN",
+  facility: "Home Loan",
   rate: "8.30% - 9.15%",
   fee: "0.17% (Max ₹5,000)",
   speed: "48 - 72 Hours",
@@ -17,7 +17,7 @@ const sbi = {
 const hdfc = {
   name: "HDFC Bank",
   highlight: { text: "Fastest Disbursal", tone: "red" },
-  facility: "PERSONAL LOAN",
+  facility: "Personal Loan",
   rate: "10.49% - 14.50%",
   fee: "Up to 1.50%",
   speed: "24 Hours Instant",
@@ -25,7 +25,7 @@ const hdfc = {
 const icici = {
   name: "ICICI Bank",
   highlight: { text: "Pro-Approved Offers", tone: "blue" },
-  facility: "PERSONAL LOAN",
+  facility: "Personal Loan",
   rate: "10.65% - 15.00%",
   fee: "0.99% - 1.99%",
   speed: "24 Hours",
@@ -33,7 +33,7 @@ const icici = {
 const bajaj = {
   name: "Bajaj Finserv",
   highlight: { text: "Collateral-Free MSME", tone: "blue" },
-  facility: "BUSINESS LOAN",
+  facility: "Business Loan",
   rate: "12.50% - 18.00%",
   fee: "1.50% - 2.50%",
   speed: "24 - 48 Hours",
@@ -41,7 +41,7 @@ const bajaj = {
 const tataCapital = {
   name: "Tata Capital",
   highlight: { text: "Minimal Paperwork", tone: "red" },
-  facility: "LAP",
+  facility: "Lap",
   rate: "12.99% - 17.50%",
   fee: "1.25% - 2.00%",
   speed: "48 Hours",
@@ -94,7 +94,7 @@ export default function RateComparison() {
               key={filter}
               type="button"
               onClick={() => setActiveFilter(filter)}
-              className={`rounded-2xl px-[3.5em] py-[1.1428em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-white tracking-wide whitespace-nowrap cursor-pointer transition ${
+              className={`rounded-[10px] px-[2.5714em] py-[1.1428em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-white tracking-wide whitespace-nowrap cursor-pointer transition ${
                 activeFilter === filter
                   ? "bg-accent shadow-[0_6px_14px_rgba(177,31,36,0.28)]"
                   : "bg-[#134b96] hover:bg-primary"
@@ -122,7 +122,7 @@ export default function RateComparison() {
                 {visibleLenders.map((lender, index) => (
                   <tr
                     key={lender.id}
-                    className={`border-t border-[#eef0f3] transition hover:bg-[#f5f8fc] backdrop-blur-xs`}
+                    className={`border-t border-[#A6B6CB]/50 transition hover:bg-[#f5f8fc]`}
                   >
                     <td className="px-6 py-4">
                       <span className="flex flex-wrap items-center gap-2.5">
@@ -139,7 +139,7 @@ export default function RateComparison() {
                     <td className="px-6 py-4 text-right">
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-primary px-[3.3333em] py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold text-white transition hover:bg-primary cursor-pointer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary px-[3.3333em] py-[0.6666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold text-white transition hover:bg-primary cursor-pointer"
                       >
                         <CheckCircle2 size={18} />
                         Apply

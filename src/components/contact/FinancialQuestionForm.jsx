@@ -18,12 +18,10 @@ const highlights = [
   [ApplicationSupportIcon, "Application Support"],
 ];
 
-const channels = [
-  [CallUsIcon, "Call us", "+91 84248 12345", "tel:+918424812345"],
-  [EmailUsIcon, "Email Us", "care@payyouadvisory.com", "mailto:care@payyouadvisory.com"],
-  [WhatsappIcon, "Whatsapp", "+91 84248 12345", "https://wa.me/918424812345"],
-  [VisitOfficeIcon, "Visit our office", "Baner, Pune, Maharashtra", "#office-locations"],
-];
+const DEFAULT_PHONE = "+91 84248 12345";
+const DEFAULT_WHATSAPP = "+91 84248 12345";
+const DEFAULT_EMAIL = "care@payyouadvisory.com";
+const DEFAULT_OFFICE_LABEL = "Baner, Pune, Maharashtra";
 
 const services = [
   "Personal Loan",
@@ -36,13 +34,28 @@ const services = [
   "Other",
 ];
 
-export default function FinancialQuestionForm() {
+export default function FinancialQuestionForm({
+  phone = DEFAULT_PHONE,
+  whatsapp = DEFAULT_WHATSAPP,
+  email = DEFAULT_EMAIL,
+  officeLabel = DEFAULT_OFFICE_LABEL,
+  officeHref = "#office-locations",
+  mapQuery,
+  gridCards = false,
+}) {
   const [message, setMessage] = useState("");
+
+  const channels = [
+    [CallUsIcon, "Call us", phone, `tel:${phone.replace(/\s+/g, "")}`],
+    [EmailUsIcon, "Email Us", email, `mailto:${email}`],
+    [WhatsappIcon, "Whatsapp", whatsapp, `https://wa.me/${whatsapp.replace(/[^0-9]/g, "")}`],
+    [VisitOfficeIcon, "Visit our office", officeLabel, officeHref],
+  ];
 
   return (
     <section className="px-[4%] secGap">
-      <div className="mx-auto max-w-(--content-width) rounded-[28px] bg-primary p-6 md:p-10 lg:p-12">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="mx-auto max-w-(--content-width) rounded-2xl md:rounded-4xl bg-primary py-[clamp(2rem,0.7482rem+1.4599vw,2.5rem)] px-[clamp(1.25rem,0.2464rem+2.9197vw,3.75rem)]">
+        <div className="grid gap-10 lg:grid-cols-[1fr_50.2%]">
           <div className="text-white">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
               GET EXPERT GUIDANCE
@@ -50,34 +63,57 @@ export default function FinancialQuestionForm() {
             <h2 className="mt-4 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight">
               Have a <strong className="font-bold">Financial Question?</strong>
             </h2>
-            <p className="mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] leading-relaxed text-white">
-              Get personalized advice from our loan experts. We&apos;ll help you find the right solution for your needs.
+            <p className="mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-w-[55ch] leading-relaxed text-white">
+              Get personalized advice from our loan experts. We'll help you find
+              the right solution for your needs.
             </p>
 
-            <div className="mt-7 grid grid-cols-2 gap-4">
-              {highlights.map(([Icon, label], index) => (
-                <div key={`${label}-${index}`} className="flex items-center gap-2.5 text-[13px] font-semibold md:text-[14px]">
-                  <span className="flex h-9 w-9 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
-                    <Icon size={18} />
-                  </span>
-                  {label}
-                </div>
-              ))}
-            </div>
+            {mapQuery ? (
+              <div className="mt-7 overflow-hidden rounded-2xl border border-white/30">
+                <iframe
+                  title="Branch location"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}
+                  width="100%"
+                  height="220"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="block w-full"
+                />
+              </div>
+            ) : (
+              <div className="mt-7 grid grid-cols-2 gap-4">
+                {highlights.map(([Icon, label], index) => (
+                  <div
+                    key={`${label}-${index}`}
+                    className="flex items-center gap-2.5 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-white"
+                  >
+                    <span className="flex h-8 md:h-10 w-8 md:w-10 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
+                      <Icon size={20} className={"[@media(max-width:767px)]:w-4 [@media(max-width:767px)]:h-4"} />
+                    </span>
+                    {label}
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <div className="mt-7 flex flex-col gap-3">
+            <div className={`mt-7 gap-3 ${gridCards ? "grid grid-cols-1 [@media(min-width:1024px)_and_(max-width:1500px)]:grid-cols-1 md:grid-cols-2" : "flex flex-col"}`}>
               {channels.map(([Icon, label, value, href]) => (
                 <a
                   key={label}
                   href={href}
-                  className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/30 px-5 py-3.5 transition hover:bg-white/15"
+                  className="flex items-center gap-4 rounded-2xl bg-[rgba(255,255,255,0.08)] backdrop-blur-xs border border-white/30 px-5 py-3.5 transition hover:bg-white/15"
                 >
-                  <span className="flex h-10 w-10 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
-                    <Icon size={20} />
+                  <span className="flex h-8 md:h-10 w-8 md:w-10 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
+                    <Icon size={20} className={"[@media(max-width:767px)]:w-4 [@media(max-width:767px)]:h-4"} />
                   </span>
                   <span className="flex flex-col">
-                    <span className="text-[12px] text-white/75">{label}</span>
-                    <span className="text-[14px] font-bold md:text-[15px]">{value}</span>
+                    <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-white">
+                      {label}
+                    </span>
+                    <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white">
+                      {value}
+                    </span>
                   </span>
                 </a>
               ))}
@@ -85,64 +121,80 @@ export default function FinancialQuestionForm() {
           </div>
 
           <form
-            className="rounded-[22px] bg-white/10 p-5 md:p-8"
-            action="mailto:care@payyouadvisory.com"
+            className="flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] border border-white/20 backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
+            action={`mailto:${email}`}
             method="post"
             encType="text/plain"
           >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="grid gap-2 text-[13px] font-semibold text-white">
-                <span className="flex">Full Name <span className="text-accent">*</span></span>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+                <span className="flex">
+                  Full Name <span className="text-accent">*</span>
+                </span>
                 <input
                   required
                   name="name"
                   placeholder="Enter your name"
-                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
+                  className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
-              <label className="grid gap-2 text-[13px] font-semibold text-white">
-                <span className="flex">Mobile Number <span className="text-accent">*</span></span>
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+                <span className="flex">
+                  Mobile Number <span className="text-accent">*</span>
+                </span>
                 <span className="flex items-center gap-2 rounded-full bg-white px-4 py-3">
-                  <span className="text-[13px] text-[#8b93a1]">+91</span>
+                  <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink">
+                    +91
+                  </span>
                   <input
                     required
                     type="tel"
                     name="mobile"
                     placeholder="Enter Mobile Number"
-                    className="w-full text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
+                    className="w-full text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                   />
                 </span>
               </label>
-              <label className="grid gap-2 text-[13px] font-semibold text-white">
-                <span className="flex">Email Address <span className="text-accent">*</span></span>
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+                <span className="flex">
+                  Email Address <span className="text-accent">*</span>
+                </span>
                 <input
                   required
                   type="email"
                   name="email"
                   placeholder="Enter email address"
-                  className="rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
+                  className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
-              <label className="grid gap-2 text-[13px] font-semibold text-white">
-                <span className="flex">Select Service <span className="text-accent">*</span></span>
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+                <span className="flex">
+                  Select Service <span className="text-accent">*</span>
+                </span>
                 <Select
                   required
                   name="service"
                   defaultValue=""
-                  className="w-full rounded-full bg-white px-4 py-3 text-[13px] text-ink outline-none"
-                  chevronClassName="text-[#8b93a1]"
+                  className="w-full rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none"
+                  chevronClassName="text-[#4B5563]"
                 >
-                  <option value="" disabled>Select a service</option>
+                  <option value="" disabled>
+                    Select a service
+                  </option>
                   {services.map((service) => (
-                    <option key={service} value={service}>{service}</option>
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
                   ))}
                 </Select>
               </label>
             </div>
 
-            <label className="mt-5 grid gap-2 text-[13px] font-semibold text-white">
-              <span className="flex">Message <span className="text-accent">*</span></span>
-              <span className="relative block">
+            <label className="mt-6 flex min-h-0 flex-1 flex-col gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white">
+              <span className="flex">
+                Message <span className="text-accent">*</span>
+              </span>
+              <span className="relative flex flex-1">
                 <textarea
                   required
                   name="message"
@@ -151,27 +203,43 @@ export default function FinancialQuestionForm() {
                   placeholder="Tell us how we can help you"
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  className="w-full resize-none rounded-2xl bg-white px-4 py-3 text-[13px] text-ink outline-none placeholder:text-[#4B5563]"
+                  className="w-full grow shrink-0 resize-none rounded-2xl bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
-                <span className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-[#4B5563]">
+                <span className="pointer-events-none absolute bottom-3 right-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-[#4B5563]">
                   {message.length}/500
                 </span>
               </span>
             </label>
 
-            <label className="mt-4 flex items-start gap-2 text-[12px] leading-relaxed text-white/85">
-              <input required type="checkbox" name="consent" className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/60 bg-transparent" />
-              I agree to be connected by PayYou Advisory. I accept the{" "}
-              <Link href="/privacy-policy" className="underline">Privacy Policy</Link> and consent to receive communication.
+            <label className="mt-6 flex items-start gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] leading-relaxed text-white/85">
+              <span className="relative mt-0.5 h-4 lg:h-5.75 w-4 lg:w-5.75 shrink-0">
+                <input
+                  required
+                  type="checkbox"
+                  name="consent"
+                  className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                />
+                <span className="pointer-events-none absolute inset-0 rounded-[5px] border-2 border-white peer-focus-visible:ring-2 peer-focus-visible:ring-white peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-primary" />
+                <span className="pointer-events-none absolute inset-0 hidden items-center justify-center text-[15px] font-bold leading-none text-white peer-checked:flex">
+                  ✓
+                </span>
+              </span>
+              <span className="">
+                I agree to be connected by PayYou Advisory. I accept the{" "}
+                <Link href="/privacy-policy" className="underline text-[#7EB6FF]">
+                  Privacy Policy
+                </Link>{" "}
+                and consent to receive communication.
+              </span>
             </label>
 
             <button
               type="submit"
-              className="mt-5 w-full rounded-full bg-accent py-3.5 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+              className="mt-6 w-full rounded-full bg-accent py-[0.9411em] text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.6875rem+0.3125vw,1.0625rem)] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
             >
               SEND MESSAGE
             </button>
-            <p className="mt-3 text-center text-[11px] text-white/70">
+            <p className="mt-6 text-center text-[10px] md:text-[12px] text-[#EEE8E8]">
               Your information is safe with us. We respect your privacy
             </p>
           </form>

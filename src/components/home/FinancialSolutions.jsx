@@ -185,16 +185,16 @@ export default function FinancialSolutions() {
                   setActiveTab(label);
                   setActiveItem(sidebarByTab[label][0]);
                 }}
-                className={`relative flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold transition ${
+                className={`relative flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] uppercase font-semibold transition ${
                   isActive
                     ? "text-primary"
-                    : "text-[#5f6a7b] hover:text-primary"
+                    : "text-[#505A69] hover:text-primary"
                 }`}
               >
-                <Icon size={17} />
+                <Icon size={20} />
                 {label}
                 {isActive ? (
-                  <span className="absolute inset-x-8 bottom-0 h-0.5 rounded-full bg-[#134b96]" />
+                  <span className="absolute inset-x-6 bottom-0 h-0.5 rounded-full bg-[#134b96]" />
                 ) : null}
               </button>
             );
@@ -211,7 +211,7 @@ export default function FinancialSolutions() {
                   <button
                     type="button"
                     onClick={() => setActiveItem(item)}
-                    className={`flex w-full items-center justify-between px-5 py-4 text-left text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold transition ${
+                    className={`flex w-full items-center justify-between px-5 py-4 text-left text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold transition cursor-pointer ${
                       isActive
                         ? "bg-[#E5E7EB] text-primary"
                         : `text-[#10192b] hover:bg-[#eaf1fb] ${!isLast ? "border-b border-[#E2E8F0]" : ""}`
@@ -284,23 +284,23 @@ export default function FinancialSolutions() {
                   const CardIcon = card.icon;
                   return (
                     <SwiperSlide key={card.id}>
-                      <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/40 transition">
+                      <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/40 transition group">
                         <div className="relative w-full bg-[#eaf1fb]">
-                          <img src={card.image} alt={card.title} className="object-cover aspect-[4/3]" />
-                          <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">
+                          <img src={card.image} alt={card.title} className="object-cover aspect-4/3 group-hover:scale-105 transition-transform duration-300" />
+                          <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white group-hover:bg-white/30 group-hover:backdrop-blur-sm text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">
                             <CardIcon size={24} />
                           </span>
                         </div>
-                        <div className="flex flex-1 flex-col p-5 pt-6">
-                          <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-ink line-clamp-1">
+                        <div className="flex flex-1 flex-col p-5 pt-6 group-hover:bg-[#0F172A] transition">
+                          <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-ink group-hover:text-white line-clamp-1">
                             {card.title}
                           </h3>
-                          <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] line-clamp-3">
+                          <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white line-clamp-3">
                             {card.description}
                           </p>
                           <Link
                             href="/contact-us"
-                            className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent"
+                            className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
                           >
                             Explore More <ArrowRight size={12} className="inline-block" />
                           </Link>
@@ -317,7 +317,7 @@ export default function FinancialSolutions() {
                   type="button"
                   onClick={() => swiperInstance?.slidePrev()}
                   aria-label="Previous"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
                 >
                   <ChevronLeft size={20} />
                 </button>
@@ -325,7 +325,7 @@ export default function FinancialSolutions() {
                   type="button"
                   onClick={() => swiperInstance?.slideNext()}
                   aria-label="Next"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
                 >
                   <ChevronRight size={20} />
                 </button>
@@ -340,9 +340,9 @@ export default function FinancialSolutions() {
                   <Link
                     href="/contact-us"
                     key={label}
-                    className="flex items-center gap-3 rounded-[14px] border border-[#dce1e7] bg-white/10 shadow-[3px_3px_8px_rgba(0,0,0,0.25)] backdrop-blur-xs px-5 py-4 transition hover:-translate-y-0.5 hover:border-[#134b96] hover:shadow-[0_10px_22px_rgba(16,25,43,0.1)] opacity-80"
+                    className="flex items-center gap-3 rounded-[14px] border border-[#dce1e7] bg-white/10 shadow-[3px_3px_8px_rgba(0,0,0,0.25)] backdrop-blur-xs px-5 py-4 transition hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(16,25,43,0.1)] opacity-80"
                   >
-                      <Icon className="h-10 w-10" />
+                      <Icon size={24} />
                     <span className="flex flex-col">
                       <span className="text-[10px] md:text-[12px] lg:text-[clamp(0.6875rem,0.3793rem+0.361vw,0.8125rem)] font-medium uppercase tracking-[0.1538em] text-[#4E5968]">
                         {eyebrow}

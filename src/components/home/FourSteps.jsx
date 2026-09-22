@@ -13,28 +13,28 @@ const steps = [
     number: "01",
     icon: SecureBadgeIcon,
     title: "Check Eligibility & Offers",
-    description: "Share basic details and instantly view personalized loan offers from 50+ banks and NBFCs.",
+    description: "Fill in your income, employer details, and required amount. Get personalized multi-bank offers with zero impact on your CIBIL score.",
     tag: "Soft Credit Check",
   },
   {
     number: "02",
     icon: DigitalKycIcon,
     title: "Digital KYC & Paperless Upload",
-    description: "Complete your KYC and upload documents online — no branch visits, no endless paperwork.",
+    description: "Verify your Aadhaar via secure OTP and verify salary via Net Banking or fast digital statement upload without physical branch visits.",
     tag: "100% Paperless",
   },
   {
     number: "03",
     icon: InstantApprovalIcon,
     title: "Instant Sanction & Approval",
-    description: "Get your loan sanctioned quickly with rates locked in and zero surprises.",
+    description: "Our algorithms match you with the lowest rate lender (IDFC FIRST, AB Capital, HDFC, etc.) and issue an official In-Principle Sanction Letter.",
     tag: "Rate Guaranteed",
   },
   {
     number: "04",
     icon: SecureBadgeIcon,
     title: "Direct Account Disbursal",
-    description: "Approved funds are credited directly to your bank account, fast and securely.",
+    description: "Complete digital e-Sign loan agreement and receive the approved capital directly into your registered bank account for immediate use.",
     tag: "Express Credit",
   },
 ];
@@ -47,7 +47,7 @@ function StepCard({ number, icon: Icon, title, description, tag }) {
       <h3 className="mt-[1em] text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] font-bold text-primary">{title}</h3>
       <p className="mt-[0.1041em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#4B5563]/56">{description}</p>
       <span className="mt-4 flex items-center gap-1.5 border-t border-primary/16 pt-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-primary">
-        <CheckCircle2 size={18} />
+        <CheckCircle2 size={22} />
         {tag}
       </span>
     </div>
