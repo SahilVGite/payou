@@ -64,7 +64,7 @@ export default function RateComparison() {
   const visibleLenders =
     activeFilter === "All"
       ? lenders
-      : lenders.filter((lender) => lender.facility === activeFilter);
+      : lenders.filter((lender) => lender.facility.toUpperCase() === activeFilter.toUpperCase());
 
   return (
     <section className="secGap px-[4%]" style={{ backgroundImage: "url('/images/Indias_Top_Lenders_Bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
