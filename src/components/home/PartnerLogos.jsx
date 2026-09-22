@@ -31,7 +31,7 @@ export default function PartnerLogos() {
           {marqueeLogos.map((partner, index) => (
             <div
               key={`${partner.name}-${index}`}
-              className="flex h-[90px] w-[190px] shrink-0 items-center justify-center rounded-xl bg-white px-6 shadow-[0_6px_16px_rgba(0,0,0,0.15)]"
+              className="flex h-15 md:h-22.5 w-37.5 md:w-47.5 shrink-0 items-center justify-center rounded-xl bg-white px-6 shadow-[0_6px_16px_rgba(0,0,0,0.15)]"
             >
               <div className="relative h-12 w-full">
                 <Image src={partner.logo} alt={partner.name} fill className="object-contain" />

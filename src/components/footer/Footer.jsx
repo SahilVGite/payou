@@ -146,7 +146,7 @@ export default function Footer() {
                   setActiveTab(tab);
                   setOpenLink(null);
                 }}
-                className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[16px] font-bold cursor-pointer transition ${
+                className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5982rem+0.3348vw,1rem)] font-bold cursor-pointer transition ${
                   activeTab === tab ? "bg-[#b11f24] text-white" : "bg-white text-[#134B96] hover:bg-white/90"
                 }`}
               >
