@@ -19,11 +19,61 @@ const tabs = [
 
 const formatInr = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
 
+// Backs each slider with an editable text value: typing a valid in-range number updates
+// the real value live (slider + EMI move with it), leaving the field alone otherwise so a
+// mid-edit "" or partial number doesn't propagate NaN into the calculation. Invalid input
+// reverts to the last valid value (not the min) on blur, and the display re-formats
+// (e.g. adds comma grouping) once the field loses focus, going back to a plain editable
+// number while focused.
+function useEditableNumber(initialValue, { min, max, decimals = 0, format }) {
+  const toText = (value) => (format ? format(value) : String(value));
+  const [value, setValue] = useState(initialValue);
+  const [text, setText] = useState(() => toText(initialValue));
+
+  function commit(raw) {
+    const num = Number(raw);
+    const base = raw !== "" && Number.isFinite(num) ? num : value;
+    const clamped = Math.min(max, Math.max(min, base));
+    const rounded = decimals ? Number(clamped.toFixed(decimals)) : Math.round(clamped);
+    setValue(rounded);
+    setText(toText(rounded));
+  }
+
+  return {
+    value,
+    text,
+    setFromSlider(raw) {
+      setValue(raw);
+      setText(toText(raw));
+    },
+    handleChange(raw) {
+      setText(raw);
+      const num = Number(raw);
+      if (raw !== "" && Number.isFinite(num) && num >= min && num <= max) {
+        setValue(num);
+      }
+    },
+    handleFocus() {
+      setText(String(value));
+    },
+    handleBlur(event) {
+      commit(event.target.value);
+    },
+  };
+}
+
 export default function LoanCalculator() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
-  const [principal, setPrincipal] = useState(2500000);
-  const [rate, setRate] = useState(10.5);
-  const [tenure, setTenure] = useState(10);
+  const principalField = useEditableNumber(2500000, {
+    min: 200000,
+    max: 50000000,
+    format: (value) => value.toLocaleString("en-IN"),
+  });
+  const rateField = useEditableNumber(10.5, { min: 6.5, max: 20, decimals: 1, format: (value) => value.toFixed(1) });
+  const tenureField = useEditableNumber(10, { min: 1, max: 30 });
+  const principal = principalField.value;
+  const rate = rateField.value;
+  const tenure = tenureField.value;
 
   const { emi, totalInterest, totalAmount, principalPercent, interestPercent } =
     useMemo(() => {
@@ -79,10 +129,10 @@ export default function LoanCalculator() {
                       : "text-[#092B49] hover:text-primary"
                   }`}
                 >
-                  <Icon size={15} />
+                  <Icon size={18} />
                   {label}
                   {isActive ? (
-                    <span className="absolute inset-x-6 bottom-0 h-0.75 rounded-full bg-[#134b96]" />
+                    <span className="absolute inset-x-4 bottom-0 h-0.75 rounded-full bg-[#134b96]" />
                   ) : null}
                 </button>
               );
@@ -108,9 +158,19 @@ export default function LoanCalculator() {
                       />
                       Loan Principal Amount
                     </span>
-                    <output className="rounded-md bg-white px-3 py-1 text-[13px] md:text-[14px] lg:text-[15px] font-cairo font-bold text-[#0F172A]">
-                      {formatInr(principal)}
-                    </output>
+                    <span className="flex items-center gap-1 rounded-md bg-white px-3 py-1 font-cairo font-bold text-[#0F172A]">
+                      <span className="text-[13px] md:text-[14px] lg:text-[15px]">₹</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        aria-label="Loan principal amount"
+                        value={principalField.text}
+                        onChange={(event) => principalField.handleChange(event.target.value)}
+                        onFocus={principalField.handleFocus}
+                        onBlur={principalField.handleBlur}
+                        className="w-20 md:w-24 bg-transparent text-[13px] md:text-[14px] lg:text-[15px] outline-none"
+                      />
+                    </span>
                   </div>
                   <input
                     type="range"
@@ -118,9 +178,7 @@ export default function LoanCalculator() {
                     max="50000000"
                     step="50000"
                     value={principal}
-                    onChange={(event) =>
-                      setPrincipal(Number(event.target.value))
-                    }
+                    onChange={(event) => principalField.setFromSlider(Number(event.target.value))}
                     className="range-slider range-slider--dark w-full"
                     style={{
                       "--range-progress": `${((principal - 200000) / (50000000 - 200000)) * 100}%`,
@@ -139,9 +197,19 @@ export default function LoanCalculator() {
                       <Percent size={15} className="text-white/70" />
                       Interest Rate (% per annum)
                     </span>
-                    <output className="rounded-md bg-white px-3 py-1 text-[13px] md:text-[14px] lg:text-[15px] font-cairo font-bold text-[#0F172A]">
-                      {rate.toFixed(1)}%
-                    </output>
+                    <span className="flex items-center gap-1 rounded-md bg-white px-3 py-1 font-cairo font-bold text-[#0F172A]">
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        aria-label="Interest rate percentage"
+                        value={rateField.text}
+                        onChange={(event) => rateField.handleChange(event.target.value)}
+                        onFocus={rateField.handleFocus}
+                        onBlur={rateField.handleBlur}
+                        className="w-10 bg-transparent text-[13px] md:text-[14px] lg:text-[15px] outline-none"
+                      />
+                      <span className="text-[13px] md:text-[14px] lg:text-[15px]">%</span>
+                    </span>
                   </div>
                   <input
                     type="range"
@@ -149,7 +217,7 @@ export default function LoanCalculator() {
                     max="20"
                     step="0.1"
                     value={rate}
-                    onChange={(event) => setRate(Number(event.target.value))}
+                    onChange={(event) => rateField.setFromSlider(Number(event.target.value))}
                     className="range-slider range-slider--dark w-full"
                     style={{
                       "--range-progress": `${((rate - 6.5) / (20 - 6.5)) * 100}%`,
@@ -168,9 +236,19 @@ export default function LoanCalculator() {
                       <CalendarRange size={15} className="text-white/70" />
                       Loan Duration / Tenure
                     </span>
-                    <output className="rounded-md bg-white px-3 py-1 text-[13px] md:text-[14px] lg:text-[15px] font-cairo font-bold text-[#0F172A]">
-                      {tenure} {tenure === 1 ? "Year" : "Years"}
-                    </output>
+                    <span className="flex items-center gap-1 rounded-md bg-white px-3 py-1 font-cairo font-bold text-[#0F172A]">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        aria-label="Loan duration in years"
+                        value={tenureField.text}
+                        onChange={(event) => tenureField.handleChange(event.target.value)}
+                        onFocus={tenureField.handleFocus}
+                        onBlur={tenureField.handleBlur}
+                        className="w-6 bg-transparent text-[13px] md:text-[14px] lg:text-[15px] outline-none"
+                      />
+                      <span className="text-[13px] md:text-[14px] lg:text-[15px]">{tenure === 1 ? "Year" : "Years"}</span>
+                    </span>
                   </div>
                   <input
                     type="range"
@@ -178,7 +256,7 @@ export default function LoanCalculator() {
                     max="30"
                     step="1"
                     value={tenure}
-                    onChange={(event) => setTenure(Number(event.target.value))}
+                    onChange={(event) => tenureField.setFromSlider(Number(event.target.value))}
                     className="range-slider range-slider--dark w-full"
                     style={{
                       "--range-progress": `${((tenure - 1) / (30 - 1)) * 100}%`,
