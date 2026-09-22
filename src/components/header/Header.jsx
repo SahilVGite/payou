@@ -84,7 +84,7 @@ export default function Header() {
     >
       <div className="bg-primary font-nunito font-bold text-white">
         <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4">
-          <div className="flex items-center gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
+          <div className="flex items-center font-semibold gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
             <Phone size={17} />
             <span>
               <a href="tel:02027350055">020 2735 0055 / </a>
@@ -96,7 +96,7 @@ export default function Header() {
           </div>
           <nav
             aria-label="Quick links"
-            className="flex items-center font-semibold gap-5 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-[1024px]:ml-auto"
+            className="flex items-center font-semibold gap-5 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.75rem,0.1336rem+0.722vw,1rem)] max-[1024px]:ml-auto"
           >
             <Link href="/about-us">ABOUT US</Link>
             <span className="border-l border-white/70 h-5" />
@@ -115,7 +115,7 @@ export default function Header() {
               width={124}
               height={65}
               priority
-              className="h-auto max-lg:max-w-20"
+              className="h-auto max-lg:max-w-20 max-w-[clamp(5.625rem,0.3854rem+6.1372vw,7.75rem)]"
             />
           </Link>
           <button
@@ -164,13 +164,13 @@ export default function Header() {
                 placeholder="Search"
                 className="w-full bg-transparent text-primary placeholder:text-primary focus:outline-none"
               />
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-primary">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-primary">
                 <Search size={18} />
               </span>
             </label>
             <Link
               href="/contact-us"
-              className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
+              className="flex items-center gap-2 rounded-full bg-primary px-[1.5em] py-[0.75em] text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
             >
               <UserRound size={16} /> APPLY NOW
             </Link>

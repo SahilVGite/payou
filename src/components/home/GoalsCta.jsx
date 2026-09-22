@@ -16,13 +16,13 @@ export default function GoalsCta() {
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
             <Link
               href="/contact-us"
-              className="w-full md:w-fit text-center rounded-full border border-white px-8 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white transition hover:bg-white hover:text-[#134b96]"
+              className="w-full md:w-fit text-center rounded-full border border-white px-8 py-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white transition hover:bg-white hover:text-[#134b96]"
             >
               GET STARTED TODAY
             </Link>
             <Link
               href="/contact-us"
-              className="w-full md:w-fit text-center rounded-full bg-[#b11f24] px-8 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+              className="w-full md:w-fit text-center rounded-full bg-[#b11f24] px-8 py-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
             >
               TALK TO OUR EXPERT NOW
             </Link>

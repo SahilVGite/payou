@@ -338,20 +338,20 @@ export default function LoanCalculator() {
               <div className="mt-auto flex flex-col gap-4 pt-8">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-accent py-3.5 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+                  className="w-full rounded-full bg-accent py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
                 >
                   Apply For This Loan EMI
                 </button>
                 <div className="flex gap-2.5">
                   <button
                     type="button"
-                    className="flex-1 rounded-full border border-white bg-white/12 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
+                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
                   >
                     View Schedule
                   </button>
                   <button
                     type="button"
-                    className="flex-1 rounded-full border border-white bg-white/12 py-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
+                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
                   >
                     Share Quote
                   </button>

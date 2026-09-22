@@ -4,9 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "swiper/css";
 import "swiper/css/pagination";
+import StarIcon from "../../../public/icons/StarIcon";
 
 const baseTestimonials = [
   {
@@ -98,12 +99,12 @@ export default function Testimonials() {
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
                   <article className="flex h-full flex-col rounded-[18px] border border-[#dce1e7] bg-white p-6 transition">
-                    <div className="flex gap-0.5 text-[#f5a623]">
+                    <div className="flex gap-0.5">
                       {Array.from({ length: 5 }).map((_, index) => (
-                        <Star
+                        <StarIcon
                           key={index}
                           size={22}
-                          fill={index < testimonial.rating ? "#f5a623" : "none"}
+                          color={index < testimonial.rating ? "#FF9500" : "#BCBDBE"}
                         />
                       ))}
                     </div>
@@ -165,7 +166,7 @@ export default function Testimonials() {
             >
               <ChevronLeft size={20} />
             </button> */}
-            <div className="testimonials-pagination flex items-center justify-center gap-1.5 lg:gap-2" />
+            <div className="testimonials-pagination flex items-center justify-center gap-1 lg:gap-2" />
             {/* <button
               type="button"
               onClick={() => swiperInstance?.slideNext()}

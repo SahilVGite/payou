@@ -317,7 +317,7 @@ export default function FinancialSolutions() {
                   type="button"
                   onClick={() => swiperInstance?.slidePrev()}
                   aria-label="Previous"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                  className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
                 >
                   <ChevronLeft size={20} />
                 </button>
@@ -325,7 +325,7 @@ export default function FinancialSolutions() {
                   type="button"
                   onClick={() => swiperInstance?.slideNext()}
                   aria-label="Next"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                  className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
                 >
                   <ChevronRight size={20} />
                 </button>

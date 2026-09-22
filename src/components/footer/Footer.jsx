@@ -207,7 +207,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-y-2 text-left md:hidden">
           {quickLinks.map(([label, href]) => (
             <Link
-              className="text-[13px] font-bold leading-[1.3em]"
+              className="text-[13px] font-bold leading-[1.3em] font-inter"
               href={href}
               key={label}
             >
@@ -234,7 +234,7 @@ export default function Footer() {
         <div className="flex flex-wrap gap-2">
           {partners.map((partner) => (
             <span
-              className="rounded bg-white px-[1.25em] py-[0.625em] text-center text-[13px] md:text-[14px] lg:text-[16px] font-bold font-inter text-primary"
+              className="rounded-md bg-white px-[1.25em] py-[0.425em] text-center text-[13px] md:text-[14px] lg:text-[16px] font-bold font-inter text-primary"
               key={partner}
             >
               {partner}

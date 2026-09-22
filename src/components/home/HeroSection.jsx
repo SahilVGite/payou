@@ -227,18 +227,18 @@ export default function HeroSection() {
             </div>
             <div
                 ref={statsRef}
-                className="[@media(max-width:1023px)]:py-(--sec-gap) px-[4%] lg:absolute lg:-bottom-12 lg:inset-x-0 z-10 mx-auto grid max-w-290 grid-cols-4 gap-5 max-[1024px]:grid-cols-2"
+                className="[@media(max-width:1023px)]:py-(--sec-gap) px-[4%] lg:absolute lg:-bottom-[clamp(2rem,-1.8321rem+3.6101vw,2.5rem)] lg:inset-x-0 z-10 mx-auto grid max-w-[clamp(62.5rem,37.843rem+28.8809vw,72.5rem)] grid-cols-4 gap-5 max-[1024px]:grid-cols-2"
             >
                 {stats.map(([Icon, value, label]) => (
                     <div
                         key={label}
-                        className="text-center flex items-center justify-center gap-4 rounded-xl bg-primary/08 lg:bg-white/55 backdrop-blur-lg px-3 md:px-4 py-4 md:py-5 shadow-[2px_2px_4px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(16,25,43,0.18)]"
+                        className="text-center flex items-center justify-center gap-4 rounded-xl bg-primary/08 lg:bg-white/55 backdrop-blur-lg px-2 md:px-[clamp(0.625rem,-0.2996rem+1.083vw,1rem)] py-3 md:py-[clamp(0.625rem,-0.9161rem+1.8051vw,1.25rem)] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(16,25,43,0.18)]"
                     >
                         <div>
-                            <p className="m-0 text-2xl font-bold text-[#10192b]">
+                            <p className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.375rem,-0.7825rem+2.5271vw,2.25rem)] font-semibold text-ink leading-[1.2]">
                                 {value}
                             </p>
-                            <p className="m-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] uppercase tracking-wider text-[#4B5563]">
+                            <p className="m-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.625rem,0.0086rem+0.722vw,0.875rem)] uppercase tracking-wider text-[#4B5563]">
                                 {label}
                             </p>
                         </div>
