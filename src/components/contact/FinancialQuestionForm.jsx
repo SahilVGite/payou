@@ -60,16 +60,16 @@ export default function FinancialQuestionForm({
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
               GET EXPERT GUIDANCE
             </span>
-            <h2 className="mt-4 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight">
+            <h2 className="mt-[0.3809em] text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight">
               Have a <strong className="font-bold">Financial Question?</strong>
             </h2>
-            <p className="mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-w-[55ch] leading-relaxed text-white">
+            <p className="mt-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-w-[55ch] leading-relaxed text-white">
               Get personalized advice from our loan experts. We'll help you find
               the right solution for your needs.
             </p>
 
             {mapQuery ? (
-              <div className="mt-7 overflow-hidden rounded-2xl border border-white/30">
+              <div className="mt-[clamp(0.9375rem,0.397rem+1.1275vw,1.75rem)] overflow-hidden rounded-2xl border border-white/30">
                 <iframe
                   title="Branch location"
                   src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}
@@ -82,14 +82,14 @@ export default function FinancialQuestionForm({
                 />
               </div>
             ) : (
-              <div className="mt-7 grid grid-cols-2 gap-4">
+              <div className="mt-[clamp(0.9375rem,0.397rem+1.1275vw,1.75rem)] grid grid-cols-2 gap-4">
                 {highlights.map(([Icon, label], index) => (
                   <div
                     key={`${label}-${index}`}
-                    className="flex items-center gap-2.5 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-white"
+                    className="flex items-center gap-2.5 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.8125rem,0.042rem+0.9025vw,1.125rem)] font-semibold text-white"
                   >
-                    <span className="flex h-8 md:h-10 w-8 md:w-10 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
-                      <Icon size={20} className={"[@media(max-width:767px)]:w-4 [@media(max-width:767px)]:h-4"} />
+                    <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
+                      <Icon size={20} className={"[@media(max-width:1700px)]:w-4 [@media(max-width:1700px)]:h-4"} />
                     </span>
                     {label}
                   </div>
@@ -97,15 +97,15 @@ export default function FinancialQuestionForm({
               </div>
             )}
 
-            <div className={`mt-7 gap-3 ${gridCards ? "grid grid-cols-1 [@media(min-width:1024px)_and_(max-width:1500px)]:grid-cols-1 md:grid-cols-2" : "flex flex-col"}`}>
+            <div className={`mt-[clamp(0.9375rem,0.397rem+1.1275vw,1.75rem)] gap-3 ${gridCards ? "grid grid-cols-1 [@media(min-width:1024px)_and_(max-width:1500px)]:grid-cols-1 md:grid-cols-2" : "flex flex-col"}`}>
               {channels.map(([Icon, label, value, href]) => (
                 <a
                   key={label}
                   href={href}
-                  className="flex items-center gap-4 rounded-2xl bg-[rgba(255,255,255,0.08)] backdrop-blur-xs border border-white/30 px-5 py-3.5 transition hover:bg-white/15"
+                  className="flex items-center gap-4 rounded-2xl bg-[rgba(255,255,255,0.08)] backdrop-blur-xs border border-white/30 px-5 py-2.5 [@media(min-width:1700px)]:py-3.5 transition hover:bg-white/15"
                 >
-                  <span className="flex h-8 md:h-10 w-8 md:w-10 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
-                    <Icon size={20} className={"[@media(max-width:767px)]:w-4 [@media(max-width:767px)]:h-4"} />
+                  <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
+                    <Icon size={20} className={"[@media(max-width:1700px)]:w-4 [@media(max-width:1700px)]:h-4"} />
                   </span>
                   <span className="flex flex-col">
                     <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-white">
@@ -127,7 +127,7 @@ export default function FinancialQuestionForm({
             encType="text/plain"
           >
             <div className="grid gap-6 sm:grid-cols-2">
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Full Name <span className="text-accent">*</span>
                 </span>
@@ -138,12 +138,12 @@ export default function FinancialQuestionForm({
                   className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Mobile Number <span className="text-accent">*</span>
                 </span>
                 <span className="flex items-center gap-2 rounded-full bg-white px-4 py-3">
-                  <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink">
+                  <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] text-ink">
                     +91
                   </span>
                   <input
@@ -155,7 +155,7 @@ export default function FinancialQuestionForm({
                   />
                 </span>
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Email Address <span className="text-accent">*</span>
                 </span>
@@ -167,7 +167,7 @@ export default function FinancialQuestionForm({
                   className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Select Service <span className="text-accent">*</span>
                 </span>
@@ -190,7 +190,7 @@ export default function FinancialQuestionForm({
               </label>
             </div>
 
-            <label className="mt-6 flex min-h-0 flex-1 flex-col gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white">
+            <label className="mt-[1.5em] flex min-h-0 flex-1 flex-col gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-white">
               <span className="flex">
                 Message <span className="text-accent">*</span>
               </span>
@@ -211,8 +211,8 @@ export default function FinancialQuestionForm({
               </span>
             </label>
 
-            <label className="mt-6 flex items-start gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] leading-relaxed text-white/85">
-              <span className="relative mt-0.5 h-4 lg:h-5.75 w-4 lg:w-5.75 shrink-0">
+            <label className="mt-[1.5em] flex items-start gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] leading-relaxed text-white/85">
+              <span className="relative mt-0.5 h-4 lg:h-[clamp(1.125rem,0.3545rem+0.9025vw,1.4375rem)] w-4 lg:w-[clamp(1.125rem,0.3545rem+0.9025vw,1.4375rem)] shrink-0">
                 <input
                   required
                   type="checkbox"
@@ -235,11 +235,11 @@ export default function FinancialQuestionForm({
 
             <button
               type="submit"
-              className="mt-6 w-full rounded-full bg-accent py-[0.9411em] text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.6875rem+0.3125vw,1.0625rem)] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+              className="mt-[1.5em] w-full rounded-full bg-accent py-[0.7em] [@media(min-width:1700px)]:py-[0.8411em] text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.9375rem,0.6875rem+0.3125vw,1.0625rem)] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
             >
               SEND MESSAGE
             </button>
-            <p className="mt-6 text-center text-[10px] md:text-[12px] text-[#EEE8E8]">
+            <p className="mt-[1.5em] text-center text-[10px] md:text-[12px] text-[#EEE8E8]">
               Your information is safe with us. We respect your privacy
             </p>
           </form>
