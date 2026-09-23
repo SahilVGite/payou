@@ -46,7 +46,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full scroll-smooth antialiased`}>
+    <html lang="en" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-hidden bg-white font-poppins text-[#10192b]">
         <Header />
         <main className="flex-1">{children}</main>

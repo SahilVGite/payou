@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
@@ -96,17 +97,26 @@ function LoansMegaMenuFooterBar() {
   );
 }
 
-// [label, href, hasChevron, isActive] — only LOANS drives the mega-menu, so only it gets the active underline.
-// Only Home and Contact Us are real pages for now — every other label keeps its text but
-// points at "/" until its page exists, rather than 404ing.
+// [label, href, hasChevron] — only Home and Contact Us are real pages for now; every other
+// label keeps its text but points at "/" until its page exists, rather than 404ing.
 const navLinks = [
-  ["LOANS", "/contact-us", true, true],
-  ["SERVICES", "/", true, false],
-  ["CALCULATORS", "/", true, false],
-  ["ABOUT US", "/", false, false],
-  ["CONTACT US", "/contact-us", false, false],
-  ["BLOG", "/", false, false],
+  ["LOANS", "/contact-us", true],
+  ["SERVICES", "/", true],
+  ["CALCULATORS", "/", true],
+  ["ABOUT US", "/", false],
+  ["CONTACT US", "/contact-us", false],
+  ["BLOG", "/", false],
 ];
+
+// Active state is derived from the current route rather than hardcoded per link: LOANS
+// never gets it (it's a dropdown trigger, not a page of its own, even though it shares
+// Contact Us's placeholder href), and the "/" placeholder links (Services, Calculators,
+// About Us, Blog) never do either since they're not real pages yet — only Contact Us has
+// a real, distinct route to match against. That also means Home has no active link at all.
+function isNavLinkActive(label, href, pathname) {
+  if (label === "LOANS" || href === "/") return false;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 // Desktop nav switches from click-to-open to hover-to-open above this width; matches the
 // header's own max-[1024px] mobile breakpoint (mobile/touch keeps click via the hamburger).
@@ -118,6 +128,7 @@ const isMobileMenuViewport = () =>
   typeof window !== "undefined" && window.matchMedia("(max-width: 1024px)").matches;
 
 export default function Header() {
+  const pathname = usePathname();
   // Separate from loansMenuOpen on purpose: they used to share one flag, which meant
   // clicking "LOANS" on mobile (to expand its accordion) also toggled the whole hamburger
   // panel closed, since both were driven by the same state.
@@ -277,8 +288,10 @@ export default function Header() {
             aria-label="Main navigation"
             className={`flex flex-1 items-center justify-center gap-[clamp(2.5rem,-0.5rem+3.75vw,4rem)] max-[1050px]:gap-4 max-[1024px]:order-4 max-[1024px]:basis-full max-[1024px]:flex-col max-[1024px]:items-start max-[1024px]:gap-0 max-[1024px]:pb-3 ${hamburgerOpen ? "max-[1024px]:flex" : "max-[1024px]:hidden"}`}
           >
-            {navLinks.map(([label, href, hasChevron, isActive], index) => (
-              <Fragment key={label}>
+            {navLinks.map(([label, href, hasChevron], index) => {
+              const isActive = isNavLinkActive(label, href, pathname);
+              return (
+                <Fragment key={label}>
                 <span
                   onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
                   className={`relative flex items-center [@media(max-width:1023px)]:justify-between gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
@@ -323,7 +336,8 @@ export default function Header() {
                   </div>
                 ) : null}
               </Fragment>
-            ))}
+              );
+            })}
           </nav>
           <div className="ml-auto flex items-center gap-3 max-[1024px]:ml-0">
             <label className="flex w-[16.25em] items-center justify-between rounded-full border border-primary bg-white pl-4 py-[0.5em] pr-1.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-primary max-[1050px]:w-[170px] max-[1024px]:hidden">
