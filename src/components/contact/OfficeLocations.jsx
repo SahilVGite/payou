@@ -1,14 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useRef, useState } from "react";
 import { Mic, Phone, Search } from "lucide-react";
 import Select from "../common/Select";
 import BranchLocationIcon from "../../../public/icons/BranchLocationIcon";
+import OfficeLocationsMap from "./OfficeLocationsMap";
 import { branches } from "../../data/branches";
 
 export default function OfficeLocations() {
   const [branch, setBranch] = useState("");
+  const [activeSlug, setActiveSlug] = useState(null);
+  const mapRef = useRef(null);
+  const mapWrapperRef = useRef(null);
+
+  // Selecting a branch pans/zooms the map to it and opens its pin's popup — navigating to
+  // the branch's own page now happens from the "GET ENQUIRY" button inside that popup
+  // instead of from this list directly.
+  const selectBranch = (slug) => {
+    setActiveSlug(slug);
+    mapRef.current?.flyToBranch(slug);
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      mapWrapperRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   return (
     <section id="office-locations" className="px-[4%] secGap">
@@ -21,21 +35,15 @@ export default function OfficeLocations() {
         </p>
 
         <div className="relative mt-10 overflow-hidden rounded-[18px] [@media(max-width:1023px)]:flex [@media(max-width:1023px)]:flex-col-reverse [@media(max-width:1023px)]:gap-6">
-          {/* Google's free embed has no URL param to hide the zoom/layers controls or the
-              place info card, and the plain `output=embed` link (used here instead of a
-              place embed) already drops the info card by not being tied to a Business
-              Profile. The rest is cropped out: the iframe renders oversized (scale-150)
-              inside a same-size overflow-hidden box, so the corner-anchored controls land
-              outside the visible area while the map + pin stay centered. */}
-          <div className="h-[620px] w-full overflow-hidden rounded-2xl [@media(max-width:1023px)]:aspect-square [@media(max-width:1023px)]:h-auto">
-            <iframe
-              title="PayYou Advisory office locations"
-              src="https://www.google.com/maps?q=18.63345478248213,73.77792507519445&z=16&output=embed"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="h-full w-full scale-150"
-            />
+          <div
+            ref={mapWrapperRef}
+            // isolate: without it, Leaflet's internal panes (z-index up to 1000, with no
+            // positioned ancestor giving them their own stacking context) leak past this
+            // wrapper and out-rank the branches panel below (z-index: auto) regardless of
+            // DOM order, painting the map on top of it.
+            className="isolate h-[620px] w-full overflow-hidden rounded-2xl [@media(max-width:1023px)]:aspect-square [@media(max-width:1023px)]:h-auto"
+          >
+            <OfficeLocationsMap ref={mapRef} branches={branches} />
           </div>
 
           <div className="lg:absolute bottom-4 left-4 top-4 p-5 flex w-full max-w-full lg:max-w-[30%] flex-col overflow-hidden rounded-2xl bg-primary/15 shadow-[0px_4px_12px_rgba(0,0,0,0.0784314)] backdrop-blur-md">
@@ -63,10 +71,12 @@ export default function OfficeLocations() {
             </div>
             <div className="thin-scrollbar flex-1 overflow-y-auto">
               {branches.map((item, index) => (
-                <Link
+                <button
                   key={item.name}
-                  href={`/contact-us/branch/${item.slug}`}
-                  className={`block py-4 transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}
+                  type="button"
+                  onClick={() => selectBranch(item.slug)}
+                  aria-pressed={activeSlug === item.slug}
+                  className={`block w-full py-4 text-left transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""} ${activeSlug === item.slug ? "bg-white/40" : ""}`}
                 >
                   <div className="mt-1 flex items-center gap-2">
                     <span className="flex h-10 w-10 items-center justify-center rounded-full bg-glass-effect bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>
@@ -83,7 +93,7 @@ export default function OfficeLocations() {
                     <div className="mt-1.5 flex gap-2 items-center"><Phone size={16} className="shrink-0 text-primary" /><p className="text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-primary">{item.phone}</p></div>
                   ) : null}
                   <p className="mt-1 text-[10px] md:text-[12px] font-semibold text-ink">{item.hours}</p>
-                </Link>
+                </button>
               ))}
             </div>
           </div>
