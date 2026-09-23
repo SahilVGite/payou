@@ -21,17 +21,22 @@ export default function OfficeLocations() {
         </p>
 
         <div className="relative mt-10 overflow-hidden rounded-[18px] [@media(max-width:1023px)]:flex [@media(max-width:1023px)]:flex-col-reverse [@media(max-width:1023px)]:gap-6">
-          <iframe
-            title="PayYou Advisory office locations"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.6800609653847!2d73.77792507519445!3d18.63345478248213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b932d1f77937%3A0xe62d3e7a99df03a9!2sPayYou%20Advisory%20Private%20Limited!5e0!3m2!1sen!2sin!4v1789967393661!5m2!1sen!2sin"
-            width="100%"
-            height="620"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            className="block w-full rounded-2xl [@media(max-width:1023px)]:aspect-square [@media(max-width:1023px)]:h-auto"
-          />
+          {/* Google's free embed has no URL param to hide the zoom/layers controls or the
+              place info card, and the plain `output=embed` link (used here instead of a
+              place embed) already drops the info card by not being tied to a Business
+              Profile. The rest is cropped out: the iframe renders oversized (scale-150)
+              inside a same-size overflow-hidden box, so the corner-anchored controls land
+              outside the visible area while the map + pin stay centered. */}
+          <div className="h-[620px] w-full overflow-hidden rounded-2xl [@media(max-width:1023px)]:aspect-square [@media(max-width:1023px)]:h-auto">
+            <iframe
+              title="PayYou Advisory office locations"
+              src="https://www.google.com/maps?q=18.63345478248213,73.77792507519445&z=16&output=embed"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="h-full w-full scale-150"
+            />
+          </div>
 
           <div className="lg:absolute bottom-4 left-4 top-4 p-5 flex w-full max-w-full lg:max-w-[30%] flex-col overflow-hidden rounded-2xl bg-primary/15 shadow-[0px_4px_12px_rgba(0,0,0,0.0784314)] backdrop-blur-md">
             <div className="flex flex-col gap-4">
