@@ -43,7 +43,13 @@ const partners = [
   "HDFC Bank",
   "ICICI Bank",
 ];
-const footerTabs = ["LOANS", "ACCOUNTS", "INSURANCE", "INVESTMENTS", "CALCULATORS"];
+const footerTabs = [
+  "LOANS",
+  "ACCOUNTS",
+  "INSURANCE",
+  "INVESTMENTS",
+  "CALCULATORS",
+];
 
 export default function Footer() {
   const [activeTab, setActiveTab] = useState(footerTabs[0]);
@@ -55,16 +61,20 @@ export default function Footer() {
       <div className="mx-auto max-w-(--content-width) grid [@media(min-width:1025px)]:grid-cols-[31%_1fr] gap-10 [@media(min-width:1025px)]:gap-[7%] pb-8 secGapT max-[1024px]:grid-cols-1">
         <div className="[@media(min-width:1025px)]:max-w-[424px]">
           <div className="flex items-center justify-center">
-            <Image
-              src="/images/siteLogoFooter.png"
-              alt="PayYou Advisory Private Limited"
-              width={165}
-              height={85}
-              className="h-auto max-sm:max-w-32"
-            />
+            <Link href="/" className="shrink-0 mx-auto">
+              <Image
+                src="/images/siteLogoFooter.png"
+                alt="PayYou Advisory Private Limited"
+                width={165}
+                height={85}
+                className="h-auto max-sm:max-w-32"
+              />
+            </Link>
           </div>
           <p className="my-6 text-[13px] md:text-[16px] lg:text-[19px] leading-relaxed">
-            Leading loan advisory in Pune, connecting you with trusted banking and financial partners for personal, business, home, and property loans.
+            Leading loan advisory in Pune, connecting you with trusted banking
+            and financial partners for personal, business, home, and property
+            loans.
           </p>
           <div className="flex flex-wrap gap-2">
             <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
@@ -82,14 +92,13 @@ export default function Footer() {
           <address className="grid grid-cols-[15px_1fr] gap-x-3 gap-y-4 not-italic font-inter text-[13px] md:text-[15px] lg:text-[17px] leading-snug">
             <MapPin size={18} className="mt-0.5" />
             <p>
-              Office No. 3, 4, 5, 6, Vishal Arcade, Opp. to
-              Sonigara Jewellers, Pimple Chinchwad
-              (Municipal Corporation), Haveli, Pune - 411019
+              Office No. 3, 4, 5, 6, Vishal Arcade, Opp. to Sonigara Jewellers,
+              Pimple Chinchwad (Municipal Corporation), Haveli, Pune - 411019
             </p>
             <Phone size={18} className="mt-0.5" />
             <p>
               <a className="font-bold" href="tel:02027350055">
-                020 2735 0055 | {" "}
+                020 2735 0055 |{" "}
               </a>
               <a className="font-bold" href="tel:+91 91755 35555">
                 +91 91755 35555
@@ -118,7 +127,11 @@ export default function Footer() {
                 href="#"
                 aria-label={label}
               >
-                <Icon size={24} color="currentColor" className="transition-colors" />
+                <Icon
+                  size={24}
+                  color="currentColor"
+                  className="transition-colors"
+                />
               </a>
             ))}
           </div>
@@ -147,7 +160,9 @@ export default function Footer() {
                   setOpenLink(null);
                 }}
                 className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5982rem+0.3348vw,1rem)] font-bold cursor-pointer transition ${
-                  activeTab === tab ? "bg-[#b11f24] text-white" : "bg-white text-[#134B96] hover:bg-white/90"
+                  activeTab === tab
+                    ? "bg-[#b11f24] text-white"
+                    : "bg-white text-[#134B96] hover:bg-white/90"
                 }`}
               >
                 {tab}
@@ -203,7 +218,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="mx-auto max-w-(--content-width) w-full border-t border-white/55 py-3 md:py-4 lg:py-6">
-        <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">QUICK LINKS</h3>
+        <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">
+          QUICK LINKS
+        </h3>
         <div className="grid grid-cols-2 gap-y-2 text-left md:hidden">
           {quickLinks.map(([label, href]) => (
             <Link

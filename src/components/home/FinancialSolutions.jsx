@@ -185,7 +185,7 @@ export default function FinancialSolutions() {
                   setActiveTab(label);
                   setActiveItem(sidebarByTab[label][0]);
                 }}
-                className={`relative flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] uppercase font-semibold transition ${
+                className={`relative flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] uppercase font-semibold cursor-pointer transition ${
                   isActive
                     ? "text-primary"
                     : "text-[#505A69] hover:text-primary"

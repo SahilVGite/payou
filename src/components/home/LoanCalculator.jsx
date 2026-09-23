@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
 import Dropdown from "../common/Dropdown";
+import { useEditableNumber } from "../../hooks/useEditableNumber";
 
 const tabs = [
   { label: "Personal Loan EMI Calculator", icon: LoansTabIcon },
@@ -18,49 +19,6 @@ const tabs = [
 ];
 
 const formatInr = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
-
-// Backs each slider with an editable text value: typing a valid in-range number updates
-// the real value live (slider + EMI move with it), leaving the field alone otherwise so a
-// mid-edit "" or partial number doesn't propagate NaN into the calculation. Invalid input
-// reverts to the last valid value (not the min) on blur, and the display re-formats
-// (e.g. adds comma grouping) once the field loses focus, going back to a plain editable
-// number while focused.
-function useEditableNumber(initialValue, { min, max, decimals = 0, format }) {
-  const toText = (value) => (format ? format(value) : String(value));
-  const [value, setValue] = useState(initialValue);
-  const [text, setText] = useState(() => toText(initialValue));
-
-  function commit(raw) {
-    const num = Number(raw);
-    const base = raw !== "" && Number.isFinite(num) ? num : value;
-    const clamped = Math.min(max, Math.max(min, base));
-    const rounded = decimals ? Number(clamped.toFixed(decimals)) : Math.round(clamped);
-    setValue(rounded);
-    setText(toText(rounded));
-  }
-
-  return {
-    value,
-    text,
-    setFromSlider(raw) {
-      setValue(raw);
-      setText(toText(raw));
-    },
-    handleChange(raw) {
-      setText(raw);
-      const num = Number(raw);
-      if (raw !== "" && Number.isFinite(num) && num >= min && num <= max) {
-        setValue(num);
-      }
-    },
-    handleFocus() {
-      setText(String(value));
-    },
-    handleBlur(event) {
-      commit(event.target.value);
-    },
-  };
-}
 
 export default function LoanCalculator() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
@@ -123,7 +81,7 @@ export default function LoanCalculator() {
                   key={label}
                   type="button"
                   onClick={() => setActiveTab(label)}
-                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap transition ${
+                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
                     isActive
                       ? "text-primary "
                       : "text-[#092B49] hover:text-primary"
@@ -338,20 +296,20 @@ export default function LoanCalculator() {
               <div className="mt-auto flex flex-col gap-4 pt-8">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-accent py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
+                  className="w-full rounded-full bg-accent py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] cursor-pointer transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
                 >
                   Apply For This Loan EMI
                 </button>
                 <div className="flex gap-2.5">
                   <button
                     type="button"
-                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
+                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white cursor-pointer transition hover:bg-white hover:text-[#0e3153]"
                   >
                     View Schedule
                   </button>
                   <button
                     type="button"
-                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white transition hover:bg-white hover:text-[#0e3153]"
+                    className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white cursor-pointer transition hover:bg-white hover:text-[#0e3153]"
                   >
                     Share Quote
                   </button>

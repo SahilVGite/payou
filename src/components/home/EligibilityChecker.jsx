@@ -139,7 +139,7 @@ export default function EligibilityChecker() {
                         key={key}
                         type="button"
                         onClick={() => setSelectedProfile(key)}
-                        className={`flex items-center justify-between gap-2 rounded-[14px] border-2 p-4 text-left transition ${
+                        className={`flex items-center justify-between gap-2 rounded-[14px] border-2 p-4 text-left cursor-pointer transition ${
                           isActive
                             ? "border-accent bg-accent text-white"
                             : "border-[#D6DFEC] bg-white text-[#10192b]"
@@ -187,7 +187,7 @@ export default function EligibilityChecker() {
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="rounded-full w-full bg-accent px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
+                      className="rounded-full w-full bg-accent px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
                     >
                       Continue to Income
                     </button>
@@ -230,7 +230,7 @@ export default function EligibilityChecker() {
                 <button
                   type="button"
                   onClick={() => setStep(0)}
-                  className="mt-5 rounded-full bg-gradient-to-r from-[#7a1015] to-[#5c0e12] px-6 py-3 text-xs font-bold text-white transition"
+                  className="mt-5 rounded-full bg-gradient-to-r from-[#7a1015] to-[#5c0e12] px-6 py-3 text-xs font-bold text-white cursor-pointer transition"
                 >
                   Start Over
                 </button>
@@ -256,14 +256,14 @@ function StepPlaceholder({ title, description, onBack, onNext, nextLabel }) {
         <button
           type="button"
           onClick={onBack}
-          className="rounded-full border border-[#dce1e7] px-8 py-3.5 text-sm font-bold text-white transition hover:border-[#134b96] hover:text-[#134b96] w-full md:w-fit"
+          className="rounded-full border border-[#dce1e7] px-8 py-3.5 text-sm font-bold text-white cursor-pointer transition hover:border-[#134b96] hover:text-[#134b96] w-full md:w-fit"
         >
           Back
         </button>
         <button
           type="button"
           onClick={onNext}
-          className="rounded-full bg-accent px-10 py-3.5 text-sm font-bold text-white transition w-full md:w-fit"
+          className="rounded-full bg-accent px-10 py-3.5 text-sm font-bold text-white cursor-pointer transition w-full md:w-fit"
         >
           {nextLabel}
         </button>

@@ -9,6 +9,7 @@ import PartnerLogos from "../components/home/PartnerLogos";
 import Testimonials from "../components/home/Testimonials";
 import GoalsCta from "../components/home/GoalsCta";
 import FaqSection from "../components/home/FaqSection";
+import StickyWhatsapp from "@/components/common/StickyWhatsapp";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Testimonials />
       <GoalsCta />
       <FaqSection />
+      <StickyWhatsapp />
     </>
   );
 }

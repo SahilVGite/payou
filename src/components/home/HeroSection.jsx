@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Handshake, ShieldCheck, Timer, Users } from "lucide-react";
 import Select from "../common/Select";
+import { useEditableNumber } from "../../hooks/useEditableNumber";
 
 const stats = [
     [Handshake, "25+", "Leading Partners"],
@@ -15,7 +16,12 @@ const stats = [
 const incomeTicks = ["1L", "2L", "3L", "4L", "5L", "6L"];
 
 export default function HeroSection() {
-    const [income, setIncome] = useState(200000);
+    const incomeField = useEditableNumber(200000, {
+        min: 100000,
+        max: 600000,
+        format: (value) => value.toLocaleString("en-IN"),
+    });
+    const income = incomeField.value;
     const statsRef = useRef(null);
 
     // Repeatable scroll hijack: the moment the visitor makes a downward scroll gesture
@@ -181,9 +187,19 @@ export default function HeroSection() {
                         </label>
                         <label className="relative text-sm font-semibold">
                             Your Income{" "}
-                            <output className="float-right rounded border border-white px-2 py-1.5">
-                                ₹ {income.toLocaleString("en-IN")}
-                            </output>
+                            <span className="float-right flex items-center gap-1 rounded border border-white px-2 py-1.5">
+                                <span>₹</span>
+                                <input
+                                    type="text"
+                                    inputMode="decimal"
+                                    aria-label="Your income"
+                                    value={incomeField.text}
+                                    onChange={(event) => incomeField.handleChange(event.target.value)}
+                                    onFocus={incomeField.handleFocus}
+                                    onBlur={incomeField.handleBlur}
+                                    className="w-16 bg-transparent text-white outline-none"
+                                />
+                            </span>
                             <input
                                 className="range-slider mt-5 block w-full"
                                 type="range"
@@ -191,9 +207,7 @@ export default function HeroSection() {
                                 max="600000"
                                 value={income}
                                 step="100000"
-                                onChange={(event) =>
-                                    setIncome(Number(event.target.value))
-                                }
+                                onChange={(event) => incomeField.setFromSlider(Number(event.target.value))}
                                 style={{
                                     "--range-progress": `${((income - 100000) / (600000 - 100000)) * 100}%`,
                                 }}
@@ -213,7 +227,7 @@ export default function HeroSection() {
                             />
                         </label>
                         <button
-                            className="w-full rounded-full border-0 bg-primary py-[1.0666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-[#0e3a75] hover:shadow-[0_6px_14px_rgba(19,75,150,0.35)]"
+                            className="w-full rounded-full border-0 bg-primary py-[1.0666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-[#0e3a75] hover:shadow-[0_6px_14px_rgba(19,75,150,0.35)] cursor-pointer"
                             type="submit"
                         >
                             CHECK FREE ELIGIBILITY
