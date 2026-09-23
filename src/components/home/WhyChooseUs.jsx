@@ -108,7 +108,7 @@ export default function WhyChooseUs() {
           {stats.map(([value, label]) => (
             <div
               key={label}
-              className="bg-glass-effect rounded-xl bg-[rgba(248,245,240,0.12)] text-center shadow-[2px_2px_4px_rgba(0,0,0,0.25)] backdrop-blur-sm"
+              className="bg-glass-effect content-center rounded-xl bg-[rgba(248,245,240,0.12)] text-center shadow-[2px_2px_4px_rgba(0,0,0,0.25)] backdrop-blur-sm"
             >
               <p className="m-0 text-[16px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-ink py-[1.3636em] px-[1.5em]">
                 <span className="">{value}</span> {label}
