@@ -7,12 +7,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import {
   ArrowRight,
-  Car,
   ChevronLeft,
   ChevronRight,
-  Home,
+  Gem,
+  GraduationCap,
+  HandCoins,
+  HeartPulse,
   Landmark,
+  PiggyBank,
+  Repeat,
+  ShieldAlert,
   ShieldCheck,
+  ShieldHalf,
   TrendingUp,
 } from "lucide-react";
 import "swiper/css";
@@ -42,32 +48,281 @@ const sidebarByTab = {
     "Home Loan",
     "Loan Against Property",
     "Gold Loan",
-    "Loan Against Securities",
+    "Collateral Loan",
     "Vehicle & Consumer Loan",
     "Education Loan",
   ],
-  Insurance: [
-    "Life Insurance",
-    "Health Insurance",
-    "Motor Insurance",
-    "Term Insurance",
+  Insurance: ["Life Insurance", "Term Insurance", "Health Insurance", "Personal Accident Insurance"],
+  Investments: ["Fixed Deposits", "Recurring Deposit (RD)", "Daily Saving Plans", "FD-Linked SIP"],
+};
+
+// Shown in the sidebar's expanded panel above the Enquire Now / Know More buttons. For
+// Loans this is each product's own intro blurb; Insurance/Investments reuse each item's
+// single given description since there's no separate intro copy for those two tabs.
+const expandedDescriptionByTabAndItem = {
+  Loans: {
+    "Personal Loan":
+      "No collateral financial services for life's big and small moments. Flexible EMIs according to your earnings.",
+    "Business Loan":
+      "Compare loan options for expansion capital, equipment financing, and more. Options tailored to your business needs.",
+    "Home Loan":
+      "Competitive rates and high loan amounts make easy finance solutions to buy, build, or renovate your home easily.",
+    "Loan Against Property":
+      "As a reliable and DSA authorized loan advisor, we help you extract equity from your home with flexible repayment options.",
+    "Gold Loan":
+      "Get instant loan assistance for gold funding at competitive rates. Minimal paperwork, same-day disbursement.",
+    "Collateral Loan":
+      "Our loan advisory services help you get a loan by pledging your existing investments, like shares, mutual funds, or FDs.",
+    "Vehicle & Consumer Loan":
+      "Enjoy loan matching for your flexible car and necessary purchase financing. Flexible repayment terms designed for your needs.",
+    "Education Loan":
+      "Structured loans with flexible repayment options to fund your degree or study abroad plans after you finish your course.",
+  },
+  Insurance: {
+    "Life Insurance": "Secure your family's future with financial protection that lasts a lifetime.",
+    "Term Insurance": "High coverage at low premiums — pure protection for your loved ones' financial security.",
+    "Health Insurance": "Cover medical expenses for you and your family with plans built for real healthcare costs.",
+    "Personal Accident Insurance":
+      "Financial protection against accidental injury, disability, or loss of income when it matters most.",
+  },
+  Investments: {
+    "Fixed Deposits": "Grow your savings safely with guaranteed returns and flexible tenure options.",
+    "Recurring Deposit (RD)":
+      "Compare interest rates and build a disciplined savings habit with monthly deposits and assured returns.",
+    "Daily Saving Plans": "Save small amounts daily and watch them grow into meaningful returns over time.",
+    "FD-Linked SIP":
+      "As your loan advisor, we help you combine the safety of fixed deposits with the growth potential of systematic investing.",
+  },
+};
+
+// Real per-product card content for each Loans sidebar item (4 products each).
+const loanCardsByItem = {
+  "Personal Loan": [
+    {
+      title: "Personal Loan for Salaried",
+      description: "Regular income, fast approval. Get personal loans on your salary slip and repayment capacity.",
+      icon: PersonalLoanIcon,
+    },
+    {
+      title: "Personal Loan for Self-Employed",
+      description: "No regular pay check? No worries. Financing options that are based on the income and cash flow of your business.",
+      icon: PersonalLoanIcon,
+    },
+    {
+      title: "Pre-approved Personal Loan",
+      description: "Funds in minutes, not days. Review your pre-approved offer and get disbursal in a record time.",
+      icon: PersonalLoanIcon,
+    },
+    {
+      title: "Balance Transfer of Personal Loans",
+      description: "Got a loan with high interest? Switch lenders and save on your EMI. Easy transfer.",
+      icon: PersonalLoanIcon,
+    },
   ],
-  Investments: [
-    "Mutual Funds",
-    "Fixed Deposits",
-    "Bonds",
-    "Portfolio Advisory",
+  "Business Loan": [
+    {
+      title: "Unsecured Business Loan",
+      description: "No collateral. Fast working capital based on your business performance and turnover.",
+      icon: BusinessLoanIcon,
+    },
+    {
+      title: "Loan for MSMEs",
+      description: "Finance is made to measure for small- to medium-sized enterprises, with plans designed to help you grow.",
+      icon: BusinessLoanIcon,
+    },
+    {
+      title: "Loan for Working Capital",
+      description: "Keep things moving—cover everyday expenses without interrupting your cash flow.",
+      icon: BusinessLoanIcon,
+    },
+    {
+      title: "Loan for Women Entrepreneurs",
+      description: "Customized schemes and preferential rates to support women-led businesses at every stage.",
+      icon: BusinessLoanIcon,
+    },
+  ],
+  "Home Loan": [
+    {
+      title: "New Home Purchase Loan",
+      description: "Turn your dream house into an address—competitive rates and high loan-to-value ratios.",
+      icon: HomeLoanIcon,
+    },
+    {
+      title: "Home Construction Loan",
+      description: "Starting from ground zero? Link disbursement to your construction phases.",
+      icon: HomeLoanIcon,
+    },
+    {
+      title: "Transfer of Home Loan Balance + Top-up",
+      description: "Switch lenders to lower your EMI and get extra funds whenever you need it.",
+      icon: HomeLoanIcon,
+    },
+    {
+      title: "PMAY Loan (Pradhan Mantri Awas Yojana)",
+      description: "See if you qualify for government-supported subsidies and make homeownership more affordable.",
+      icon: HomeLoanIcon,
+    },
+  ],
+  "Loan Against Property": [
+    {
+      title: "Commercial Real Estate Loan",
+      description: "Access funds for expansion or working capital secured by your commercial property.",
+      icon: PropertyLoanIcon,
+    },
+    {
+      title: "Mortgage Loan",
+      description: "Evaluate the value of your home or residential asset without losing ownership.",
+      icon: PropertyLoanIcon,
+    },
+    {
+      title: "Discounting Lease Payments",
+      description: "Turn future rental income into immediate cash—perfect for landlords with tenants.",
+      icon: PropertyLoanIcon,
+    },
+    {
+      title: "Home Loan",
+      description: "Funding against your property with flexible tenure and competitive rates in value.",
+      icon: PropertyLoanIcon,
+    },
+  ],
+  "Gold Loan": [
+    {
+      title: "Loan Against Gold Jewellery",
+      description: "Instant funds against your gold ornaments with safe storage, quick disbursal, and minimal paperwork.",
+      icon: Gem,
+    },
+    {
+      title: "Gold Loan on Coins & Bars",
+      description: "Pledge your gold coin or bar for fast, low-cost borrowing without selling your asset.",
+      icon: Gem,
+    },
+    {
+      title: "Gold-Backed Overdraft",
+      description: "Run a credit line on your gold—withdraw, pay back as required.",
+      icon: Gem,
+    },
+    {
+      title: "Gold Loan Current Rate of Interest",
+      description: "Know before you borrow. Check live gold loan rates across lenders before you pledge.",
+      icon: Gem,
+    },
+  ],
+  "Collateral Loan": [
+    {
+      title: "Loan Sharing",
+      description: "Unlock liquidity with your equity assets, without selling—hold and grow your portfolio.",
+      icon: HandCoins,
+    },
+    {
+      title: "Loan for Mutual Funds",
+      description: "Get your MF investment liquidity unlocked while still yielding returns.",
+      icon: HandCoins,
+    },
+    {
+      title: "Life Insurance Policy Loan",
+      description: "Use the surrender value of your policy as collateral to obtain fast, low-cost funding.",
+      icon: HandCoins,
+    },
+    {
+      title: "Loan Against Fixed Deposits",
+      description: "Borrow up to your FD value at low interest—no need to break your deposit early.",
+      icon: HandCoins,
+    },
+  ],
+  "Vehicle & Consumer Loan": [
+    {
+      title: "Two-Wheeler Loan",
+      description: "Easy finance on your new two-wheeler. You can choose from flexible ways to repay.",
+      icon: TwoWheelerLoanIcon,
+    },
+    {
+      title: "Used Car / Pre-Owned Car Loan",
+      description: "Flexible financing on quality used vehicles. Easy ways to pay for your purchase.",
+      icon: UsedCarLoanIcon,
+    },
+    {
+      title: "Consumer Durable Loan (No Cost EMI)",
+      description: "Affordable financing for your appliances and electronics. No-cost EMI options with flexibility.",
+      icon: ConsumerDurableLoanIcon,
+    },
+    {
+      title: "Car Loan",
+      description: "Flexible financing on your dream car. Easy repayment options to suit every budget.",
+      icon: CarLoanIcon,
+    },
+  ],
+  "Education Loan": [
+    {
+      title: "Domestic Education Loans",
+      description: "For higher studies in India—including tuition, hostel, and other academic fees.",
+      icon: GraduationCap,
+    },
+    {
+      title: "Overseas Study Loan",
+      description: "Make your dream of studying abroad come true from tuition fees to living expenses abroad.",
+      icon: GraduationCap,
+    },
+    {
+      title: "Loan for Education Without Collateral",
+      description: "Unsecured funding for qualifying courses and institutions—no asset pledge needed.",
+      icon: GraduationCap,
+    },
+    {
+      title: "Professional Course Education Loan",
+      description: "Specialized loans for MBA, medical, engineering, and other professional courses.",
+      icon: GraduationCap,
+    },
   ],
 };
 
-// Same placeholder copy shown for every sidebar item for now, matching the "Vehicle & Consumer Loan" content.
-const expandedDescription =
-  "Flexible financing for vehicles and essential purchases. Easy repayment options to fit your needs.";
+// Insurance and Investments only have one flat list of 4 real products each (no further
+// per-item breakdown), so every sidebar item under a tab shares that same complete set —
+// clicking a different item still shows all of that tab's real products in the slider.
+const insuranceCards = [
+  {
+    title: "Life Insurance",
+    description: "Secure your family's future with financial protection that lasts a lifetime.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Term Insurance",
+    description: "High coverage at low premiums — pure protection for your loved ones' financial security.",
+    icon: ShieldHalf,
+  },
+  {
+    title: "Health Insurance",
+    description: "Cover medical expenses for you and your family with plans built for real healthcare costs.",
+    icon: HeartPulse,
+  },
+  {
+    title: "Personal Accident Insurance",
+    description: "Financial protection against accidental injury, disability, or loss of income when it matters most.",
+    icon: ShieldAlert,
+  },
+];
 
-// Dummy slider content: every sidebar item gets its own 5-card set so picking a different
-// item (desktop click or mobile select) actually swaps the slider. Reuses the existing 4
-// stock images and a rotating icon set per tab until real per-product imagery/copy exists.
-const CARDS_PER_ITEM = 5;
+const investmentCards = [
+  {
+    title: "Fixed Deposits",
+    description: "Grow your savings safely with guaranteed returns and flexible tenure options.",
+    icon: Landmark,
+  },
+  {
+    title: "Recurring Deposit (RD)",
+    description: "Compare interest rates and build a disciplined savings habit with monthly deposits and assured returns.",
+    icon: Repeat,
+  },
+  {
+    title: "Daily Saving Plans",
+    description: "Save small amounts daily and watch them grow into meaningful returns over time.",
+    icon: PiggyBank,
+  },
+  {
+    title: "FD-Linked SIP",
+    description: "As your loan advisor, we help you combine the safety of fixed deposits with the growth potential of systematic investing.",
+    icon: TrendingUp,
+  },
+];
 
 const cardImages = [
   "/images/financial_solutions_card1.png",
@@ -76,52 +331,48 @@ const cardImages = [
   "/images/financial_solutions_card4.png",
 ];
 
-const cardIconsByTab = {
-  Loans: [LoansTabIcon, TwoWheelerLoanIcon, UsedCarLoanIcon, ConsumerDurableLoanIcon, CarLoanIcon],
-  Insurance: [ShieldCheck, Car, Home, ShieldCheck, Home],
-  Investments: [TrendingUp, Landmark, TrendingUp, Landmark, TrendingUp],
+// Swiper's loop mode needs more slides than fit on screen at once (up to 3.6 visible on
+// wide desktops) to loop smoothly, so real 4-card sets are repeated up to a minimum count
+// rather than shown as a bare 4.
+function padCards(cards, minLength = 8) {
+  const padded = [...cards];
+  let i = 0;
+  while (padded.length < minLength) {
+    padded.push(cards[i % cards.length]);
+    i += 1;
+  }
+  return padded.map((card, index) => ({
+    ...card,
+    id: `${card.id}-${index}`,
+    image: cardImages[index % cardImages.length],
+  }));
+}
+
+const rawCardsByTabAndItem = {
+  Loans: Object.fromEntries(
+    Object.entries(loanCardsByItem).map(([item, cards]) => [
+      item,
+      cards.map((card, i) => ({ ...card, id: `Loans-${item}-${i}` })),
+    ]),
+  ),
+  Insurance: Object.fromEntries(
+    sidebarByTab.Insurance.map((item) => [
+      item,
+      insuranceCards.map((card, i) => ({ ...card, id: `Insurance-${item}-${i}` })),
+    ]),
+  ),
+  Investments: Object.fromEntries(
+    sidebarByTab.Investments.map((item) => [
+      item,
+      investmentCards.map((card, i) => ({ ...card, id: `Investments-${item}-${i}` })),
+    ]),
+  ),
 };
 
-const descriptionByTab = {
-  Loans: (item) =>
-    `Quick approval, flexible EMIs, and minimal documentation tailored to your ${item.toLowerCase()} needs.`,
-  Insurance: (item) =>
-    `Comprehensive ${item.toLowerCase()} coverage with hassle-free claims and premiums that fit your budget.`,
-  Investments: (item) =>
-    `Expert-guided ${item.toLowerCase()} options to help you grow and protect your wealth steadily.`,
-};
-
-const cardsByTabAndItem = Object.fromEntries(
-  Object.entries(sidebarByTab).map(([tab, items]) => [
-    tab,
-    Object.fromEntries(
-      items.map((item) => [
-        item,
-        Array.from({ length: CARDS_PER_ITEM }, (_, i) => ({
-          id: `${tab}-${item}-${i}`,
-          title: `${item} Plan ${i + 1}`,
-          description: descriptionByTab[tab](item),
-          image: cardImages[i % cardImages.length],
-          icon: cardIconsByTab[tab][i % cardIconsByTab[tab].length],
-        })),
-      ]),
-    ),
-  ]),
-);
-
-// Padded with a couple of repeats so every item's card set has enough slides for a smooth infinite loop.
 const paddedCardsByTabAndItem = Object.fromEntries(
-  Object.entries(cardsByTabAndItem).map(([tab, itemMap]) => [
+  Object.entries(rawCardsByTabAndItem).map(([tab, itemMap]) => [
     tab,
-    Object.fromEntries(
-      Object.entries(itemMap).map(([item, cards]) => [
-        item,
-        [...cards, ...cards.slice(0, 2)].map((card, index) => ({
-          ...card,
-          id: `${card.id}-${index}`,
-        })),
-      ]),
-    ),
+    Object.fromEntries(Object.entries(itemMap).map(([item, cards]) => [item, padCards(cards)])),
   ]),
 );
 
@@ -151,14 +402,14 @@ export default function FinancialSolutions() {
     >
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2 text-left md:text-center text-ink text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
-          Financial Solutions:{" "}
+          Top-Notch Loan Advisory:{" "}
           <strong className="font-bold text-primary">
-            Tailored For All Your Needs
+            Loans, Insurance &amp; Investments—All in One Place
           </strong>
         </h2>
         <p className="mx-auto mb-9 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-left md:text-center text-[#5f6a7b]">
-          Smart solutions. Stronger future. We help you achieve your financial
-          goals with confidence.
+          Smart solutions. Stronger future. PayYouAdvisory helps you achieve
+          your financial goals with confidence.
         </p>
 
         <div className="mb-4 lg:hidden">
@@ -227,7 +478,7 @@ export default function FinancialSolutions() {
                     <div
                       className={`bg-[#E5E7EB] p-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
                     >
-                      <p className="m-0">{expandedDescription}</p>
+                      <p className="m-0">{expandedDescriptionByTabAndItem[activeTab][item]}</p>
                       <div className="mt-3 flex flex-col text-center gap-2">
                         <Link
                           href="/contact-us"

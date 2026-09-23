@@ -11,57 +11,131 @@ const categories = ["General FAQ's", "Loans", "Insurance", "Investment", "EMI"];
 const faqsByCategory = {
   "General FAQ's": [
     {
-      question: "What is loan advisory, and how does PayYouAdvisory help me get a loan in Pune?",
+      question: "What is Loan Advisory, and how does PayYouAdvisory help me to get a loan?",
       answer:
-        "Loan advisory means we understand your requirements and profile, then match you with the bank or NBFC most likely to approve you at the best terms — instead of you applying blindly at multiple places.",
+        "Loan advisory is a financial solution that analyzes your credit profile and offers the best loan for you. At PayYouAdvisory, connect directly with the top loan lenders, banks or NBFCs, for the best in terms of approval, ROI and tenures. This way, instead of you applying randomly at multiple places, you get an all-in-one solution.",
     },
     {
-      question: "Which banks and NBFCs does PayYouAdvisory work with?",
+      question: "Which are the banks & NBFCs associated with PayYouAdvisory?",
       answer:
-        "We work with 50+ RBI-regulated banks, NBFCs, and fintech lenders including SBI, HDFC Bank, ICICI Bank, Bajaj Finserv, Tata Capital, and more.",
+        "We are an authorized loan advisory and are associated with 25+ banks and NBFCs regulated by RBI, so you can select a variety of loans at a place. We clearly outline every step to ensure you encounter no surprises.",
     },
     {
-      question: "Is there any fee for using PayYouAdvisory's loan advisory services?",
-      answer:
-        "No. Our advisory services are completely free for borrowers — we do not charge any upfront fees for loan facilitation.",
+      question: "Is there any cost for PayYouAdvisory's loan advisory service?",
+      answer: "No. Our loan advisory service is completely free to borrowers. We are paid by our lending partners, not you.",
     },
     {
-      question: "Can I apply for a loan online without visiting your Pune office?",
+      question: "Can you get a loan online without going into a branch?",
       answer:
-        "Yes, the entire journey — from eligibility check to KYC and document upload — can be completed online without visiting our office.",
+        "Yes. Apply from anywhere. The whole process, from checking loan eligibility to final disbursal, is digital, so you can apply from anywhere.",
     },
     {
-      question: "What types of loans can I apply for through PayYouAdvisory?",
+      question: "What kind of loans does PayYouAdvisory offer?",
       answer:
-        "You can apply for personal loans, business loans, home loans, loans against property, gold loans, vehicle & consumer loans, and education loans.",
+        "As your one-stop loan advisory, we help with personal loans, business loans, home loans, loans against property, gold loans, vehicle loans, education loans, and more.",
     },
   ],
   Loans: [
     {
-      question: "What documents are required for a personal loan?",
-      answer: "Typically PAN, Aadhaar, income proof, and the last 3-6 months of bank statements are required.",
+      question: "How do I know if I'm eligible for a loan?",
+      answer:
+        "Your income, other commitments, credit score, and the lender's internal criteria all contribute to whether you will be eligible for a loan. We have a dedicated loan eligibility calculator that gives a quick indication before you apply.",
     },
     {
-      question: "How long does loan approval usually take?",
-      answer: "Depending on the lender and loan type, approvals can range from a few hours to 5-7 business days.",
+      question: "What documents are required for a personal or business loan?",
+      answer:
+        "ID proof, address proof, income proof, and bank statements are usually required. The exact list varies from loan type to lender, and we clarify during loan assistance.",
+    },
+    {
+      question: "Can I compare interest rates from different lenders before applying?",
+      answer:
+        "Yes, you can compare interest rates and different loan options from 25+ lenders side-by-side so you can make an informed decision with full visibility.",
+    },
+    {
+      question: "What is the difference between a secured loan and an unsecured loan?",
+      answer:
+        "Secured loans are backed by collateral (property, gold, etc.) and typically carry lower rates. Unsecured loans (such as most personal loans) do not require collateral, but they rely more on your credit profile.",
+    },
+    {
+      question: "How long does it take for loan disbursement after approval?",
+      answer:
+        "The lender and loan type can impact how fast digital pre-approval leads to disbursement, which can be as quick as 24–48 hours.",
     },
   ],
   Insurance: [
     {
-      question: "Can I bundle insurance with my loan?",
-      answer: "Yes, we can help you add relevant insurance cover alongside your loan for added protection.",
+      question: "Do I need to have insurance if I have a loan?",
+      answer:
+        "It is better to take loan protection or term insurance so that you do not put your family in a burden with the EMI repayment in case of any unforeseen event.",
+    },
+    {
+      question: "What is the difference between term insurance and life insurance?",
+      answer:
+        "Term insurance is pure risk cover and available at lower premiums. Life insurance may have savings or investment components along with the cover.",
+    },
+    {
+      question: "Can PayYouAdvisory help me select the best health insurance plan?",
+      answer: "Yes. We compare health insurance plans as part of our financial solutions based on your coverage needs and budget.",
+    },
+    {
+      question: "Is motor insurance compulsory in India?",
+      answer:
+        "Yes, all vehicles are legally required to have third-party motor insurance. While comprehensive cover is not required, it is recommended.",
+    },
+    {
+      question: "Does PayYouAdvisory charge extra fees for insurance advice?",
+      answer: "No. Our insurance advice, as with our loan advice, is free of charge to you.",
     },
   ],
   Investment: [
     {
-      question: "Do you offer investment advisory services?",
-      answer: "Yes, our team also advises on mutual funds, fixed deposits, and portfolio planning.",
+      question: "What are PayYouAdvisory investment options?",
+      answer:
+        "We help you with fixed deposits, recurring deposits, SIPs, and savings/current account solutions. All these options make investments easy and low on risk.",
+    },
+    {
+      question: "Is fixed deposit a good investment option in 2026?",
+      answer: "FDs are a safe bet for guaranteed, low-risk returns. These are perfect if you're more focused on capital safety than high growth.",
+    },
+    {
+      question: "Can I start a SIP from my loan EMI?",
+      answer:
+        "Yes. Many borrowers have small recurring investments or FD-linked SIPs as part of their savings plan along with the EMI payments so that their monthly cash flow is not affected.",
+    },
+    {
+      question: "Does PayYouAdvisory help with investment planning, or is it only loans?",
+      answer:
+        "Both. As an experienced loan advisor, we focus on loans primarily but also advise you on simple investment options to strengthen your overall financial position.",
+    },
+    {
+      question: "What is the minimum amount to start investing with PayYouAdvisory?",
+      answer: "For most borrowers, the minimums for recurring deposits and daily saving plans are low enough to make them accessible.",
     },
   ],
   EMI: [
     {
-      question: "How is my EMI calculated?",
-      answer: "EMI is calculated using your principal amount, interest rate, and tenure — try our EMI calculator above for an instant estimate.",
+      question: "How is my EMI calculated each month?",
+      answer:
+        "The EMI is determined by your loan amount, interest rate, and tenure. Use our free loan EMI calculator to estimate it instantly before applying.",
+    },
+    {
+      question: "Can I prepay my loan and lower my EMI?",
+      answer:
+        "Most lenders provide the option to prepay or make a part payment to reduce your EMI or tenure. We will help you understand terms, as they vary based on the lender and the type of loan.",
+    },
+    {
+      question: "What if I default on an EMI payment?",
+      answer:
+        "Missing an EMI can impact your credit score and may attract late fees. If you know you will be delayed in payment, call us early and we will help you explore options.",
+    },
+    {
+      question: "Can I change my EMI date post disbursement of the loan?",
+      answer:
+        "Some lenders allow you to change the date of your EMI. It is contingent upon the individual bank's policy, and we as your loan advisor can check this for you.",
+    },
+    {
+      question: "Does longer tenure always mean lower EMIs?",
+      answer: "Longer tenure lowers your EMI but raises the total interest payable. Our EMI calculator helps you compare tenures and choose the optimum level.",
     },
   ],
 };
@@ -79,13 +153,13 @@ export default function FaqSection() {
     >
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-5 md:mb-8 lg:mb-10 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
-          Got Questions? <strong className="font-bold text-primary">We&apos;ve Got Answers.</strong>
+          PayYouAdvisory FAQs: <strong className="font-bold text-primary">Everything You Need to Know</strong>
         </h2>
 
         <div className="grid grid-cols-[400px_1fr] gap-2.5 max-[1024px]:grid-cols-1">
           <div className="hidden flex-col bg-white/20 rounded-lg backdrop-blur-sm shadow-[0px_4px_8px_2px_rgba(0,0,0,0.15)] p-6 lg:flex">
             <p className="text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.3254rem+1.083vw,1.625rem)] font-semibold text-[#18181B]">Categories</p>
-            <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-black/60 mt-1 md:mt-2 mb-4 md:mb-6">Choose from our specific range of topics to address all your digital banking queries.</p>
+            <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-black/60 mt-1 md:mt-2 mb-4 md:mb-6">Browse by topic to find answers relevant to your loan, insurance, or investment questions.</p>
             <div className="w-full flex flex-col gap-2.5">
               {categories.map((category) => {
                 const isActive = category === activeCategory;

@@ -12,30 +12,30 @@ const steps = [
   {
     number: "01",
     icon: SecureBadgeIcon,
-    title: "Check Eligibility & Offers",
-    description: "Fill in your income, employer details, and required amount. Get personalized multi-bank offers with zero impact on your CIBIL score.",
-    tag: "Soft Credit Check",
+    title: "Your Personalized Offers",
+    description: "We check your eligibility. All you need to do is share your income and employment details and we get you matched with multi-bank offers.",
+    tag: "Zero CIBIL Impact",
   },
   {
     number: "02",
     icon: DigitalKycIcon,
-    title: "Digital KYC & Paperless Upload",
-    description: "Verify your Aadhaar via secure OTP and verify salary via Net Banking or fast digital statement upload without physical branch visits.",
-    tag: "100% Paperless",
+    title: "Your Digital KYC",
+    description: "We facilitate your complete Aadhaar verification via OTP and confirm your income through Net Banking or a quick digital statement upload.",
+    tag: "No Branch Visit Needed",
   },
   {
     number: "03",
     icon: InstantApprovalIcon,
-    title: "Instant Sanction & Approval",
-    description: "Our algorithms match you with the lowest rate lender (IDFC FIRST, AB Capital, HDFC, etc.) and issue an official In-Principle Sanction Letter.",
-    tag: "Rate Guaranteed",
+    title: "Fast-Track Approval",
+    description: "We compare loan options and match your profile with the lowest-rate lender across our network and get you an official In-Principle Sanction Letter, fast.",
+    tag: "Lowest Rate Guaranteed",
   },
   {
     number: "04",
     icon: SecureBadgeIcon,
     title: "Direct Account Disbursal",
-    description: "Complete digital e-Sign loan agreement and receive the approved capital directly into your registered bank account for immediate use.",
-    tag: "Express Credit",
+    description: "With our loan assistance, E-Sign your agreement and get funds disbursed directly to your account. Ready to use immediately.",
+    tag: "Fast Disbursal",
   },
 ];
 
@@ -64,10 +64,10 @@ export default function FourSteps() {
     >
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2.5 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
-          From Application to Bank Disbursal in <strong className="font-bold text-primary">4 Simple Steps</strong>
+          We Do Your Loan Application in <strong className="font-bold text-primary">Just a Few Steps!</strong>
         </h2>
         <p className="mx-auto text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563] mb-[2em] lg:mb-[3.8em]">
-          Engineered for frictionless speed. No physical queues, no branch visits, and zero endless document notarizations.
+          As your trustworthy loan consultant, we ensure you skip hectic branch visits, long paper works and get a fast path from application to approval.
         </p>
 
         <div className="hidden gap-6 lg:grid grid-cols-2 [@media(min-width:1280px)]:grid-cols-4">

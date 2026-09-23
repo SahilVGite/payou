@@ -54,12 +54,11 @@ export default function LoanCalculator() {
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2 md:mb-3 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
-          Plan Your Loan with{" "}
-          <strong className="font-bold text-primary">Confidence</strong>
+          Know Your EMI{" "}
+          <strong className="font-bold text-primary">Before You Apply</strong>
         </h2>
         <p className="mx-auto mb-(--sec-gap) text-left md:text-center text-[16px] md:text-[16px] lg:text-[20px] text-[#4B5563]">
-          Calculate your EMI, interest, and total repayment instantly to choose
-          a loan that fits your budget.
+          Use our free loan EMI calculators to plan your principal, interest, and tenure.  With our redundant loan advisory services you get no surprises later.
         </p>
 
         <div className="mb-4 lg:hidden">

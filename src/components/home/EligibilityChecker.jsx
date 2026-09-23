@@ -31,11 +31,11 @@ const profiles = [
 ];
 
 const highlights = [
-  "Multiple loan options",
-  "Quick & easy application",
-  "Best interest rates",
-  "Trusted lender network",
-  "100+ partners for your needs",
+  "Compare loans across 25+ lenders",
+  "Simple, paperless application",
+  "Competitive, negotiated rates",
+  "RBI-regulated bank & NBFC network",
+  "End-to-end advisory support",
 ];
 
 const cities = [
@@ -57,11 +57,11 @@ export default function EligibilityChecker() {
       <div className="relative mx-auto max-w-(--content-width)">
         <div className="grid grid-cols-[0.65fr_0.85fr_1fr] items-start gap-8 max-[1024px]:grid-cols-1">
           <h2 className="text-[28px] md:text-[38px] lg:text-[clamp(2.125rem,1.2679rem+1.3393vw,2.875rem)] font-semibold leading-tight text-white">
-            Smart Loans
-            <br className="[@media(max-width:1024px)]:hidden" />
-            Expert Guidance{" "}
-            <br className="[@media(max-width:767px)]:hidden" />
-            All In One Place
+            Compare Loans
+            <br />
+            Get Expert Advice
+            <br />
+            Apply With Ease
           </h2>
           <ul className="flex flex-col gap-2 pt-2 text-[14px] md:text-[16px] lg:text-[clamp(0.875rem,0.5893rem+0.4464vw,1.125rem)] font-medium text-white">
             {highlights.map((item) => (
@@ -85,14 +85,13 @@ export default function EligibilityChecker() {
         <div className="bg-glass-effect relative mt-(--sec-gap) md:mt-5 lg:mt-8 overflow-hidden rounded-3xl bg-[#FBFDFF]/30 backdrop-blur-lg shadow-[0px_10px_28px_rgba(6,43,90,0.141176)]">
           <div className="relative p-8 max-[480px]:p-5">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-accent">
-              INSTANT PRE-QUALIFICATION CHECK
+              60-Second Loan Check
             </span>
             <h3 className="mt-4 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium text-white">
               Check Your <strong className="font-bold">Loan Eligibility</strong>
             </h3>
             <p className="mt-1 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-white">
-              Find out your maximum loan sanction capacity across 25+ banks in
-              under 60 seconds with zero credit score impact.
+              Get an instant estimate of your eligible loan options across 25+ lenders — no paperwork, no CIBIL score impact.
             </p>
 
             <div className="mt-8 flex items-center">

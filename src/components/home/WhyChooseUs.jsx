@@ -2,19 +2,27 @@ import Image from "next/image";
 import ShieldCheckIcon from "../../../public/icons/ShieldCheckIcon";
 import CircleXIcon from "../../../public/icons/CircleXIcon";
 
-const comparisonPoints = [
-  "50+ Lenders analyzed simultaneously to negotiate lowest ROI",
-  "Algorithmic multi-bank matching ensures >95% sanction chance",
-  "Dedicated Relationship Manager picks up and organizes paperwork",
-  "100% Free DSA Advisory Service (zero cost to borrower)",
-  "24 to 48 Hours Disbursal with digital pre-approval",
+const PayYouAdvisory = [
+  "Simultaneous comparison across 25+ lenders, banks & NBFCs for the best rate",
+  "Smart matching algorithm for a sanction success rate above 95%",
+  "A dedicated Relationship Manager handles your paperwork end-to-end",
+  "Completely free advisory — you never pay us a fee",
+  "Digital pre-approval with disbursal in as little as 24–48 hours",
+];
+
+const traditionalBankVisit = [
+  "Single-bank offer, no rate comparison",
+  "No fallback if one bank rejects your application",
+  "Self-managed paperwork and follow-ups",
+  "Standard fees apply, rarely negotiated",
+  "Longer, branch-dependent disbursal timelines",
 ];
 
 const stats = [
-  ["50+", "Lending Partners"],
-  ["₹500+ Cr", "Disbursed"],
-  ["100%", "Data Encryption"],
-  ["Zero", "Service Charge"],
+  ["25+ Banks & NBFCs"],
+  ["₹500+ Crore Loans Disbursed"],
+  ["Bank-Grade Data Security"],
+  ["No Advisory Fees, Ever"],
 ];
 
 export default function WhyChooseUs() {
@@ -32,13 +40,11 @@ export default function WhyChooseUs() {
 
       <div className="relative mx-auto max-w-(--content-width)">
         <h2 className="mb-2.5 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
-          Why Borrowers Choose{" "}
-          <strong className="font-bold text-primary">PayYou Advisory</strong>
+          What Makes {" "}
+          <strong className="font-bold text-primary">PayYouAdvisory Different?</strong>
         </h2>
         <p className="mb-5 lg:mb-8 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#334155] max-w-full lg:max-w-[70%]">
-          Direct comparison table of public and private sector banks in India.
-          PayYouAdvisory negotiates institutional processing fee waivers and
-          preferential interest rate spreads for qualified applicants.
+          PayYouAdvisory assists eligible applicants to negotiate waivers on institutional processing fees and preferential interest rate spreads across Indian public and private sector banks.
         </p>
 
         <div className="grid grid-cols-[1fr_1fr_28%] gap-6 max-[1100px]:grid-cols-1">
@@ -52,7 +58,7 @@ export default function WhyChooseUs() {
               </span>
             </div>
             <ul className="mt-6 flex flex-col">
-              {comparisonPoints.map((point, index) => (
+              {PayYouAdvisory.map((point, index) => (
                 <li
                   key={point}
                   className={`flex items-center gap-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
@@ -62,7 +68,7 @@ export default function WhyChooseUs() {
                       <ShieldCheckIcon size={20} />
                     </span>
                     <span
-                      className={`flex-1 py-3 ${index !== comparisonPoints.length - 1 ? "border-b border-white/18" : ""}`}
+                      className={`flex-1 py-3 ${index !== PayYouAdvisory.length - 1 ? "border-b border-white/18" : ""}`}
                     >
                       {point}
                     </span>
@@ -77,7 +83,7 @@ export default function WhyChooseUs() {
               Traditional Bank Visit
             </h3>
             <ul className="mt-6 flex flex-col">
-              {comparisonPoints.map((point, index) => (
+              {traditionalBankVisit.map((point, index) => (
                 <li
                   key={point}
                   className={`flex items-start gap-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
@@ -87,7 +93,7 @@ export default function WhyChooseUs() {
                       <CircleXIcon size={20} />
                     </span>
                     <span
-                      className={`flex-1 py-3 ${index !== comparisonPoints.length - 1 ? "border-b border-[#B5BBC1]" : ""}`}
+                      className={`flex-1 py-3 ${index !== traditionalBankVisit.length - 1 ? "border-b border-[#B5BBC1]" : ""}`}
                     >
                       {point}
                     </span>
