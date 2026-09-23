@@ -42,7 +42,7 @@ export default function WhyChooseUs() {
         </p>
 
         <div className="grid grid-cols-[1fr_1fr_28%] gap-6 max-[1100px]:grid-cols-1">
-          <div className="rounded-2xl bg-primary/15 p-7 shadow-[0px_8px_18px_rgba(0,46,102,0.14902)] backdrop-blur-lg">
+          <div className="bg-glass-effect rounded-2xl bg-primary/15 p-7 shadow-[0px_8px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-primary">
                 PayYou Advisory
@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
             </ul>
           </div>
 
-          <div className="rounded-[18px] border border-[#E0E0E0] bg-[rgba(78,88,104,0.15)] p-7 shadow-[7px_14px_18px_rgba(0,46,102,0.14902)] backdrop-blur-lg">
+          <div className="bg-glass-effect rounded-[18px] bg-[rgba(78,88,104,0.15)] p-7 shadow-[7px_14px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
             <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-[#333333]">
               Traditional Bank Visit
             </h3>
@@ -102,7 +102,7 @@ export default function WhyChooseUs() {
           {stats.map(([value, label]) => (
             <div
               key={label}
-              className="rounded-xl border border-white/20 bg-[rgba(248,245,240,0.12)] text-center shadow-[2px_2px_4px_rgba(0,0,0,0.25)] backdrop-blur-sm"
+              className="bg-glass-effect rounded-xl bg-[rgba(248,245,240,0.12)] text-center shadow-[2px_2px_4px_rgba(0,0,0,0.25)] backdrop-blur-sm"
             >
               <p className="m-0 text-[16px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-ink py-[1.3636em] px-[1.5em]">
                 <span className="">{value}</span> {label}

@@ -61,10 +61,10 @@ export default function OfficeLocations() {
                 <Link
                   key={item.name}
                   href={`/contact-us/branch/${item.slug}`}
-                  className={`block py-4 transition hover:bg-white/20 ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}
+                  className={`block py-4 transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}
                 >
                   <div className="mt-1 flex items-center gap-2">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-glass-effect bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>
                     <div>
                       <p className="text-[11px] text-[#4B5563]">Distance unavailable</p>
                       <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-primary leading-[1.3]">{item.name}</p>

@@ -167,7 +167,7 @@ export default function HeroSection() {
                         </div>
                     </div>
                     <form
-                        className="flex basis-[35%] flex-col gap-[17px] rounded-[19px] bg-primary/20 backdrop-blur-lg p-[22px] text-white max-[1023px]:w-full border border-white/20"
+                        className="bg-glass-effect flex basis-[35%] flex-col gap-[17px] rounded-[19px] bg-primary/20 backdrop-blur-lg p-[22px] text-white max-[1023px]:w-full"
                         action="mailto:info@payyouadvisory.com"
                         method="post"
                         encType="text/plain"
@@ -250,7 +250,7 @@ export default function HeroSection() {
                 {stats.map(([Icon, value, label]) => (
                     <div
                         key={label}
-                        className="text-center flex items-center justify-center gap-4 rounded-xl bg-primary/08 lg:bg-white/55 backdrop-blur-lg px-2 md:px-[clamp(0.625rem,-0.2996rem+1.083vw,1rem)] py-3 md:py-[clamp(0.625rem,-0.9161rem+1.8051vw,1.25rem)] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(16,25,43,0.18)]"
+                        className="bg-glass-effect text-center flex items-center justify-center gap-4 rounded-xl bg-primary/08 lg:bg-white/55 backdrop-blur-lg px-2 md:px-[clamp(0.625rem,-0.2996rem+1.083vw,1rem)] py-3 md:py-[clamp(0.625rem,-0.9161rem+1.8051vw,1.25rem)] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(16,25,43,0.18)]"
                     >
                         <div>
                             <p className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.375rem,-0.7825rem+2.5271vw,2.25rem)] font-semibold text-ink leading-[1.2]">

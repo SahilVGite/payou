@@ -98,7 +98,7 @@ export default function Testimonials() {
             >
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <article className="flex h-full flex-col rounded-[18px] border border-[#dce1e7] bg-white p-6 transition">
+                  <article className="flex h-full flex-col rounded-2xl border border-black/25 shadow-[2px_2px_4px_rgba(0,0,0,0.25)] bg-white p-6 mx-1 transition">
                     <div className="flex gap-0.5">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <StarIcon

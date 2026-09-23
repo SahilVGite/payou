@@ -284,7 +284,7 @@ export default function FinancialSolutions() {
                   const CardIcon = card.icon;
                   return (
                     <SwiperSlide key={card.id}>
-                      <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/40 transition group">
+                      <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/50 transition group">
                         <div className="relative w-full bg-[#eaf1fb]">
                           <img src={card.image} alt={card.title} className="object-cover aspect-4/3 group-hover:scale-105 transition-transform duration-300" />
                           <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white group-hover:bg-white/30 group-hover:backdrop-blur-sm text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">

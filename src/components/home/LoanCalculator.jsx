@@ -235,7 +235,7 @@ export default function LoanCalculator() {
               </div>
             </div>
 
-            <div className="flex flex-col text-white rounded-3xl bg-white/2 shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] py-4 md:py-7 px-4 md:px-8 border border-white/20">
+            <div className="bg-glass-effect flex flex-col text-white rounded-3xl bg-white/2 shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] py-4 md:py-7 px-4 md:px-8">
               <p className="text-[11px] md:text-[12px] lg:text-[13px] font-semibold uppercase tracking-[0.08em] text-white">
                 Estimated Monthly Outgo
               </p>

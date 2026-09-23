@@ -33,7 +33,7 @@ export default function GrievanceDispute() {
         {cards.map(({ title, description, image, bg, cta }) => (
           <div
             key={title}
-            className={`relative overflow-hidden rounded-4xl ${bg} p-8 md:pb-50 md:pr-32 backdrop-blur-lg shadow-[inset_5px_5px_12px_rgba(0,0,0,0.1)]`}
+            className={`bg-glass-effect relative overflow-hidden rounded-4xl ${bg} p-8 md:pb-50 md:pr-32 backdrop-blur-lg shadow-[inset_5px_5px_12px_rgba(0,0,0,0.1)]`}
           >
             <h3 className="text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[26px] lg:text-[clamp(2.25rem,2.5rem+-0.3125vw,2.125rem)] font-semibold text-ink">
               {title}

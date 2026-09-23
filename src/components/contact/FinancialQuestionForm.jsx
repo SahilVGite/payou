@@ -88,7 +88,7 @@ export default function FinancialQuestionForm({
                     key={`${label}-${index}`}
                     className="flex items-center gap-2.5 text-[clamp(0.75rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.8125rem,0.042rem+0.9025vw,1.125rem)] font-semibold text-white"
                   >
-                    <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 border border-white/30 shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
+                    <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 bg-glass-effect shrink-0 items-center justify-center rounded-full backdrop-blur-xs bg-white/10">
                       <Icon size={20} className={"[@media(max-width:1700px)]:w-4 [@media(max-width:1700px)]:h-4"} />
                     </span>
                     {label}
@@ -104,7 +104,7 @@ export default function FinancialQuestionForm({
                   href={href}
                   className="flex items-center gap-4 rounded-2xl bg-[rgba(255,255,255,0.08)] backdrop-blur-xs border border-white/30 px-5 py-2.5 [@media(min-width:1700px)]:py-3.5 transition hover:bg-white/15"
                 >
-                  <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 border border-white/30 backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 bg-glass-effect backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">
                     <Icon size={20} className={"[@media(max-width:1700px)]:w-4 [@media(max-width:1700px)]:h-4"} />
                   </span>
                   <span className="flex flex-col">
@@ -121,7 +121,7 @@ export default function FinancialQuestionForm({
           </div>
 
           <form
-            className="flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] border border-white/20 backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
+            className="flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
             action={`mailto:${email}`}
             method="post"
             encType="text/plain"

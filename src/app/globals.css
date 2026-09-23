@@ -224,3 +224,35 @@
     width: 18px;
   }
 }
+
+
+
+
+.bg-glass-effect {
+  position: relative;
+  overflow: hidden;
+
+  /* box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03); */
+}
+
+.bg-glass-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+
+  background:
+    linear-gradient(136deg, #ffffff 0%, #ffffffba 25%, #fff0 38% 55%), linear-gradient(325deg, #ffffff 0%, #ffffffba 25%, #fff0 38% 55%);
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+}
