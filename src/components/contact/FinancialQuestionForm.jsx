@@ -226,7 +226,7 @@ export default function FinancialQuestionForm({
               </span>
               <span className="">
                 I agree to be connected by PayYou Advisory. I accept the{" "}
-                <Link href="/privacy-policy" className="underline text-[#7EB6FF]">
+                <Link href="/" className="underline text-[#7EB6FF]">
                   Privacy Policy
                 </Link>{" "}
                 and consent to receive communication.

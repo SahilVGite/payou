@@ -77,6 +77,10 @@ export default function HeroSection() {
         }
 
         function handleWheel(event) {
+            // Respect anything that already claimed this event (e.g. scrolling inside the
+            // header's mega menu) — this listener is on window, so it still sees the event
+            // after that, and would otherwise yank the page down regardless.
+            if (event.defaultPrevented) return;
             if (tryJump(event.deltaY > 0)) event.preventDefault();
         }
 

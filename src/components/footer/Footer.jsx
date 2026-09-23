@@ -24,14 +24,16 @@ import Collapse from "../common/Collapse";
 import Dropdown from "../common/Dropdown";
 import { footerCategories } from "../../data/navigation";
 
+// Only Home and Contact Us are real pages for now — every other label keeps its text but
+// points at "/" until its page exists, rather than 404ing.
 const quickLinks = [
-  ["About Us", "/about-us"],
-  ["FAQ", "/faq"],
+  ["About Us", "/"],
+  ["FAQ", "/"],
   ["Contact Us", "/contact-us"],
-  ["Blog", "/blog"],
-  ["Privacy Policy", "/privacy-policy"],
-  ["Disclaimer", "/privacy-policy"],
-  ["Terms & Conditions", "/privacy-policy"],
+  ["Blog", "/"],
+  ["Privacy Policy", "/"],
+  ["Disclaimer", "/"],
+  ["Terms & Conditions", "/"],
 ];
 const partners = [
   "SBI",
@@ -271,10 +273,10 @@ export default function Footer() {
       <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
         <span>
-          <Link href="/privacy-policy">Privacy Policy</Link> &nbsp;|&nbsp;{" "}
-          <Link href="/privacy-policy">Terms &amp; Conditions</Link>{" "}
-          &nbsp;|&nbsp; <Link href="/privacy-policy">Cookie Policy</Link>{" "}
-          &nbsp;|&nbsp; <Link href="/privacy-policy">Disclaimer</Link>
+          <Link href="/">Privacy Policy</Link> &nbsp;|&nbsp;{" "}
+          <Link href="/">Terms &amp; Conditions</Link>{" "}
+          &nbsp;|&nbsp; <Link href="/">Cookie Policy</Link>{" "}
+          &nbsp;|&nbsp; <Link href="/">Disclaimer</Link>
         </span>
       </div>
     </footer>

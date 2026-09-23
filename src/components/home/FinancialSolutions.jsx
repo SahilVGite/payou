@@ -201,7 +201,7 @@ export default function FinancialSolutions() {
           })}
         </div>
 
-        <div className="grid grid-cols-[290px_1fr] gap-8 max-[1024px]:grid-cols-1">
+        <div className="grid grid-cols-[327px_1fr] gap-8 max-[1024px]:grid-cols-1">
           <div className="hidden flex-col overflow-hidden rounded-2xl border border-[#dce1e7] bg-white lg:flex">
             {sidebarItems.map((item, index) => {
               const isActive = item === activeItem;
