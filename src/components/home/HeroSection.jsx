@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
 import { Handshake, ShieldCheck, Timer, Users } from "lucide-react";
+import "swiper/css";
+import "swiper/css/effect-fade";
 import Select from "../common/Select";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 
@@ -15,6 +19,92 @@ const stats = [
 
 const incomeTicks = ["1L", "2L", "3L", "4L", "5L", "6L"];
 
+// Only the title/subtext (and, once real per-banner footage exists, the background video)
+// rotate — the CTAs, the eligibility form, and the stats row below stay fixed across every
+// slide, matching the given copy where "CTA will be same across all". Every slide points at
+// the same video file for now as a placeholder; swap a slide's `video` to give it its own
+// clip whenever that footage is ready — the player already re-sources itself from whichever
+// slide is active, no other code needs to change.
+//
+// titleLead/titleAccent/each subtextLines entry are rendered via dangerouslySetInnerHTML
+// (same pattern as the branch addresses in data/branches.js), so a literal `<br />` (or other
+// simple inline markup) can be dropped into any of these strings to force a manual line break
+// — it renders as a real break instead of showing up as text.
+const heroSlides = [
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Personal Loans  <br /> Made Simple: ",
+        titleAccent: "Compare, Apply,  <br /> Get Approved",
+        subtextLines: [
+            "From wedding expenses to medical emergencies,",
+            "get matched with the right lender in minutes.",
+            "A DSA-trusted & approved loan advisory",
+            "comparing rates across 25+ lenders.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Fuel Your Business with the ",
+        titleAccent: "RBI-regulated  <br /> Bank & NBFC Network",
+        subtextLines: [
+            "Skip long loan approvals and paperwork.",
+            "Compare business loan offers from 25+",
+            "DSA-trusted & approved lenders and",
+            "get funded faster.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Secure Your ",
+        titleAccent: "Dream Home Today!",
+        subtextLines: [
+            "Buying, building, or renovating — we compare",
+            "rates across multiple banks and NBFCs so",
+            "you get best terms in your favour.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Evaluate Your<br /> Property's Value with Our ",
+        titleAccent: "Expert Loan Advisory",
+        subtextLines: [
+            "Why sell when you can leverage? We compare",
+            "Loan Against Property offers from",
+            "DSA-trusted & approved lenders.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Instant Gold Loans, ",
+        titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
+        subtextLines: [
+            "Need funds today? Get quick approvals and",
+            "competitive rates across — backed by a",
+            "trusted & approved advisory team.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "Fund Your Future — ",
+        titleAccent: "Education Loans, <br />  Simplified",
+        subtextLines: [
+            "Studying in India or abroad, get expert loan",
+            "advisory so your education plans stay",
+            "on track, not on hold.",
+        ],
+    },
+    {
+        video: "/videos/hero-family.mp4",
+        titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
+        titleAccent: "Financed Right",
+        subtextLines: [
+            "Quick, flexible loans for vehicles and",
+            "everyday needs, matched across trusted &",
+            "approved lenders by expert loan advisors.",
+        ],
+    },
+];
+
 export default function HeroSection() {
     const incomeField = useEditableNumber(200000, {
         min: 100000,
@@ -23,6 +113,7 @@ export default function HeroSection() {
     });
     const income = incomeField.value;
     const statsRef = useRef(null);
+    const [activeSlide, setActiveSlide] = useState(0);
 
     // Repeatable scroll hijack: the moment the visitor makes a downward scroll gesture
     // (wheel, trackpad, touch swipe, or keyboard) while still above the stats row, we
@@ -128,23 +219,47 @@ export default function HeroSection() {
                     muted
                     loop
                     playsInline
-                    poster="/videos/hero-family.mp4"
+                    poster={heroSlides[activeSlide].video}
                 >
-                    <source src="/videos/hero-family.mp4" type="video/mp4" />
+                    <source src={heroSlides[activeSlide].video} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(19,75,150,0.4)_0%,rgba(19,75,150,0.4)_100%)] max-[1023px]:backdrop-blur-sm lg:bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)]" />
                 <div className="relative w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
-                    <div className="flex-1 pb-12 max-[800px]:pb-4 w-full">
-                        <h1 className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-white lg:text-ink">
-                            Personal Loans Made Simple: 
-                            <br className="[@media(max-width:1024px)]:hidden" />
-                            <strong className="font-bold text-accent">
-                                Compare, Apply, Get Approved
-                            </strong>
-                        </h1>
-                        <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-white lg:text-ink max-[800px]:text-[15px]">
-                            From wedding expenses to medical emergencies,  <br className="[@media(max-width:1024px)]:hidden" />get matched with the right lender in minutes.  <br className="[@media(max-width:1024px)]:hidden" />A DSA-trusted & approved loan advisory  <br className="[@media(max-width:1024px)]:hidden" />comparing rates across 25+ lenders.
-                        </p>
+                    <div className="min-w-0 flex-1 pb-12 max-[800px]:pb-4 w-full">
+                        <Swiper
+                            modules={[Autoplay, EffectFade]}
+                            effect="fade"
+                            fadeEffect={{ crossFade: true }}
+                            speed={800}
+                            loop
+                            autoHeight
+                            allowTouchMove={false}
+                            autoplay={{ delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                            onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
+                        >
+                            {heroSlides.map((slide, index) => (
+                                <SwiperSlide key={index}>
+                                    <h1 className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-white lg:text-ink">
+                                        <span dangerouslySetInnerHTML={{ __html: slide.titleLead }} />
+                                        <br className="[@media(max-width:1024px)]:hidden" />
+                                        <strong
+                                            className="font-bold text-accent"
+                                            dangerouslySetInnerHTML={{ __html: slide.titleAccent }}
+                                        />
+                                    </h1>
+                                    <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-white lg:text-ink max-[800px]:text-[15px]">
+                                        {slide.subtextLines.map((line, lineIndex) => (
+                                            <Fragment key={lineIndex}>
+                                                <span dangerouslySetInnerHTML={{ __html: line }} />{" "}
+                                                {lineIndex < slide.subtextLines.length - 1 ? (
+                                                    <br className="[@media(max-width:1024px)]:hidden" />
+                                                ) : null}
+                                            </Fragment>
+                                        ))}
+                                    </p>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                         <div className="flex gap-2 md:gap-4.5 max-[480px]:flex-col">
                             <Link
                                 href="/contact-us"

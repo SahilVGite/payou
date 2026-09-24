@@ -70,7 +70,7 @@ export default function RateComparison() {
     <section className="secGap px-[4%]" style={{ backgroundImage: "url('/images/Indias_Top_Lenders_Bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2.5 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] tracking-[-1px] text-ink">
-          Live Interest Rate Comparison Across{" "}
+          Best Interest Rate Comparison Across{" "}
           <strong className="font-bold text-primary">India&apos;s Top Lenders</strong>
         </h2>
         <p className="mb-[2.7em] text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
