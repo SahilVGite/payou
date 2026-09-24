@@ -4,11 +4,10 @@ import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
-import { Handshake, ShieldCheck, Timer, Users } from "lucide-react";
+import { ChevronLeft, ChevronRight, Handshake, ShieldCheck, Timer, Users } from "lucide-react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import Select from "../common/Select2Field";
-import { useEditableNumber } from "../../hooks/useEditableNumber";
+import EligibilityForm from "./EligibilityForm";
 
 const stats = [
     [Handshake, "25+", "Leading Partners"],
@@ -16,8 +15,6 @@ const stats = [
     [Timer, "5", "Years of Experience"],
     [Users, "100+", "Loan Processed"],
 ];
-
-const incomeTicks = ["1L", "2L", "3L", "4L", "5L", "6L"];
 
 // Only the title/subtext (and, once real per-banner footage exists, the background video)
 // rotate — the CTAs, the eligibility form, and the stats row below stay fixed across every
@@ -106,14 +103,9 @@ const heroSlides = [
 ];
 
 export default function HeroSection() {
-    const incomeField = useEditableNumber(200000, {
-        min: 100000,
-        max: 600000,
-        format: (value) => value.toLocaleString("en-IN"),
-    });
-    const income = incomeField.value;
     const statsRef = useRef(null);
     const [activeSlide, setActiveSlide] = useState(0);
+    const [swiperInstance, setSwiperInstance] = useState(null);
 
     // Repeatable scroll hijack: the moment the visitor makes a downward scroll gesture
     // (wheel, trackpad, touch swipe, or keyboard) while still above the stats row, we
@@ -212,19 +204,9 @@ export default function HeroSection() {
 
     return (
         <section className="relative bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_180%)]">
-            <div className="relative min-h-[80dvh] secGap [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-center bg-white">
-                <video
-                    className="absolute inset-0 h-full w-full object-cover lg:object-contain object-bottom lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster={heroSlides[activeSlide].video}
-                >
-                    <source src={heroSlides[activeSlide].video} type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(19,75,150,0.4)_0%,rgba(19,75,150,0.4)_100%)] max-[1023px]:backdrop-blur-sm lg:bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)]" />
-                <div className="relative w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
+            <div className="relative min-h-[88dvh] lg:min-h-[80dvh] secGap [@media(max-width:1023px)]:pb-0! [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center bg-white">
+                <div className="absolute z-10 inset-0 bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)]" />
+                <div className="relative z-20 w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
                     <div className="min-w-0 flex-1 pb-12 max-[800px]:pb-4 w-full">
                         <Swiper
                             modules={[Autoplay, EffectFade]}
@@ -235,19 +217,20 @@ export default function HeroSection() {
                             autoHeight
                             allowTouchMove={false}
                             autoplay={{ delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                            onSwiper={setSwiperInstance}
                             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                         >
                             {heroSlides.map((slide, index) => (
                                 <SwiperSlide key={index}>
-                                    <h1 className="m-0 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-white lg:text-ink">
-                                        <span dangerouslySetInnerHTML={{ __html: slide.titleLead }} />
-                                        <br className="[@media(max-width:1024px)]:hidden" />
+                                    <h1 className="m-0 text-[23px] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-ink">
+                                        <span className="[&_br]:hidden lg:[&_br]:inline" dangerouslySetInnerHTML={{ __html: slide.titleLead }} />
+                                        <br />
                                         <strong
-                                            className="font-bold text-accent"
+                                            className="font-bold text-accent [&_br]:hidden lg:[&_br]:inline"
                                             dangerouslySetInnerHTML={{ __html: slide.titleAccent }}
                                         />
                                     </h1>
-                                    <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-white lg:text-ink max-[800px]:text-[15px]">
+                                    <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-ink max-[800px]:text-[15px]">
                                         {slide.subtextLines.map((line, lineIndex) => (
                                             <Fragment key={lineIndex}>
                                                 <span dangerouslySetInnerHTML={{ __html: line }} />{" "}
@@ -275,81 +258,39 @@ export default function HeroSection() {
                             </Link>
                         </div>
                     </div>
-                    <form
-                        className="bg-glass-effect flex basis-[35%] flex-col gap-[17px] rounded-[19px] bg-primary/20 backdrop-blur-lg p-[22px] text-white max-[1023px]:w-full"
-                        action="mailto:info@payyouadvisory.com"
-                        method="post"
-                        encType="text/plain"
-                    >
-                        <h2 className="m-0 text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.6336rem+0.722vw,1.5rem)] font-bold text-white">
-                            Instant Loan Eligibility Check
-                        </h2>
-                        <label className="relative flex flex-col text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-[#EEE8E8] font-semibold">
-                            <span className="mb-2.5">Required Facility <em className="text-accent">*</em></span>
-                            <Select
-                                className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] block w-full rounded-full border-0 bg-white/90 py-[13px] pl-[18px] pr-10 text-[#4B5563]"
-                                defaultValue="Personal Loan"
-                                name="facility"
-                            >
-                                <option>Personal Loan</option>
-                                <option>Business Loan</option>
-                                <option>Home Loan</option>
-                                <option>Loan Against Property</option>
-                                <option>Gold Loan</option>
-                            </Select>
-                        </label>
-                        <label className="relative text-sm font-semibold">
-                            Your Income{" "}
-                            <span className="float-right flex items-center gap-1 rounded border border-white px-2 py-1.5">
-                                <span>₹</span>
-                                <input
-                                    type="text"
-                                    inputMode="decimal"
-                                    aria-label="Your income"
-                                    value={incomeField.text}
-                                    onChange={(event) => incomeField.handleChange(event.target.value)}
-                                    onFocus={incomeField.handleFocus}
-                                    onBlur={incomeField.handleBlur}
-                                    className="w-16 bg-transparent text-white outline-none"
-                                />
-                            </span>
-                            <input
-                                className="range-slider mt-5 block w-full"
-                                type="range"
-                                min="100000"
-                                max="600000"
-                                value={income}
-                                step="100000"
-                                onChange={(event) => incomeField.setFromSlider(Number(event.target.value))}
-                                style={{
-                                    "--range-progress": `${((income - 100000) / (600000 - 100000)) * 100}%`,
-                                }}
-                            />
-                            <span className="flex justify-between text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-white mt-[1.25em]">
-                                {incomeTicks.map((tick) => (
-                                    <span key={tick}>{tick}</span>
-                                ))}
-                            </span>
-                        </label>
-                        <label className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]]">
-                            Mobile Number
-                            <input
-                                className="mt-2.5 block w-full rounded-full border-0 bg-white/90 px-[18px] py-[13px] text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
-                                name="mobile"
-                                placeholder="+91 Enter Mobile Number"
-                            />
-                        </label>
+                    <div className="hidden lg:block"><EligibilityForm /></div>
+                    <div className="lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5">
                         <button
-                            className="w-full rounded-full border-0 bg-primary py-[1.0666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-[#0e3a75] hover:shadow-[0_6px_14px_rgba(19,75,150,0.35)] cursor-pointer"
-                            type="submit"
+                            type="button"
+                            onClick={() => swiperInstance?.slidePrev()}
+                            aria-label="Previous"
+                            className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
                         >
-                            CHECK FREE ELIGIBILITY
+                            <ChevronLeft size={20} />
                         </button>
-                        <p className="m-0 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#DADADA]">
-                            We charge zero processing fees and keep your credit score safe. No hidden charges.
-                        </p>
-                    </form>
+                        <button
+                            type="button"
+                            onClick={() => swiperInstance?.slideNext()}
+                            aria-label="Next"
+                            className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
                 </div>
+                <video
+                    className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster={heroSlides[activeSlide].video}
+                >
+                    <source src={heroSlides[activeSlide].video} type="video/mp4" />
+                </video>
+            </div>
+            <div className="block lg:hidden px-[4%] mt-(--sec-gap)">
+                <EligibilityForm />
             </div>
             <div
                 ref={statsRef}
