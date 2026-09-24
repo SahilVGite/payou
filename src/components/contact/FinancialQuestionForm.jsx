@@ -15,7 +15,7 @@ const highlights = [
   [LoanGuidanceIcon, "Loan Guidance"],
   [InterestRateEnquiryIcon, "Interest Rate Enquiry"],
   [ApplicationSupportIcon, "Application Support"],
-  [ApplicationSupportIcon, "Application Support"],
+  // [ApplicationSupportIcon, "Application Support"],
 ];
 
 const DEFAULT_PHONE = "020 2735 0055";

@@ -16,6 +16,13 @@ export const branches = [
     whatsapp: "+91 91755 35507",
     email: "care@payyouadvisory.com",
     hours: "Open Now (Closes 5:00 PM)",
+    branchCode: "PAY-CHI-001",
+    timing: "Monday – Saturday, 10:00 AM – 7:00 PM",
+    pincode: "411033",
+    // Placeholder only — PayYou Advisory is a loan advisory firm, not a bank, so this isn't
+    // a real RBI-assigned IFSC. Replace with a real value (or drop the field/UI row) once
+    // there's an actual code to show here.
+    ifscCode: "PAYU0000001",
   },
   {
     slug: "bhigwan-chowk-baramati-pune",
@@ -30,6 +37,11 @@ export const branches = [
     whatsapp: "+91 91755 35507",
     email: "care@payyouadvisory.com",
     hours: "Open Now (Closes 5:00 PM)",
+    branchCode: "PAY-BAR-001",
+    timing: "Monday – Saturday, 10:00 AM – 7:00 PM",
+    pincode: "413102",
+    // Placeholder only — see note on the first branch above.
+    ifscCode: "PAYU0000002",
   },
   {
     slug: "laxminagar-phaltan-satara",
@@ -46,5 +58,10 @@ export const branches = [
     whatsapp: "+91 84248 12345",
     email: "care@payyouadvisory.com",
     hours: "Open Now (Closes 5:00 PM)",
+    branchCode: "PAY-PHL-001",
+    timing: "Monday – Saturday, 10:00 AM – 7:00 PM",
+    pincode: "415523",
+    // Placeholder only — see note on the first branch above.
+    ifscCode: "PAYU0000003",
   },
 ];

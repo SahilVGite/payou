@@ -76,7 +76,7 @@ export default function OfficeLocations() {
                   type="button"
                   onClick={() => selectBranch(item.slug)}
                   aria-pressed={activeSlug === item.slug}
-                  className={`block w-full py-4 text-left transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""} ${activeSlug === item.slug ? "bg-white/40" : ""}`}
+                  className={`block w-full py-4 text-left transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""} ${activeSlug === item.slug ? "bg-white" : ""}`}
                 >
                   <div className="mt-1 flex items-center gap-2">
                     <span className="flex h-10 w-10 items-center justify-center rounded-full bg-glass-effect bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>

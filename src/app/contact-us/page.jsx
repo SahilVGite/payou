@@ -1,3 +1,4 @@
+import OurOfficesCards from "@/components/contact/OurOfficesCards";
 import ContactHero from "../../components/contact/ContactHero";
 import FinancialQuestionForm from "../../components/contact/FinancialQuestionForm";
 import GrievanceDispute from "../../components/contact/GrievanceDispute";
@@ -11,6 +12,7 @@ export default function ContactUsPage() {
     <>
       <ContactHero />
       <FinancialQuestionForm />
+      <OurOfficesCards />
       <GrievanceDispute />
       <NextStepBanner />
       <OfficeLocations />

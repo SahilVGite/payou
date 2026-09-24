@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ContactHero from "../../../../components/contact/ContactHero";
-import FinancialQuestionForm from "../../../../components/contact/FinancialQuestionForm";
+import BranchFinancialQuestionForm from "../../../../components/contact/BranchFinancialQuestionForm";
 import NextStepBanner from "../../../../components/contact/NextStepBanner";
 import { branches } from "../../../../data/branches";
 
@@ -28,16 +28,19 @@ export default async function BranchContactPage({ params }) {
         title={`${branch.city} Branch - Contact Us`}
         subtitle={`Connect with our ${branch.city} team for personalised financial guidance and assistance with your financial needs.`}
       />
-      <FinancialQuestionForm
+      <BranchFinancialQuestionForm
+        city={branch.city}
         phone={branch.phone}
         whatsapp={branch.whatsapp}
         email={branch.email}
-        officeLabel={branch.officeLabel}
-        officeHref="/contact-us#office-locations"
+        branchCode={branch.branchCode}
+        timing={branch.timing}
+        address={branch.address}
+        pincode={branch.pincode}
+        ifscCode={branch.ifscCode}
         mapQuery={branch.mapQuery}
-        gridCards
       />
-      <NextStepBanner />
+      <NextStepBanner variant="light" />
     </>
   );
 }

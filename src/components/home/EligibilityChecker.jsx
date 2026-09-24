@@ -61,7 +61,7 @@ const selectFieldClassName =
 const labelClassName =
   "block text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80";
 const continueButtonClassName =
-  "rounded-full w-full md:w-fit bg-accent px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]";
+  "rounded-full w-full md:w-fit bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(19,75,150,0.4)]";
 const backButtonClassName =
   "rounded-full w-full md:w-fit border border-[#dce1e7] px-8 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white cursor-pointer transition hover:border-[#134b96] hover:text-[#134b96]";
 
@@ -157,7 +157,7 @@ export default function EligibilityChecker() {
   const indicativeEmi = estimateEmi(displayAmount, loanTenure);
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(103.18deg,#6F1212_1.14%,#B52024_58.49%,#F74C4A_100%)] secGap px-[4%]">
+    <section className="relative overflow-hidden bg-primary secGap px-[4%]">
       <div className="relative mx-auto max-w-(--content-width)">
         <div className="grid grid-cols-[0.85fr_0.85fr_1fr] items-start gap-8 max-[1024px]:grid-cols-1">
           <h2 className="text-[28px] md:text-[38px] lg:text-[clamp(2.125rem,1.2679rem+1.3393vw,2.875rem)] font-semibold leading-tight text-white">
@@ -188,7 +188,7 @@ export default function EligibilityChecker() {
 
         <div className="bg-glass-effect relative mt-(--sec-gap) md:mt-5 lg:mt-8 overflow-hidden rounded-3xl bg-[#FBFDFF]/30 backdrop-blur-lg shadow-[0px_10px_28px_rgba(6,43,90,0.141176)]">
           <div className="relative p-8 max-[480px]:p-5">
-            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-accent">
+            <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-primary">
               60-Second Loan Check
             </span>
             <h3 className="mt-4 text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium text-white">
@@ -206,10 +206,10 @@ export default function EligibilityChecker() {
                 >
                   <div className="relative flex flex-col items-center gap-2">
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold border-2 border-accent transition ${
+                      className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold border-2 border-primary transition ${
                         index <= step
-                          ? "bg-[#b11f24] text-white"
-                          : "bg-white text-accent"
+                          ? "bg-primary text-white"
+                          : "bg-white text-primary"
                       }`}
                     >
                       {index + 1}
@@ -222,7 +222,7 @@ export default function EligibilityChecker() {
                   </div>
                   {index < steps.length - 1 ? (
                     <span
-                      className={`h-1 flex-1 transition ${index < step ? "bg-accent" : "bg-white"}`}
+                      className={`h-1 flex-1 transition ${index < step ? "bg-primary" : "bg-white"}`}
                     />
                   ) : null}
                 </div>
@@ -244,7 +244,7 @@ export default function EligibilityChecker() {
                         onClick={() => setSelectedProfile(key)}
                         className={`flex items-center justify-between gap-2 rounded-[14px] border-2 p-4 text-left cursor-pointer transition ${
                           isActive
-                            ? "border-accent bg-accent text-white"
+                            ? "border-primary bg-primary text-white"
                             : "border-[#D6DFEC] bg-white text-[#10192b]"
                         }`}
                       >
@@ -290,7 +290,7 @@ export default function EligibilityChecker() {
                     <button
                       type="button"
                       onClick={() => goToStep(1)}
-                      className="rounded-full w-full bg-accent px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
+                      className="rounded-full w-full bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
                     >
                       Continue to Income
                     </button>
@@ -455,7 +455,7 @@ export default function EligibilityChecker() {
                   </button>
                   <Link
                     href="/contact-us"
-                    className="rounded-full bg-accent px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
+                    className="rounded-full bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
                   >
                     Explore Loan Options
                   </Link>

@@ -371,9 +371,50 @@ const cardImages = [
   "/images/financial_solutions_card4.png",
 ];
 
+// Real per-product photos, keyed by each card's exact title. Any title not listed here
+// (padding aside — see padCards) falls back to the generic rotating cardImages above.
+const cardImageByTitle = {
+  "Personal Loan for Salaried": "/images/loan-type-images/personal-loan-for-salaried.jpg",
+  "Personal Loan for Self-Employed": "/images/loan-type-images/personal-loan-for-self-employeed.jpg",
+  "Balance Transfer of Personal Loans": "/images/loan-type-images/pre-aprroved-loan.jpg",
+  "Unsecured Business Loan": "/images/loan-type-images/unsecured-buisness.jpg",
+  "Loan for MSMEs": "/images/loan-type-images/loan-for-msme.jpg",
+  "Loan for Working Capital": "/images/loan-type-images/loan-for-workin-capital.jpg",
+  "Loan for Women Entrepreneurs": "/images/loan-type-images/women-enterprenuers.jpg",
+  "New Home Purchase Loan": "/images/loan-type-images/owenership-home.jpg",
+  "Home Construction Loan": "/images/loan-type-images/loan-for-home-construction.jpg",
+  "Transfer of Home Loan Balance + Top-up": "/images/loan-type-images/home-loan-transfer-balance.jpg",
+  "Commercial Real Estate Loan": "/images/loan-type-images/commercial-real-estate-loan.jpg",
+  "Mortgage Loan": "/images/loan-type-images/mortgage-loan.jpg",
+  "Discounting Lease Payments": "/images/loan-type-images/discounting-home-loan.png",
+  "Home Loan": "/images/loan-type-images/home-loan-free-ap.jpg",
+  "Loan Against Gold Jewellery": "/images/loan-type-images/gold-jewellery.jpg",
+  "Loan Sharing": "/images/loan-type-images/loan-sharing.jpg",
+  "Loan for Mutual Funds": "/images/loan-type-images/mutual-fund.jpg",
+  "Life Insurance Policy Loan": "/images/loan-type-images/loan-insurance-policy.jpg",
+  "Loan Against Fixed Deposits": "/images/loan-type-images/fixed-deposit.jpg",
+  "Two-Wheeler Loan": "/images/loan-type-images/bike-loan.jpg",
+  "Used Car / Pre-Owned Car Loan": "/images/loan-type-images/old-car-loans.jpg",
+  "Consumer Durable Loan (No Cost EMI)": "/images/loan-type-images/electron-appliance-loan.jpg",
+  "Car Loan": "/images/loan-type-images/car-loan.jpg",
+  "Domestic Education Loans": "/images/loan-type-images/domestic-edu-loan.jpg",
+  "Overseas Study Loan": "/images/loan-type-images/overseas-study.jpg",
+  "Loan for Education Without Collateral": "/images/loan-type-images/unsequer-funding-for-qualifying.jpg",
+  "Professional Course Education Loan": "/images/loan-type-images/prof-course-loan.jpg",
+  "Life Insurance": "/images/loan-type-images/life-insurance.jpg",
+  "Term Insurance": "/images/loan-type-images/term-insurance.png",
+  "Health Insurance": "/images/loan-type-images/health-insurance.jpg",
+  "Personal Accident Insurance": "/images/loan-type-images/accident-insurance.jpg",
+  "Fixed Deposits": "/images/loan-type-images/fixed-deposit.jpg",
+  "Recurring Deposit (RD)": "/images/loan-type-images/recuring-deposit.jpg",
+  "Daily Saving Plans": "/images/loan-type-images/daily-saving-plans.jpg",
+  "FD-Linked SIP": "/images/loan-type-images/fd-link-sip.jpg",
+};
+
 // Swiper's loop mode needs more slides than fit on screen at once (up to 3.6 visible on
 // wide desktops) to loop smoothly, so real 4-card sets are repeated up to a minimum count
-// rather than shown as a bare 4.
+// rather than shown as a bare 4. Padding duplicates a real card verbatim (including its own
+// image), so nothing here should overwrite the image already assigned below.
 function padCards(cards, minLength = 8) {
   const padded = [...cards];
   let i = 0;
@@ -384,7 +425,6 @@ function padCards(cards, minLength = 8) {
   return padded.map((card, index) => ({
     ...card,
     id: `${card.id}-${index}`,
-    image: cardImages[index % cardImages.length],
   }));
 }
 
@@ -395,7 +435,7 @@ const rawCardsByTabAndItem = {
       cards.map((card, i) => ({
         ...card,
         id: `Loans-${item}-${i}`,
-        image: cardImages[i % cardImages.length],
+        image: cardImageByTitle[card.title] ?? cardImages[i % cardImages.length],
       })),
     ]),
   ),
@@ -405,7 +445,7 @@ const rawCardsByTabAndItem = {
       insuranceCards.map((card, i) => ({
         ...card,
         id: `Insurance-${item}-${i}`,
-        image: cardImages[i % cardImages.length],
+        image: cardImageByTitle[card.title] ?? cardImages[i % cardImages.length],
       })),
     ]),
   ),
@@ -415,7 +455,7 @@ const rawCardsByTabAndItem = {
       investmentCards.map((card, i) => ({
         ...card,
         id: `Investments-${item}-${i}`,
-        image: cardImages[i % cardImages.length],
+        image: cardImageByTitle[card.title] ?? cardImages[i % cardImages.length],
       })),
     ]),
   ),

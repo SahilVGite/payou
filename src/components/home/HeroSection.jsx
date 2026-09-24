@@ -28,28 +28,28 @@ const stats = [
 // simple inline markup) can be dropped into any of these strings to force a manual line break
 // — it renders as a real break instead of showing up as text.
 const heroSlides = [
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "Personal Loans  <br /> Made Simple: ",
-        titleAccent: "Compare, Apply,  <br /> Get Approved",
-        subtextLines: [
-            "From wedding expenses to medical emergencies,",
-            "get matched with the right lender in minutes.",
-            "A DSA-trusted & approved loan advisory",
-            "comparing rates across 25+ lenders.",
-        ],
-    },
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "Fuel Your Business with the ",
-        titleAccent: "RBI-regulated  Bank & <br /> NBFC Network",
-        subtextLines: [
-            "Skip long loan approvals and paperwork.",
-            "Compare business loan offers from 25+",
-            "DSA-trusted & approved lenders and",
-            "get funded faster.",
-        ],
-    },
+    // {
+    //     video: "/videos/personalLoan.mp4",
+    //     titleLead: "Personal Loans  <br /> Made Simple: ",
+    //     titleAccent: "Compare, Apply,  <br /> Get Approved",
+    //     subtextLines: [
+    //         "From wedding expenses to medical emergencies,",
+    //         "get matched with the right lender in minutes.",
+    //         "A DSA-trusted & approved loan advisory",
+    //         "comparing rates across 25+ lenders.",
+    //     ],
+    // },
+    // {
+    //     video: "/videos/BusinessLoan.mp4",
+    //     titleLead: "Fuel Your Business with the ",
+    //     titleAccent: "RBI-regulated  Bank & <br /> NBFC Network",
+    //     subtextLines: [
+    //         "Skip long loan approvals and paperwork.",
+    //         "Compare business loan offers from 25+",
+    //         "DSA-trusted & approved lenders and",
+    //         "get funded faster.",
+    //     ],
+    // },
     {
         video: "/videos/hero-family.mp4",
         titleLead: "Secure Your ",
@@ -60,46 +60,46 @@ const heroSlides = [
             "you get best terms in your favour.",
         ],
     },
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "Evaluate Your<br /> Property's Value with Our ",
-        titleAccent: "Expert Loan Advisory",
-        subtextLines: [
-            "Why sell when you can leverage? We compare",
-            "Loan Against Property offers from",
-            "DSA-trusted & approved lenders.",
-        ],
-    },
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "Instant Gold Loans, ",
-        titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
-        subtextLines: [
-            "Need funds today? Get quick approvals and",
-            "competitive rates across — backed by a",
-            "trusted & approved advisory team.",
-        ],
-    },
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "Fund Your Future — ",
-        titleAccent: "Education Loans, <br />  Simplified",
-        subtextLines: [
-            "Studying in India or abroad, get expert loan",
-            "advisory so your education plans stay",
-            "on track, not on hold.",
-        ],
-    },
-    {
-        video: "/videos/hero-family.mp4",
-        titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
-        titleAccent: "Financed Right",
-        subtextLines: [
-            "Quick, flexible loans for vehicles and",
-            "everyday needs, matched across trusted &",
-            "approved lenders by expert loan advisors.",
-        ],
-    },
+    // {
+    //     video: "/videos/hero-family.mp4",
+    //     titleLead: "Evaluate Your<br /> Property's Value with Our ",
+    //     titleAccent: "Expert Loan Advisory",
+    //     subtextLines: [
+    //         "Why sell when you can leverage? We compare",
+    //         "Loan Against Property offers from",
+    //         "DSA-trusted & approved lenders.",
+    //     ],
+    // },
+    // {
+    //     video: "/videos/hero-family.mp4",
+    //     titleLead: "Instant Gold Loans, ",
+    //     titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
+    //     subtextLines: [
+    //         "Need funds today? Get quick approvals and",
+    //         "competitive rates across — backed by a",
+    //         "trusted & approved advisory team.",
+    //     ],
+    // },
+    // {
+    //     video: "/videos/educationLoan.mp4",
+    //     titleLead: "Fund Your Future — ",
+    //     titleAccent: "Education Loans, <br />  Simplified",
+    //     subtextLines: [
+    //         "Studying in India or abroad, get expert loan",
+    //         "advisory so your education plans stay",
+    //         "on track, not on hold.",
+    //     ],
+    // },
+    // {
+    //     video: "/videos/hero-family.mp4",
+    //     titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
+    //     titleAccent: "Financed Right",
+    //     subtextLines: [
+    //         "Quick, flexible loans for vehicles and",
+    //         "everyday needs, matched across trusted &",
+    //         "approved lenders by expert loan advisors.",
+    //     ],
+    // },
 ];
 
 export default function HeroSection() {
@@ -213,10 +213,10 @@ export default function HeroSection() {
                             effect="fade"
                             fadeEffect={{ crossFade: true }}
                             speed={800}
-                            loop
+                            loop={heroSlides.length > 1}
                             autoHeight
                             allowTouchMove={false}
-                            autoplay={{ delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                            autoplay={heroSlides.length > 1 ? { delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
                             onSwiper={setSwiperInstance}
                             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                         >
@@ -259,24 +259,26 @@ export default function HeroSection() {
                         </div>
                     </div>
                     <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm /></div>
-                    <div className="lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5">
-                        <button
-                            type="button"
-                            onClick={() => swiperInstance?.slidePrev()}
-                            aria-label="Previous"
-                            className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
-                        >
-                            <ChevronLeft size={20} />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => swiperInstance?.slideNext()}
-                            aria-label="Next"
-                            className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
-                        >
-                            <ChevronRight size={20} />
-                        </button>
-                    </div>
+                    {heroSlides.length > 1 ? (
+                        <div className="lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5">
+                            <button
+                                type="button"
+                                onClick={() => swiperInstance?.slidePrev()}
+                                aria-label="Previous"
+                                className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => swiperInstance?.slideNext()}
+                                aria-label="Next"
+                                className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                            >
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+                    ) : null}
                 </div>
                 <video
                     className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
