@@ -1,0 +1,135 @@
+/* Reskins the jQuery Select2 widget to match this site's own custom Dropdown component
+   (see Dropdown.jsx): a white rounded-full trigger pill and a blurred, rounded-xl options
+   panel with brand-primary hover/selected states, instead of Select2's default square,
+   blue-accented look. Select2 renders its own DOM outside React (usually appended to
+   <body>), so this has to be plain global CSS, not a scoped/Tailwind-in-JS approach.
+
+   Targets Select2's own default classes directly (not a custom per-instance marker class)
+   because Select2's containerCssClass/dropdownCssClass options route through internal
+   "compat/containerCss" and "compat/dropdownCss" submodules resolved via a runtime
+   `require(amdBase + 'compat/...')` call — a pattern this project's bundler doesn't resolve,
+   so those classes never actually land on the element. Every Select2Field on this site is
+   meant to look identical anyway, so theming the shared default classes achieves the same
+   result without depending on that broken option. */
+
+.select2-container .select2-selection--single {
+  height: auto !important;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid #dce1e7;
+  background-color: #fff;
+  padding: 0.75rem 2.5rem 0.75rem 1.125rem;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  padding: 0;
+  line-height: normal;
+  color: #10192b;
+  font-size: 0.875rem;
+}
+
+.select2-container .select2-selection--single .select2-selection__placeholder {
+  /* Matches the placeholder color used on this site's normal text/textarea inputs
+     (e.g. placeholder:text-[#4B5563] on the Contact form's Full Name/Email/Message
+     fields) — the only Select2 usage that actually shows a placeholder state is that
+     form's "Select a service" field, so it's themed to match its own sibling fields. */
+  color: #4b5563;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow {
+  height: 100%;
+  top: 0;
+  right: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow b {
+  display: none;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #5f6a7b;
+  border-bottom: 2px solid #5f6a7b;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+  transform: rotate(-135deg) translateY(2px);
+}
+
+.select2-container .select2-selection--single:focus,
+.select2-container--focus .select2-selection--single {
+  outline: none;
+  box-shadow: none;
+  border-color: #dce1e7;
+}
+
+/* The options panel — matches Dropdown.jsx's <ul>: rounded-xl, translucent white,
+   backdrop-blur, soft shadow, and the same rounded-lg option rows. */
+.select2-dropdown {
+  z-index: 10050;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(16, 25, 43, 0.15);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  padding: 0.375rem;
+}
+
+.select2-dropdown .select2-search--dropdown {
+  display: none;
+}
+
+.select2-dropdown .select2-results__options {
+  max-height: 18rem;
+  overflow-y: auto;
+  /* Same thin, brand-blue scrollbar as .thin-scrollbar in globals.css (used e.g. for the
+     branch list on the contact page), so this matches the rest of the site. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(19, 75, 150, 0.35) transparent;
+}
+
+.select2-dropdown .select2-results__options::-webkit-scrollbar {
+  width: 5px;
+}
+
+.select2-dropdown .select2-results__options::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.select2-dropdown .select2-results__options::-webkit-scrollbar-thumb {
+  background-color: rgba(19, 75, 150, 0.35);
+  border-radius: 999px;
+}
+
+.select2-dropdown .select2-results__options::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(19, 75, 150, 0.55);
+}
+
+.select2-dropdown .select2-results__option {
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: #10192b;
+  margin: 1px 0;
+}
+
+.select2-dropdown .select2-results__option--highlighted[aria-selected] {
+  background-color: rgba(19, 75, 150, 0.1);
+  color: #10192b;
+}
+
+.select2-dropdown .select2-results__option[aria-selected="true"] {
+  background-color: rgba(19, 75, 150, 0.15);
+  color: #134b96;
+}
+
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple{border-top-left-radius: 10px;border-top-right-radius: 10px;}

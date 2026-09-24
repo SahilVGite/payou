@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Select from "../common/Select";
+import Select from "../common/Select2Field";
 import LoanGuidanceIcon from "../../../public/icons/LoanGuidanceIcon";
 import InterestRateEnquiryIcon from "../../../public/icons/InterestRateEnquiryIcon";
 import ApplicationSupportIcon from "../../../public/icons/ApplicationSupportIcon";
@@ -18,10 +18,10 @@ const highlights = [
   [ApplicationSupportIcon, "Application Support"],
 ];
 
-const DEFAULT_PHONE = "+91 84248 12345";
-const DEFAULT_WHATSAPP = "+91 84248 12345";
-const DEFAULT_EMAIL = "care@payyouadvisory.com";
-const DEFAULT_OFFICE_LABEL = "Baner, Pune, Maharashtra";
+const DEFAULT_PHONE = "020 2735 0055";
+const DEFAULT_WHATSAPP = "+91 9175535507";
+const DEFAULT_EMAIL = "info@payyouadvisory.com";
+const DEFAULT_OFFICE_LABEL = "Office No. 3, 4, 5, 6, Vishal Arcade, Chapekar Chowk, Opp. to Sonigara Jwellers, Pimpri Chinchwad (Municipal Corporation), Haveli, Pune, 411033.";
 
 const services = [
   "Personal Loan",

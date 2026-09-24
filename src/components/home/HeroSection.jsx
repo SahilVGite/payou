@@ -7,7 +7,7 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import { Handshake, ShieldCheck, Timer, Users } from "lucide-react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import Select from "../common/Select";
+import Select from "../common/Select2Field";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 
 const stats = [
@@ -45,7 +45,7 @@ const heroSlides = [
     {
         video: "/videos/hero-family.mp4",
         titleLead: "Fuel Your Business with the ",
-        titleAccent: "RBI-regulated  <br /> Bank & NBFC Network",
+        titleAccent: "RBI-regulated  Bank & <br /> NBFC Network",
         subtextLines: [
             "Skip long loan approvals and paperwork.",
             "Compare business loan offers from 25+",
@@ -265,7 +265,7 @@ export default function HeroSection() {
                                 href="/contact-us"
                                 className="rounded-full bg-[#b11f24] px-[3em] py-[0.8em] text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)]"
                             >
-                                Check Eligibility
+                                APPLY NOW
                             </Link>
                             <Link
                                 href="/contact-us"
@@ -284,10 +284,10 @@ export default function HeroSection() {
                         <h2 className="m-0 text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.6336rem+0.722vw,1.5rem)] font-bold text-white">
                             Instant Loan Eligibility Check
                         </h2>
-                        <label className="relative text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-[#EEE8E8] font-semibold">
-                            Required Facility <em className="text-accent">*</em>
+                        <label className="relative flex flex-col text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-[#EEE8E8] font-semibold">
+                            <span className="mb-2.5">Required Facility <em className="text-accent">*</em></span>
                             <Select
-                                className="mt-2.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] block w-full rounded-full border-0 bg-white/90 py-[13px] pl-[18px] pr-10 text-[#4B5563]"
+                                className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] block w-full rounded-full border-0 bg-white/90 py-[13px] pl-[18px] pr-10 text-[#4B5563]"
                                 defaultValue="Personal Loan"
                                 name="facility"
                             >

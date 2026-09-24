@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Check } from "lucide-react";
-import Select from "../common/Select";
+import Select from "../common/Select2Field";
 
 const steps = ["Your Profile", "Income Details", "Loan Requirement", "Your Eligibility"];
 
