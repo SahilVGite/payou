@@ -243,7 +243,7 @@ export default function HeroSection() {
                                 </SwiperSlide>
                             ))}
                         </Swiper>
-                        <div className="flex gap-2 md:gap-4.5 max-[480px]:flex-col">
+                        <div className="flex gap-2 md:gap-4.5">
                             <Link
                                 href="/contact-us"
                                 className="rounded-full bg-[#b11f24] px-[3em] py-[0.8em] text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)]"
@@ -258,7 +258,7 @@ export default function HeroSection() {
                             </Link>
                         </div>
                     </div>
-                    <div className="hidden lg:block"><EligibilityForm /></div>
+                    <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm /></div>
                     <div className="lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5">
                         <button
                             type="button"
@@ -279,7 +279,7 @@ export default function HeroSection() {
                     </div>
                 </div>
                 <video
-                    className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
+                    className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
                     autoPlay
                     muted
                     loop
@@ -289,7 +289,7 @@ export default function HeroSection() {
                     <source src={heroSlides[activeSlide].video} type="video/mp4" />
                 </video>
             </div>
-            <div className="block lg:hidden px-[4%] mt-(--sec-gap)">
+            <div className="block lg:hidden">
                 <EligibilityForm />
             </div>
             <div

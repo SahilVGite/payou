@@ -18,7 +18,7 @@ const faqsByCategory = {
     {
       question: "Which are the banks & NBFCs associated with PayYouAdvisory?",
       answer:
-        "We are an authorized loan advisory and are associated with 25+ banks and NBFCs regulated by RBI, so you can select a variety of loans at a place. We clearly outline every step to ensure you encounter no surprises.",
+        "We are an authorized loan advisory and are associated with 25+ banks and NBFCs regulated by RBI. Thus you get to compare multiple options at one place. We clearly outline every step to ensure you encounter no surprises.",
     },
     {
       question: "Is there any cost for PayYouAdvisory's loan advisory service?",
@@ -49,7 +49,7 @@ const faqsByCategory = {
     {
       question: "Can I compare interest rates from different lenders before applying?",
       answer:
-        "Yes, you can compare interest rates and different loan options from 25+ lenders side-by-side so you can make an informed decision with full visibility.",
+        "Yes, you can compare interest rates and different loan options from our multiple lenders side-by-side so you can make an informed decision with full visibility.",
     },
     {
       question: "What is the difference between a secured loan and an unsecured loan?",

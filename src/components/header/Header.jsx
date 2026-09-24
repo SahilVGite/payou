@@ -293,7 +293,8 @@ export default function Header() {
               return (
                 <Fragment key={label}>
                 <span
-                  onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
+                  // Mega menu temporarily disabled — do not open on desktop hover for now.
+                  // onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
                   className={`relative flex items-center [@media(max-width:1023px)]:justify-between gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
                     index > 0
                       ? "before:content-[''] before:absolute before:-left-[clamp(1.25rem,-0.25rem+1.875vw,2rem)] before:top-1/2 before:h-[15px] before:w-px before:-translate-y-1/2 before:bg-[#BFCFE6] max-[1050px]:before:-left-2 max-[1024px]:before:hidden"
@@ -307,7 +308,9 @@ export default function Header() {
                   {label === "LOANS" ? (
                     <button
                       type="button"
-                      onClick={() => setLoansMenuOpen((open) => !open)}
+                      // Mega menu temporarily disabled — do not open on click for now
+                      // (this is also mobile's only trigger, since it has no hover).
+                      // onClick={() => setLoansMenuOpen((open) => !open)}
                       className="flex w-full items-center justify-between gap-1.5"
                     >
                       {label}

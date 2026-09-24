@@ -74,7 +74,7 @@ export default function RateComparison() {
           <strong className="font-bold text-primary">India&apos;s Top Lenders</strong>
         </h2>
         <p className="mb-[2.7em] text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
-          With our financial solutions you can seamlessly compare loan options across banks and NBFCs on rate, fees, and speed.
+          With our financial solutions, we compare loan options across banks and NBFCs on rate, fees, and speed.
         </p>
 
         <div className="mb-4 lg:hidden">

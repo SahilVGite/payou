@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import {
@@ -52,8 +52,18 @@ const sidebarByTab = {
     "Vehicle & Consumer Loan",
     "Education Loan",
   ],
-  Insurance: ["Life Insurance", "Term Insurance", "Health Insurance", "Personal Accident Insurance"],
-  Investments: ["Fixed Deposits", "Recurring Deposit (RD)", "Daily Saving Plans", "FD-Linked SIP"],
+  Insurance: [
+    "Life Insurance",
+    "Term Insurance",
+    "Health Insurance",
+    "Personal Accident Insurance",
+  ],
+  Investments: [
+    "Fixed Deposits",
+    "Recurring Deposit (RD)",
+    "Daily Saving Plans",
+    "FD-Linked SIP",
+  ],
 };
 
 // Shown in the sidebar's expanded panel above the Enquire Now / Know More buttons. For
@@ -79,17 +89,22 @@ const expandedDescriptionByTabAndItem = {
       "Structured loans with flexible repayment options to fund your degree or study abroad plans after you finish your course.",
   },
   Insurance: {
-    "Life Insurance": "Secure your family's future with financial protection that lasts a lifetime.",
-    "Term Insurance": "High coverage at low premiums — pure protection for your loved ones' financial security.",
-    "Health Insurance": "Cover medical expenses for you and your family with plans built for real healthcare costs.",
+    "Life Insurance":
+      "Secure your family's future with financial protection that lasts a lifetime.",
+    "Term Insurance":
+      "High coverage at low premiums — pure protection for your loved ones' financial security.",
+    "Health Insurance":
+      "Cover medical expenses for you and your family with plans built for real healthcare costs.",
     "Personal Accident Insurance":
       "Financial protection against accidental injury, disability, or loss of income when it matters most.",
   },
   Investments: {
-    "Fixed Deposits": "Grow your savings safely with guaranteed returns and flexible tenure options.",
+    "Fixed Deposits":
+      "Grow your savings safely with guaranteed returns and flexible tenure options.",
     "Recurring Deposit (RD)":
       "Compare interest rates and build a disciplined savings habit with monthly deposits and assured returns.",
-    "Daily Saving Plans": "Save small amounts daily and watch them grow into meaningful returns over time.",
+    "Daily Saving Plans":
+      "Save small amounts daily and watch them grow into meaningful returns over time.",
     "FD-Linked SIP":
       "As your loan advisor, we help you combine the safety of fixed deposits with the growth potential of systematic investing.",
   },
@@ -100,176 +115,193 @@ const loanCardsByItem = {
   "Personal Loan": [
     {
       title: "Personal Loan for Salaried",
-      description: "Regular income, fast approval. Get personal loans on your salary slip and repayment capacity.",
+      description:
+        "Regular income, fast approval. Get personal loans on your salary slip and repayment capacity.",
       icon: PersonalLoanIcon,
     },
     {
       title: "Personal Loan for Self-Employed",
-      description: "No regular pay check? No worries. Financing options that are based on the income and cash flow of your business.",
-      icon: PersonalLoanIcon,
-    },
-    {
-      title: "Pre-approved Personal Loan",
-      description: "Funds in minutes, not days. Review your pre-approved offer and get disbursal in a record time.",
+      description:
+        "No regular pay check? No worries. Financing options that are based on the income and cash flow of your business.",
       icon: PersonalLoanIcon,
     },
     {
       title: "Balance Transfer of Personal Loans",
-      description: "Got a loan with high interest? Switch lenders and save on your EMI. Easy transfer.",
+      description:
+        "Got a loan with high interest? Switch lenders and save on your EMI. Easy transfer.",
       icon: PersonalLoanIcon,
     },
   ],
   "Business Loan": [
     {
       title: "Unsecured Business Loan",
-      description: "No collateral. Fast working capital based on your business performance and turnover.",
+      description:
+        "No collateral. Fast working capital based on your business performance and turnover.",
       icon: BusinessLoanIcon,
     },
     {
       title: "Loan for MSMEs",
-      description: "Finance is made to measure for small- to medium-sized enterprises, with plans designed to help you grow.",
+      description:
+        "Finance is made to measure for small- to medium-sized enterprises, with plans designed to help you grow.",
       icon: BusinessLoanIcon,
     },
     {
       title: "Loan for Working Capital",
-      description: "Keep things moving—cover everyday expenses without interrupting your cash flow.",
+      description:
+        "Keep things moving—cover everyday expenses without interrupting your cash flow.",
       icon: BusinessLoanIcon,
     },
     {
       title: "Loan for Women Entrepreneurs",
-      description: "Customized schemes and preferential rates to support women-led businesses at every stage.",
+      description:
+        "Customized schemes and preferential rates to support women-led businesses at every stage.",
       icon: BusinessLoanIcon,
     },
   ],
   "Home Loan": [
     {
       title: "New Home Purchase Loan",
-      description: "Turn your dream house into an address—competitive rates and high loan-to-value ratios.",
+      description:
+        "Turn your dream house into an address—competitive rates and high loan-to-value ratios.",
       icon: HomeLoanIcon,
     },
     {
       title: "Home Construction Loan",
-      description: "Starting from ground zero? Link disbursement to your construction phases.",
+      description:
+        "Starting from ground zero? Link disbursement to your construction phases.",
       icon: HomeLoanIcon,
     },
     {
       title: "Transfer of Home Loan Balance + Top-up",
-      description: "Switch lenders to lower your EMI and get extra funds whenever you need it.",
-      icon: HomeLoanIcon,
-    },
-    {
-      title: "PMAY Loan (Pradhan Mantri Awas Yojana)",
-      description: "See if you qualify for government-supported subsidies and make homeownership more affordable.",
+      description:
+        "Switch lenders to lower your EMI and get extra funds whenever you need it.",
       icon: HomeLoanIcon,
     },
   ],
   "Loan Against Property": [
     {
       title: "Commercial Real Estate Loan",
-      description: "Access funds for expansion or working capital secured by your commercial property.",
+      description:
+        "Access funds for expansion or working capital secured by your commercial property.",
       icon: PropertyLoanIcon,
     },
     {
       title: "Mortgage Loan",
-      description: "Evaluate the value of your home or residential asset without losing ownership.",
+      description:
+        "Evaluate the value of your home or residential asset without losing ownership.",
       icon: PropertyLoanIcon,
     },
     {
       title: "Discounting Lease Payments",
-      description: "Turn future rental income into immediate cash—perfect for landlords with tenants.",
+      description:
+        "Turn future rental income into immediate cash—perfect for landlords with tenants.",
       icon: PropertyLoanIcon,
     },
     {
       title: "Home Loan",
-      description: "Funding against your property with flexible tenure and competitive rates in value.",
+      description:
+        "Funding against your property with flexible tenure and competitive rates in value.",
       icon: PropertyLoanIcon,
     },
   ],
   "Gold Loan": [
     {
       title: "Loan Against Gold Jewellery",
-      description: "Instant funds against your gold ornaments with safe storage, quick disbursal, and minimal paperwork.",
+      description:
+        "Instant funds against your gold ornaments with safe storage, quick disbursal, and minimal paperwork.",
       icon: Gem,
     },
-    {
-      title: "Gold Loan on Coins & Bars",
-      description: "Pledge your gold coin or bar for fast, low-cost borrowing without selling your asset.",
-      icon: Gem,
-    },
-    {
-      title: "Gold-Backed Overdraft",
-      description: "Run a credit line on your gold—withdraw, pay back as required.",
-      icon: Gem,
-    },
-    {
-      title: "Gold Loan Current Rate of Interest",
-      description: "Know before you borrow. Check live gold loan rates across lenders before you pledge.",
-      icon: Gem,
-    },
+    // {
+    //   title: "Gold Loan on Coins & Bars",
+    //   description: "Pledge your gold coin or bar for fast, low-cost borrowing without selling your asset.",
+    //   icon: Gem,
+    // },
+    // {
+    //   title: "Gold-Backed Overdraft",
+    //   description: "Run a credit line on your gold—withdraw, pay back as required.",
+    //   icon: Gem,
+    // },
+    // {
+    //   title: "Gold Loan Current Rate of Interest",
+    //   description: "Know before you borrow. Check live gold loan rates across lenders before you pledge.",
+    //   icon: Gem,
+    // },
   ],
   "Collateral Loan": [
     {
       title: "Loan Sharing",
-      description: "Unlock liquidity with your equity assets, without selling—hold and grow your portfolio.",
+      description:
+        "Unlock liquidity with your equity assets, without selling—hold and grow your portfolio.",
       icon: HandCoins,
     },
     {
       title: "Loan for Mutual Funds",
-      description: "Get your MF investment liquidity unlocked while still yielding returns.",
+      description:
+        "Get your MF investment liquidity unlocked while still yielding returns.",
       icon: HandCoins,
     },
     {
       title: "Life Insurance Policy Loan",
-      description: "Use the surrender value of your policy as collateral to obtain fast, low-cost funding.",
+      description:
+        "Use the surrender value of your policy as collateral to obtain fast, low-cost funding.",
       icon: HandCoins,
     },
     {
       title: "Loan Against Fixed Deposits",
-      description: "Borrow up to your FD value at low interest—no need to break your deposit early.",
+      description:
+        "Borrow up to your FD value at low interest—no need to break your deposit early.",
       icon: HandCoins,
     },
   ],
   "Vehicle & Consumer Loan": [
     {
       title: "Two-Wheeler Loan",
-      description: "Easy finance on your new two-wheeler. You can choose from flexible ways to repay.",
+      description:
+        "Easy finance on your new two-wheeler. You can choose from flexible ways to repay.",
       icon: TwoWheelerLoanIcon,
     },
     {
       title: "Used Car / Pre-Owned Car Loan",
-      description: "Flexible financing on quality used vehicles. Easy ways to pay for your purchase.",
+      description:
+        "Flexible financing on quality used vehicles. Easy ways to pay for your purchase.",
       icon: UsedCarLoanIcon,
     },
     {
       title: "Consumer Durable Loan (No Cost EMI)",
-      description: "Affordable financing for your appliances and electronics. No-cost EMI options with flexibility.",
+      description:
+        "Affordable financing for your appliances and electronics. No-cost EMI options with flexibility.",
       icon: ConsumerDurableLoanIcon,
     },
     {
       title: "Car Loan",
-      description: "Flexible financing on your dream car. Easy repayment options to suit every budget.",
+      description:
+        "Flexible financing on your dream car. Easy repayment options to suit every budget.",
       icon: CarLoanIcon,
     },
   ],
   "Education Loan": [
     {
       title: "Domestic Education Loans",
-      description: "For higher studies in India—including tuition, hostel, and other academic fees.",
+      description:
+        "For higher studies in India—including tuition, hostel, and other academic fees.",
       icon: GraduationCap,
     },
     {
       title: "Overseas Study Loan",
-      description: "Make your dream of studying abroad come true from tuition fees to living expenses abroad.",
+      description:
+        "Make your dream of studying abroad come true from tuition fees to living expenses abroad.",
       icon: GraduationCap,
     },
     {
       title: "Loan for Education Without Collateral",
-      description: "Unsecured funding for qualifying courses and institutions—no asset pledge needed.",
+      description:
+        "Unsecured funding for qualifying courses and institutions—no asset pledge needed.",
       icon: GraduationCap,
     },
     {
       title: "Professional Course Education Loan",
-      description: "Specialized loans for MBA, medical, engineering, and other professional courses.",
+      description:
+        "Specialized loans for MBA, medical, engineering, and other professional courses.",
       icon: GraduationCap,
     },
   ],
@@ -281,22 +313,26 @@ const loanCardsByItem = {
 const insuranceCards = [
   {
     title: "Life Insurance",
-    description: "Secure your family's future with financial protection that lasts a lifetime.",
+    description:
+      "Secure your family's future with financial protection that lasts a lifetime.",
     icon: ShieldCheck,
   },
   {
     title: "Term Insurance",
-    description: "High coverage at low premiums — pure protection for your loved ones' financial security.",
+    description:
+      "High coverage at low premiums — pure protection for your loved ones' financial security.",
     icon: ShieldHalf,
   },
   {
     title: "Health Insurance",
-    description: "Cover medical expenses for you and your family with plans built for real healthcare costs.",
+    description:
+      "Cover medical expenses for you and your family with plans built for real healthcare costs.",
     icon: HeartPulse,
   },
   {
     title: "Personal Accident Insurance",
-    description: "Financial protection against accidental injury, disability, or loss of income when it matters most.",
+    description:
+      "Financial protection against accidental injury, disability, or loss of income when it matters most.",
     icon: ShieldAlert,
   },
 ];
@@ -304,22 +340,26 @@ const insuranceCards = [
 const investmentCards = [
   {
     title: "Fixed Deposits",
-    description: "Grow your savings safely with guaranteed returns and flexible tenure options.",
+    description:
+      "Grow your savings safely with guaranteed returns and flexible tenure options.",
     icon: Landmark,
   },
   {
     title: "Recurring Deposit (RD)",
-    description: "Compare interest rates and build a disciplined savings habit with monthly deposits and assured returns.",
+    description:
+      "Compare interest rates and build a disciplined savings habit with monthly deposits and assured returns.",
     icon: Repeat,
   },
   {
     title: "Daily Saving Plans",
-    description: "Save small amounts daily and watch them grow into meaningful returns over time.",
+    description:
+      "Save small amounts daily and watch them grow into meaningful returns over time.",
     icon: PiggyBank,
   },
   {
     title: "FD-Linked SIP",
-    description: "As your loan advisor, we help you combine the safety of fixed deposits with the growth potential of systematic investing.",
+    description:
+      "As your loan advisor, we help you combine the safety of fixed deposits with the growth potential of systematic investing.",
     icon: TrendingUp,
   },
 ];
@@ -352,19 +392,31 @@ const rawCardsByTabAndItem = {
   Loans: Object.fromEntries(
     Object.entries(loanCardsByItem).map(([item, cards]) => [
       item,
-      cards.map((card, i) => ({ ...card, id: `Loans-${item}-${i}` })),
+      cards.map((card, i) => ({
+        ...card,
+        id: `Loans-${item}-${i}`,
+        image: cardImages[i % cardImages.length],
+      })),
     ]),
   ),
   Insurance: Object.fromEntries(
     sidebarByTab.Insurance.map((item) => [
       item,
-      insuranceCards.map((card, i) => ({ ...card, id: `Insurance-${item}-${i}` })),
+      insuranceCards.map((card, i) => ({
+        ...card,
+        id: `Insurance-${item}-${i}`,
+        image: cardImages[i % cardImages.length],
+      })),
     ]),
   ),
   Investments: Object.fromEntries(
     sidebarByTab.Investments.map((item) => [
       item,
-      investmentCards.map((card, i) => ({ ...card, id: `Investments-${item}-${i}` })),
+      investmentCards.map((card, i) => ({
+        ...card,
+        id: `Investments-${item}-${i}`,
+        image: cardImages[i % cardImages.length],
+      })),
     ]),
   ),
 };
@@ -372,9 +424,43 @@ const rawCardsByTabAndItem = {
 const paddedCardsByTabAndItem = Object.fromEntries(
   Object.entries(rawCardsByTabAndItem).map(([tab, itemMap]) => [
     tab,
-    Object.fromEntries(Object.entries(itemMap).map(([item, cards]) => [item, padCards(cards)])),
+    Object.fromEntries(
+      Object.entries(itemMap).map(([item, cards]) => [item, padCards(cards)]),
+    ),
   ]),
 );
+
+// How many cards fit on screen at once without needing to slide, per breakpoint (matches
+// the Swiper's own slidesPerView below, floored — a peek of the next card doesn't count as
+// "fits"). Below this count for the current breakpoint, a slider has nothing to hide, so
+// it's replaced with a plain row of cards instead of Swiper's loop/autoplay/nav machinery.
+const SLIDES_PER_VIEW_FLOOR = { base: 1, sm: 2, lg: 3 };
+
+// Tracks which of the Swiper's own breakpoints (640px, 1024px) the viewport is currently in,
+// so the "does this item's card count need a slider" decision can be made per breakpoint —
+// a 2-card item needs a slider on mobile (1 fits at a time) but not on desktop (3+ fit).
+function useResponsiveTier() {
+  const [tier, setTier] = useState("base");
+
+  useEffect(() => {
+    const mqSm = window.matchMedia("(min-width: 640px)");
+    const mqLg = window.matchMedia("(min-width: 1024px)");
+
+    function update() {
+      setTier(mqLg.matches ? "lg" : mqSm.matches ? "sm" : "base");
+    }
+
+    update();
+    mqSm.addEventListener("change", update);
+    mqLg.addEventListener("change", update);
+    return () => {
+      mqSm.removeEventListener("change", update);
+      mqLg.removeEventListener("change", update);
+    };
+  }, []);
+
+  return tier;
+}
 
 const popularProducts = [
   [HomeLoanIcon, "HOME LOAN", "Home Purchase Loan"],
@@ -383,13 +469,52 @@ const popularProducts = [
   [PersonalLoanIcon, "PERSONAL LOAN", "Personal Expense Loan"],
 ];
 
+// Shared between the Swiper slide content and the plain (no-slider) card row, so the two
+// render identically — only whichever one wraps them differs.
+function ProductCard({ card }) {
+  const CardIcon = card.icon;
+  return (
+    <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/50 transition group">
+      <div className="relative w-full bg-[#eaf1fb]">
+        <img
+          src={card.image}
+          alt={card.title}
+          className="object-cover aspect-4/3 group-hover:scale-105 transition-transform duration-300"
+        />
+        <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white group-hover:bg-white/30 group-hover:backdrop-blur-sm text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">
+          <CardIcon size={24} />
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col p-5 pt-6 group-hover:bg-[#0F172A] transition">
+        <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-ink group-hover:text-white line-clamp-1">
+          {card.title}
+        </h3>
+        <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white line-clamp-3">
+          {card.description}
+        </p>
+        <Link
+          href="/contact-us"
+          className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
+        >
+          Explore More <ArrowRight size={12} className="inline-block" />
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 export default function FinancialSolutions() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
   const [activeItem, setActiveItem] = useState(sidebarByTab[tabs[0].label][0]);
   const [swiperInstance, setSwiperInstance] = useState(null);
+  const tier = useResponsiveTier();
 
   const sidebarItems = sidebarByTab[activeTab];
-  const cards = paddedCardsByTabAndItem[activeTab][activeItem];
+  const rawCards = rawCardsByTabAndItem[activeTab][activeItem];
+  const needsSlider = rawCards.length > SLIDES_PER_VIEW_FLOOR[tier];
+  const cards = needsSlider
+    ? paddedCardsByTabAndItem[activeTab][activeItem]
+    : rawCards;
 
   return (
     <section
@@ -478,19 +603,16 @@ export default function FinancialSolutions() {
                     <div
                       className={`bg-[#E5E7EB] p-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
                     >
-                      <p className="m-0">{expandedDescriptionByTabAndItem[activeTab][item]}</p>
-                      <div className="mt-3 flex flex-col text-center gap-2">
+                      <p className="m-0">
+                        {expandedDescriptionByTabAndItem[activeTab][item]}
+                      </p>
+                      <div className="mt-3 flex flex-col gap-2">
                         <Link
                           href="/contact-us"
-                          className="rounded-full bg-[#b11f24] p-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-[#961a1e]"
+                          className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
                         >
-                          Enquire Now
-                        </Link>
-                        <Link
-                          href="/contact-us"
-                          className="rounded-full border border-[#134b96] p-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-[#134b96] transition hover:bg-[#134b96] hover:text-white"
-                        >
-                          Know More
+                          Know More{" "}
+                          <ArrowRight size={12} className="inline-block" />
                         </Link>
                       </div>
                     </div>
@@ -512,75 +634,69 @@ export default function FinancialSolutions() {
 
           <div className="relative min-w-0 flex flex-col justify-between">
             <div className="relative w-full">
-              <Swiper
-                modules={[Autoplay, Navigation]}
-                spaceBetween={20}
-                slidesPerView={1.15}
-                slidesPerGroup={1}
-                loop
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
-                onSwiper={setSwiperInstance}
-                breakpoints={{
-                  640: { slidesPerView: 2.1 },
-                  1024: { slidesPerView: 3.1 },
-                  1280: { slidesPerView: 3.6 },
-                }}
-                className="financial-solutions-swiper pb-2!"
-              >
-                {cards.map((card) => {
-                  const CardIcon = card.icon;
-                  return (
-                    <SwiperSlide key={card.id}>
-                      <article className="flex h-full flex-col overflow-hidden rounded-[18px] shadow-[0px_8px_16px_rgba(15,23,42,0.04)] backdrop-blur-xs drop-shadow-[0px_8px_16px_rgba(15,23,42,0.04)] border border-white/50 transition group">
-                        <div className="relative w-full bg-[#eaf1fb]">
-                          <img src={card.image} alt={card.title} className="object-cover aspect-4/3 group-hover:scale-105 transition-transform duration-300" />
-                          <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white group-hover:bg-white/30 group-hover:backdrop-blur-sm text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">
-                            <CardIcon size={24} />
-                          </span>
-                        </div>
-                        <div className="flex flex-1 flex-col p-5 pt-6 group-hover:bg-[#0F172A] transition">
-                          <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-ink group-hover:text-white line-clamp-1">
-                            {card.title}
-                          </h3>
-                          <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white line-clamp-3">
-                            {card.description}
-                          </p>
-                          <Link
-                            href="/contact-us"
-                            className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
-                          >
-                            Explore More <ArrowRight size={12} className="inline-block" />
-                          </Link>
-                        </div>
-                      </article>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-              <div
-                className="absolute top-1/3 -left-5 md:-left-7.5 z-10 flex md:w-[calc(100%+60px)] -translate-y-1/2 items-center justify-between px-2.5 w-[calc(100%+35px)] [@media(min-width:1700px)]:w-[calc(100%+60px)]"
-              >
-                <button
-                  type="button"
-                  onClick={() => swiperInstance?.slidePrev()}
-                  aria-label="Previous"
-                  className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => swiperInstance?.slideNext()}
-                  aria-label="Next"
-                  className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
+              {needsSlider ? (
+                <>
+                  <Swiper
+                    modules={[Autoplay, Navigation]}
+                    spaceBetween={20}
+                    slidesPerView={1.15}
+                    slidesPerGroup={1}
+                    loop
+                    autoplay={{
+                      delay: 3500,
+                      disableOnInteraction: false,
+                      pauseOnMouseEnter: true,
+                    }}
+                    onSwiper={setSwiperInstance}
+                    breakpoints={{
+                      640: { slidesPerView: 2.1 },
+                      1024: { slidesPerView: 3.1 },
+                      1280: { slidesPerView: 3.6 },
+                    }}
+                    className="financial-solutions-swiper pb-2!"
+                  >
+                    {cards.map((card) => (
+                      <SwiperSlide key={card.id}>
+                        <ProductCard card={card} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <div className="absolute top-1/3 -left-5 md:-left-7.5 z-10 flex md:w-[calc(100%+60px)] -translate-y-1/2 items-center justify-between px-2.5 w-[calc(100%+35px)] [@media(min-width:1700px)]:w-[calc(100%+60px)]">
+                    <button
+                      type="button"
+                      onClick={() => swiperInstance?.slidePrev()}
+                      aria-label="Previous"
+                      className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => swiperInstance?.slideNext()}
+                      aria-label="Next"
+                      className="flex h-11 w-11 [@media(min-width:1024px)_and_(max-width:1400px)]:w-10 [@media(min-width:1280px)_and_(max-width:1300px)]:h-10 items-center justify-center rounded-full border bg-[#134b96] text-white transition hover:bg-[#0e3a75] shadow-[1px_1px_14px_9px_#FFFFFF] cursor-pointer"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                // Fewer real cards than fit on screen at once at this breakpoint — nothing
+                // to slide through, so this is a plain row instead of Swiper's loop/autoplay/
+                // nav machinery. Each card is still capped to the same max width it would
+                // have had in the slider (never wider), just left-aligned instead of centered
+                // in a track.
+                <div className="flex flex-wrap gap-5">
+                  {cards.map((card) => (
+                    <div
+                      key={card.id}
+                      className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
+                    >
+                      <ProductCard card={card} />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="mt-14">
               <p className="mb-[0.5454em] text-[18px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-medium text-ink tracking-[-0.44px]">
@@ -593,7 +709,7 @@ export default function FinancialSolutions() {
                     key={label}
                     className="flex items-center gap-3 rounded-[14px] border border-[#dce1e7] bg-white/10 shadow-[3px_3px_8px_rgba(0,0,0,0.25)] backdrop-blur-xs px-5 py-4 transition hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(16,25,43,0.1)] opacity-80"
                   >
-                      <Icon size={24} />
+                    <Icon size={24} />
                     <span className="flex flex-col">
                       <span className="text-[10px] md:text-[12px] lg:text-[clamp(0.6875rem,0.3793rem+0.361vw,0.8125rem)] font-medium uppercase tracking-[0.1538em] text-[#4E5968]">
                         {eyebrow}

@@ -2,96 +2,92 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import {
-  ArrowDown,
-  ChevronDown,
-  Clock3,
-  Handshake,
-  Lock,
-  Mail,
-  MapPin,
-  Phone,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import FacebookIcon from "../../../public/icons/FacebookIcon";
 import GlobeIcon from "../../../public/icons/GlobeIcon";
 import InstagramIcon from "../../../public/icons/InstagramIcon";
 import LinkedinIcon from "../../../public/icons/LinkedinIcon";
 import YouTubeIcon from "../../../public/icons/YouTubeIcon";
-import Collapse from "../common/Collapse";
-import Dropdown from "../common/Dropdown";
-import { footerCategories } from "../../data/navigation";
 
 // Only Home and Contact Us are real pages for now — every other label keeps its text but
 // points at "/" until its page exists, rather than 404ing.
-const quickLinks = [
-  ["About Us", "/"],
-  ["FAQ", "/"],
-  ["Contact Us", "/contact-us"],
-  ["Blog", "/"],
-  ["Privacy Policy", "/"],
-  ["Disclaimer", "/"],
-  ["Terms & Conditions", "/"],
+const popularProducts = [
+  ["Loan", "/"],
+  ["Insurance", "/"],
+  ["Investments", "/"],
 ];
-const partners = [
-  "SBI",
-  "Yes Bank",
-  "Kotak Mahindra",
-  "Bajaj Finance",
-  "Tata Capital",
-  "L&T Finance",
-  "HDFC Bank",
-  "ICICI Bank",
+
+const usefulLinks = [
+  ["Home", "/"],
+  ["About", "/"],
+  ["Careers", "/"],
+  ["Contact", "/contact-us"],
+  ["Calculators", "/"],
+  ["Customer Care", "/"],
 ];
-const footerTabs = [
-  "LOANS",
-  "ACCOUNTS",
-  "INSURANCE",
-  "INVESTMENTS",
-  "CALCULATORS",
+
+const socialLinks = [
+  [FacebookIcon, "Facebook"],
+  [LinkedinIcon, "LinkedIn"],
+  [InstagramIcon, "Instagram"],
+  [YouTubeIcon, "YouTube"],
+  [GlobeIcon, "Website"],
 ];
+
+// Same heading treatment for all three columns (matches the existing "GET IN TOUCH" /
+// "QUICK LINKS" heading styles already in this codebase).
+const columnHeadingClassName =
+  "mb-2 md:mb-4 text-[clamp(0.8125rem,0.5368rem+1.2255vw,1.125rem)] md:text-[18px] lg:text-[clamp(0.9375rem,0.3125rem+0.7813vw,1.25rem)] tracking-[0.5px] font-black text-white";
+// Same plain-link treatment already used for the mega-menu's sub-links.
+const columnLinkClassName =
+  "py-1 font-inter text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-white/75 transition hover:text-white";
 
 export default function Footer() {
-  const [activeTab, setActiveTab] = useState(footerTabs[0]);
-  const [openLink, setOpenLink] = useState(null);
-  const links = footerCategories[activeTab];
-
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
-      <div className="mx-auto max-w-(--content-width) grid [@media(min-width:1025px)]:grid-cols-[31%_1fr] gap-10 [@media(min-width:1025px)]:gap-[7%] pb-8 secGapT max-[1024px]:grid-cols-1">
-        <div className="[@media(min-width:1025px)]:max-w-[424px]">
-          <div className="flex items-center justify-center">
-            <Link href="/" className="shrink-0 mx-auto">
-              <Image
-                src="/images/siteLogoFooter.png"
-                alt="PayYou Advisory Private Limited"
-                width={165}
-                height={85}
-                className="h-auto max-sm:max-w-32"
-              />
-            </Link>
-          </div>
-          <p className="my-6 text-[13px] md:text-[16px] lg:text-[19px] leading-relaxed">
+      <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between">
+        <div className="col-span-2 sm:col-span-1">
+          <Link href="/" className="inline-block">
+            <Image
+              src="/images/siteLogoFooter.png"
+              alt="PayYou Advisory Private Limited"
+              width={162}
+              height={85}
+              className="h-auto max-sm:max-w-32 lg:max-w-[clamp(7.5rem,1.0275rem+7.5812vw,10.125rem)]"
+            />
+          </Link>
+          <p className="my-6 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(0.875rem,0.25rem+0.7813vw,1.1875rem)] leading-relaxed">
             Leading loan advisory in Pune, connecting you with trusted banking
             and financial partners for personal, business, home, and property
             loans.
           </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
-              <Lock size={14} className="font-bold" />
-              100% Secure Process
-            </span>
-            <span className="flex items-center gap-2 rounded-full bg-white px-[1.1428em] py-[0.5714em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold font-inter text-primary">
-              <Users size={14} className="font-bold" />
-              25+ Lending Partners
-            </span>
+        </div>
+
+        <div>
+          <h3 className={columnHeadingClassName}>POPULAR PRODUCTS</h3>
+          <div className="flex flex-col">
+            {popularProducts.map(([label, href]) => (
+              <Link key={label} href={href} className={columnLinkClassName}>
+                {label}
+              </Link>
+            ))}
           </div>
-          <h2 className="mb-2 mt-5 text-white text-[14px] md:text-[16px] lg:text-[20px] font-black tracking-wide">
-            GET IN TOUCH
-          </h2>
-          <address className="grid grid-cols-[15px_1fr] gap-x-3 gap-y-4 not-italic font-inter text-[13px] md:text-[15px] lg:text-[17px] leading-snug">
+        </div>
+
+        <div>
+          <h3 className={columnHeadingClassName}>USEFUL LINKS</h3>
+          <div className="flex flex-col">
+            {usefulLinks.map(([label, href]) => (
+              <Link key={label} href={href} className={columnLinkClassName}>
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="col-span-2 sm:col-span-1">
+          <h3 className={columnHeadingClassName}>GET IN TOUCH</h3>
+          <address className="grid grid-cols-[15px_1fr] gap-x-3 gap-y-4 not-italic font-inter text-[13px] md:text-[15px] lg:text-[clamp(0.8125rem,0.3125rem+0.625vw,1.0625rem)] leading-snug">
             <MapPin size={18} className="mt-0.5" />
             <p>
               Office No. 3, 4, 5, 6, Vishal Arcade, Opp. to Sonigara Jewellers,
@@ -99,30 +95,24 @@ export default function Footer() {
             </p>
             <Phone size={18} className="mt-0.5" />
             <p>
-              <a className="font-bold" href="tel:02027350055">
+              <a href="tel:02027350055">
                 020 2735 0055 |{" "}
               </a>
-              <a className="font-bold" href="tel:+91 91755 35555">
+              <a href="tel:+91 91755 35555">
                 +91 91755 35555
               </a>
             </p>
             <Mail size={18} className="mt-0.5" />
             <p>
-              <a className="font-bold" href="mailto:info@payyouadvisory.com">
+              <a href="mailto:info@payyouadvisory.com">
                 info@payyouadvisory.com
               </a>
             </p>
             <Clock3 size={18} className="mt-0.5" />
-            <p className="font-bold">Mon - Sat: 9:30 AM - 6:30 PM</p>
+            <p>Mon - Sat: 9:30 AM - 6:30 PM</p>
           </address>
           <div className="mt-4 flex gap-2.5">
-            {[
-              [FacebookIcon, "Facebook"],
-              [LinkedinIcon, "LinkedIn"],
-              [InstagramIcon, "Instagram"],
-              [YouTubeIcon, "YouTube"],
-              [GlobeIcon, "Website"],
-            ].map(([Icon, label]) => (
+            {socialLinks.map(([Icon, label]) => (
               <a
                 key={label}
                 className="group flex h-10 w-10 items-center justify-center rounded-full border border-white bg-white text-primary transition-colors hover:bg-primary hover:text-white"
@@ -138,139 +128,8 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <div className="[@media(max-width:1023px)]:mt-8">
-          <div className="mb-3 md:hidden">
-            <Dropdown
-              value={activeTab}
-              onChange={(nextTab) => {
-                setActiveTab(nextTab);
-                setOpenLink(null);
-              }}
-              options={footerTabs}
-              className="rounded-full text-white border border-white/40 bg-white/30 py-3.25 pl-4.5 pr-4.5 font-cairo text-[13px] font-bold text-[#10192b] backdrop-blur-lg"
-              ariaLabel="Choose a footer category"
-            />
-          </div>
-
-          <div className="mb-3 hidden flex-wrap gap-2 md:flex">
-            {footerTabs.map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => {
-                  setActiveTab(tab);
-                  setOpenLink(null);
-                }}
-                className={`rounded-full px-[1.25em] py-[0.625em] font-cairo text-[11px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5982rem+0.3348vw,1rem)] font-bold cursor-pointer transition ${
-                  activeTab === tab
-                    ? "bg-[#b11f24] text-white"
-                    : "bg-white text-[#134B96] hover:bg-white/90"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-          {links.map((item) => {
-            const isOpen = item.label === openLink;
-            const hasSubLinks = item.subLinks.length > 0;
-
-            if (!hasSubLinks) {
-              return (
-                <Link
-                  key={item.label}
-                  href="/contact-us"
-                  className="flex items-center justify-between border-b border-white/10 py-2.5 font-poppins text-base font-bold last:border-b-0"
-                >
-                  {item.label}
-                  <ArrowDown size={16} className="-rotate-90" />
-                </Link>
-              );
-            }
-
-            return (
-              <div key={item.label} className="">
-                <button
-                  type="button"
-                  onClick={() => setOpenLink(isOpen ? null : item.label)}
-                  className="flex w-full items-center justify-between py-1.5 lg:py-2.5 text-left text-[13px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-black cursor-pointer"
-                >
-                  {item.label}
-                  <ChevronDown
-                    size={24}
-                    className={`shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-                <Collapse open={isOpen}>
-                  <div className="flex flex-col gap-1 pb-3 pl-3">
-                    {item.subLinks.map((subLink) => (
-                      <Link
-                        key={subLink}
-                        href="/contact-us"
-                        className="py-1 font-nunito text-[13px] font-normal text-white/75 transition hover:text-white"
-                      >
-                        {subLink}
-                      </Link>
-                    ))}
-                  </div>
-                </Collapse>
-              </div>
-            );
-          })}
-        </div>
       </div>
-      <div className="mx-auto max-w-(--content-width) w-full border-t border-white/55 py-3 md:py-4 lg:py-6">
-        <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">
-          QUICK LINKS
-        </h3>
-        <div className="grid grid-cols-2 gap-y-2 text-left md:hidden">
-          {quickLinks.map(([label, href]) => (
-            <Link
-              className="text-[13px] font-bold leading-[1.3em] font-inter"
-              href={href}
-              key={label}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-        <div className="hidden flex-wrap gap-y-2 md:flex">
-          {quickLinks.map(([label, href]) => (
-            <Link
-              className="mr-3 border-r border-white/55 pr-3 text-[13px] md:text-[13px] lg:text-[15px] font-bold leading-[1.3em]"
-              href={href}
-              key={label}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </div>
-      <div className="mx-auto max-w-(--content-width) w-full border-t border-white/55 py-3 md:py-4 lg:py-6">
-        <h3 className="mb-2 md:mb-4 text-[14px] md:text-[16px] lg:text-[20px] tracking-[0.5px] font-black text-white">
-          OUR LENDING PARTNERS
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {partners.map((partner) => (
-            <span
-              className="rounded-md bg-white px-[1.25em] py-[0.425em] text-center text-[13px] md:text-[14px] lg:text-[16px] font-bold font-inter text-primary"
-              key={partner}
-            >
-              {partner}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="mx-auto max-w-(--content-width) w-full border-y border-white/55 py-3 md:py-4 lg:py-6 text-[clamp(0.65rem,0.5294rem+0.9804vw,1rem)] md:text-[16px] lg:text-[clamp(0.875rem,0.5rem+0.4688vw,1.0625rem)] leading-relaxed font-normal text-white">
-        Disclaimer: Payyou Advisory Private Ltd. is a digital loan referral and
-        financial advisory platform. We are not a registered bank, Non-Banking
-        Financial Company (NBFC), or direct lender. All loan approvals, interest
-        rates, tenures, and terms are determined solely by the respective
-        partner banks and licensed financial institutions at their discretion
-        based on your credit profile and eligibility. We do not charge customers
-        any upfront fees for loan facilitation.
-      </div>
-      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[16px] font-bold max-[800px]:flex-col">
+      <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 border-t border-white/55 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-bold max-[800px]:flex-col">
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
         <span>
           <Link href="/">Privacy Policy</Link> &nbsp;|&nbsp;{" "}

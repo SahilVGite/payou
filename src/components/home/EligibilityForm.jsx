@@ -15,7 +15,7 @@ export default function EligibilityForm({ className = "" }) {
 
     return (
         <form
-            className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 rounded-[19px] bg-primary/20 backdrop-blur-lg p-5.5 text-white max-[1023px]:w-full ${className}`}
+            className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 lg:rounded-[19px] bg-primary/20 backdrop-blur-lg px-5.5 py-8 lg:p-5.5 text-white max-[1023px]:w-full [@media(max-width:1023px)]:[&::before]:hidden ${className}`}
             action="mailto:info@payyouadvisory.com"
             method="post"
             encType="text/plain"

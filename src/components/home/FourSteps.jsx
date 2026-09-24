@@ -28,7 +28,7 @@ const steps = [
     icon: InstantApprovalIcon,
     title: "Fast-Track Approval",
     description: "We compare loan options and match your profile with the lowest-rate lender across our network. You experience seamless approval from your chosen lender.",
-    tag: "Lowest Rate Guaranteed",
+    tag: "Best Rate Match",
   },
   {
     number: "04",
