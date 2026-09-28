@@ -99,7 +99,7 @@ const heroSlides = [
     {
         media: "/videos/banner-videosNimages/gold%20loan.mp4",
         mediaType: "video",
-        background: "#e8e6e7",
+        background: "#ffffff",
         titleLead: "Instant Gold Loans, ",
         titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
         subtextLines: [
@@ -240,6 +240,11 @@ export default function HeroSection() {
                 className={`relative min-h-[88dvh] lg:min-h-[80dvh] secGap ${heroSlides[activeSlide].fullCover ? "[@media(max-width:1023px)]:pt-0! flex-col-reverse" : "[@media(max-width:1023px)]:pb-0!"} [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700`}
                 style={{ backgroundColor: heroSlides[activeSlide].background }}
             >
+                <div
+                    className={`absolute z-10 inset-0 bg-[radial-gradient(80%_177.96%,#ffffff05_18%,#ffffffde_100%)] ${
+                        heroSlides[activeSlide].showGradient === false ? "lg:hidden" : ""
+                    }`}
+                />
                 <div
                     className={`absolute z-10 inset-0 bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)] ${
                         heroSlides[activeSlide].showGradient === false ? "lg:hidden" : ""
