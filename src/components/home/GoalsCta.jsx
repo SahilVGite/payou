@@ -28,7 +28,7 @@ export default function GoalsCta() {
             </Link>
           </div>
         </div>
-        <img src="/images/Our_Smarter_Loan_Solutions.png" alt="PayYou Advisory app" className="hidden lg:block absolute top-2 left-[55%] [@media(max-width:1366px)]:-translate-x-3 w-[60%] [@media(min-width:1700px)]:w-[55%] h-auto object-contain object-top-right" />
+        <img src="/images/Our_Smarter_Loan_Solutions.png" alt="PayYou Advisory app" className="hidden lg:block absolute bottom-0 right-0 max-w-[42%] [@media(min-width:1400px)]:max-w-[35%]  h-auto object-contain object-bottom-right" />
       </div>
     </section>
   );
