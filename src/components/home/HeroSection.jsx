@@ -260,7 +260,7 @@ export default function HeroSection() {
                             loop={heroSlides.length > 1}
                             autoHeight
                             allowTouchMove={false}
-                            autoplay={heroSlides.length > 1 ? { delay: 16000000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
+                            autoplay={heroSlides.length > 1 ? { delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
                             onSwiper={setSwiperInstance}
                             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                         >
