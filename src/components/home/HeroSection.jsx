@@ -29,6 +29,11 @@ const stats = [
 // a near-white backdrop, but Gold Loan's is black, hence the per-slide value instead of a
 // single static background.
 //
+// `showGradient` controls the blue radial-gradient overlay drawn on top of the media —
+// shown at every breakpoint by default (omit the field entirely); set `showGradient: false`
+// on a slide to hide it on desktop (lg+) while still showing it on mobile, e.g. Loan Against
+// Property's full-bleed photo doesn't want it sitting on top on desktop.
+//
 // titleLead/titleAccent/each subtextLines entry are rendered via dangerouslySetInnerHTML
 // (same pattern as the branch addresses in data/branches.js), so a literal `<br />` (or other
 // simple inline markup) can be dropped into any of these strings to force a manual line break
@@ -75,6 +80,13 @@ const heroSlides = [
     {
         media: "/videos/banner-videosNimages/loan%20against%20property.jpeg",
         mediaType: "image",
+        // Unlike the other slides' media, this photo is meant to fill the whole frame
+        // edge-to-edge (full width/height, object-cover) instead of sitting letterboxed —
+        // see the `fullCover` check where the media element is rendered.
+        fullCover: true,
+        // The blue radial-gradient overlay would otherwise sit on top of this full-bleed
+        // photo — omit it just for this slide (see `showGradient` default below).
+        showGradient: false,
         background: "#ffffff",
         titleLead: "Evaluate Your<br /> Property's Value with Our ",
         titleAccent: "Expert Loan Advisory",
@@ -225,12 +237,16 @@ export default function HeroSection() {
     return (
         <section className="relative">
             <div
-                className="relative min-h-[88dvh] lg:min-h-[80dvh] secGap [@media(max-width:1023px)]:pb-0! [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700"
+                className={`relative min-h-[88dvh] lg:min-h-[80dvh] secGap ${heroSlides[activeSlide].fullCover ? "[@media(max-width:1023px)]:pt-0! flex-col-reverse" : "[@media(max-width:1023px)]:pb-0!"} [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700`}
                 style={{ backgroundColor: heroSlides[activeSlide].background }}
             >
-                <div className="absolute z-10 inset-0 bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)]" />
+                <div
+                    className={`absolute z-10 inset-0 bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)] ${
+                        heroSlides[activeSlide].showGradient === false ? "lg:hidden" : ""
+                    }`}
+                />
                 <div className="relative z-20 w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
-                    <div className="min-w-0 flex-1 pb-12 max-[800px]:pb-4 w-full">
+                    <div className={`min-w-0 flex-1 ${heroSlides[activeSlide].fullCover ? "pt-12 max-[800px]:pt-4" : "pb-12 max-[800px]:pb-4"} w-full`}>
                         <Swiper
                             modules={[Autoplay, EffectFade]}
                             effect="fade"
@@ -239,7 +255,7 @@ export default function HeroSection() {
                             loop={heroSlides.length > 1}
                             autoHeight
                             allowTouchMove={false}
-                            autoplay={heroSlides.length > 1 ? { delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
+                            autoplay={heroSlides.length > 1 ? { delay: 16000000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
                             onSwiper={setSwiperInstance}
                             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                         >
@@ -283,7 +299,7 @@ export default function HeroSection() {
                     </div>
                     <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm /></div>
                     {heroSlides.length > 1 ? (
-                        <div className="lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5">
+                        <div className={`lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5 ${heroSlides[activeSlide].fullCover ? "-order-1" : ""}`}>
                             <button
                                 type="button"
                                 onClick={() => swiperInstance?.slidePrev()}
@@ -306,14 +322,18 @@ export default function HeroSection() {
                 {heroSlides[activeSlide].mediaType === "image" ? (
                     // eslint-disable-next-line @next/next/no-img-element -- swaps reactively with `activeSlide`; a static next/image import can't do that for a data-driven path.
                     <img
-                        className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full mx-auto"
+                        className={
+                            heroSlides[activeSlide].fullCover
+                                ? "lg:absolute inset-0 h-full w-full lg:object-top-right object-cover [@media(max-width:767px)]:aspect-square lg:max-w-[84%] lg:right-0 lg:left-auto"
+                                : "absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[55%] md:max-h-[60%] lg:max-h-full max-w-full mx-auto"
+                        }
                         src={heroSlides[activeSlide].media}
                         alt=""
                     />
                 ) : (
                     <video
                         key={heroSlides[activeSlide].media}
-                        className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
+                        className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[55%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
                         autoPlay
                         muted
                         loop
