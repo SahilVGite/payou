@@ -16,42 +16,54 @@ const stats = [
     [Users, "100+", "Loan Processed"],
 ];
 
-// Only the title/subtext (and, once real per-banner footage exists, the background video)
-// rotate — the CTAs, the eligibility form, and the stats row below stay fixed across every
-// slide, matching the given copy where "CTA will be same across all". Every slide points at
-// the same video file for now as a placeholder; swap a slide's `video` to give it its own
-// clip whenever that footage is ready — the player already re-sources itself from whichever
-// slide is active, no other code needs to change.
+// Only the title/subtext (and the background media) rotate — the CTAs, the eligibility
+// form, and the stats row below stay fixed across every slide, matching the given copy
+// where "CTA will be same across all". Most slides have real footage (`mediaType: "video"`);
+// a couple only have a still photo for now (`mediaType: "image"`), which the player renders
+// as a plain <img> instead of a <video> — swap either slide's `media` (and `mediaType`, if a
+// video replaces a photo) whenever new footage is ready, no other code needs to change.
+//
+// `background` is each slide's own footage's actual backdrop color (sampled from the real
+// video/image files, not guessed) — applied to the section behind it so there's no visible
+// seam where the letterboxed video/image doesn't fill the frame. Most clips were shot on
+// a near-white backdrop, but Gold Loan's is black, hence the per-slide value instead of a
+// single static background.
 //
 // titleLead/titleAccent/each subtextLines entry are rendered via dangerouslySetInnerHTML
 // (same pattern as the branch addresses in data/branches.js), so a literal `<br />` (or other
 // simple inline markup) can be dropped into any of these strings to force a manual line break
 // — it renders as a real break instead of showing up as text.
 const heroSlides = [
-    // {
-    //     video: "/videos/personalLoan.mp4",
-    //     titleLead: "Personal Loans  <br /> Made Simple: ",
-    //     titleAccent: "Compare, Apply,  <br /> Get Approved",
-    //     subtextLines: [
-    //         "From wedding expenses to medical emergencies,",
-    //         "get matched with the right lender in minutes.",
-    //         "A DSA-trusted & approved loan advisory",
-    //         "comparing rates across 25+ lenders.",
-    //     ],
-    // },
-    // {
-    //     video: "/videos/BusinessLoan.mp4",
-    //     titleLead: "Fuel Your Business with the ",
-    //     titleAccent: "RBI-regulated  Bank & <br /> NBFC Network",
-    //     subtextLines: [
-    //         "Skip long loan approvals and paperwork.",
-    //         "Compare business loan offers from 25+",
-    //         "DSA-trusted & approved lenders and",
-    //         "get funded faster.",
-    //     ],
-    // },
     {
-        video: "/videos/hero-family.mp4",
+        media: "/videos/banner-videosNimages/personal%20loan.mp4",
+        mediaType: "video",
+        background: "#ffffff",
+        titleLead: "Personal Loans  <br /> Made Simple: ",
+        titleAccent: "Compare, Apply,  <br /> Get Approved",
+        subtextLines: [
+            "From wedding expenses to medical emergencies,",
+            "get matched with the right lender in minutes.",
+            "A DSA-trusted & approved loan advisory",
+            "comparing rates across 25+ lenders.",
+        ],
+    },
+    {
+        media: "/videos/banner-videosNimages/business%20loan.mp4",
+        mediaType: "video",
+        background: "#fafafa",
+        titleLead: "Fuel Your Business with the ",
+        titleAccent: "RBI-regulated  Bank & <br /> NBFC Network",
+        subtextLines: [
+            "Skip long loan approvals and paperwork.",
+            "Compare business loan offers from 25+",
+            "DSA-trusted & approved lenders and",
+            "get funded faster.",
+        ],
+    },
+    {
+        media: "/videos/banner-videosNimages/home%20loan.mp4",
+        mediaType: "video",
+        background: "#fafafa",
         titleLead: "Secure Your ",
         titleAccent: "Dream Home Today!",
         subtextLines: [
@@ -60,46 +72,54 @@ const heroSlides = [
             "you get best terms in your favour.",
         ],
     },
-    // {
-    //     video: "/videos/hero-family.mp4",
-    //     titleLead: "Evaluate Your<br /> Property's Value with Our ",
-    //     titleAccent: "Expert Loan Advisory",
-    //     subtextLines: [
-    //         "Why sell when you can leverage? We compare",
-    //         "Loan Against Property offers from",
-    //         "DSA-trusted & approved lenders.",
-    //     ],
-    // },
-    // {
-    //     video: "/videos/hero-family.mp4",
-    //     titleLead: "Instant Gold Loans, ",
-    //     titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
-    //     subtextLines: [
-    //         "Need funds today? Get quick approvals and",
-    //         "competitive rates across — backed by a",
-    //         "trusted & approved advisory team.",
-    //     ],
-    // },
-    // {
-    //     video: "/videos/educationLoan.mp4",
-    //     titleLead: "Fund Your Future — ",
-    //     titleAccent: "Education Loans, <br />  Simplified",
-    //     subtextLines: [
-    //         "Studying in India or abroad, get expert loan",
-    //         "advisory so your education plans stay",
-    //         "on track, not on hold.",
-    //     ],
-    // },
-    // {
-    //     video: "/videos/hero-family.mp4",
-    //     titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
-    //     titleAccent: "Financed Right",
-    //     subtextLines: [
-    //         "Quick, flexible loans for vehicles and",
-    //         "everyday needs, matched across trusted &",
-    //         "approved lenders by expert loan advisors.",
-    //     ],
-    // },
+    {
+        media: "/videos/banner-videosNimages/loan%20against%20property.jpeg",
+        mediaType: "image",
+        background: "#ffffff",
+        titleLead: "Evaluate Your<br /> Property's Value with Our ",
+        titleAccent: "Expert Loan Advisory",
+        subtextLines: [
+            "Why sell when you can leverage? We compare",
+            "Loan Against Property offers from",
+            "DSA-trusted & approved lenders.",
+        ],
+    },
+    {
+        media: "/videos/banner-videosNimages/gold%20loan.mp4",
+        mediaType: "video",
+        background: "#e8e6e7",
+        titleLead: "Instant Gold Loans, ",
+        titleAccent: "Zero Hassle,  Trusted <br /> Advisory",
+        subtextLines: [
+            "Need funds today? Get quick approvals and",
+            "competitive rates across — backed by a",
+            "trusted & approved advisory team.",
+        ],
+    },
+    {
+        media: "/videos/banner-videosNimages/education%20loan.mp4",
+        mediaType: "video",
+        background: "#ffffff",
+        titleLead: "Fund Your Future — ",
+        titleAccent: "Education Loans, <br />  Simplified",
+        subtextLines: [
+            "Studying in India or abroad, get expert loan",
+            "advisory so your education plans stay",
+            "on track, not on hold.",
+        ],
+    },
+    {
+        media: "/videos/banner-videosNimages/vehicle%20loan.png",
+        mediaType: "image",
+        background: "#ffffff",
+        titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
+        titleAccent: "Financed Right",
+        subtextLines: [
+            "Quick, flexible loans for vehicles and",
+            "everyday needs, matched across trusted &",
+            "approved lenders by expert loan advisors.",
+        ],
+    },
 ];
 
 export default function HeroSection() {
@@ -203,8 +223,11 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_180%)]">
-            <div className="relative min-h-[88dvh] lg:min-h-[80dvh] secGap [@media(max-width:1023px)]:pb-0! [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center bg-white">
+        <section className="relative">
+            <div
+                className="relative min-h-[88dvh] lg:min-h-[80dvh] secGap [@media(max-width:1023px)]:pb-0! [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700"
+                style={{ backgroundColor: heroSlides[activeSlide].background }}
+            >
                 <div className="absolute z-10 inset-0 bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.25)_0%,rgba(19,75,150,0.25)_100%)]" />
                 <div className="relative z-20 w-full mx-auto flex items-center justify-between gap-[6%] px-[5%] max-[1023px]:flex-col max-[800px]:justify-center">
                     <div className="min-w-0 flex-1 pb-12 max-[800px]:pb-4 w-full">
@@ -280,16 +303,25 @@ export default function HeroSection() {
                         </div>
                     ) : null}
                 </div>
-                <video
-                    className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster={heroSlides[activeSlide].video}
-                >
-                    <source src={heroSlides[activeSlide].video} type="video/mp4" />
-                </video>
+                {heroSlides[activeSlide].mediaType === "image" ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- swaps reactively with `activeSlide`; a static next/image import can't do that for a data-driven path.
+                    <img
+                        className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full mx-auto"
+                        src={heroSlides[activeSlide].media}
+                        alt=""
+                    />
+                ) : (
+                    <video
+                        key={heroSlides[activeSlide].media}
+                        className="absolute bottom-0 lg:inset-0 h-full w-full object-cover lg:object-contain object-bottom max-h-[40%] md:max-h-[60%] lg:max-h-full max-w-full lg:max-w-[80%] [@media(min-width:1650px)]:max-w-full mx-auto"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    >
+                        <source src={heroSlides[activeSlide].media} type="video/mp4" />
+                    </video>
+                )}
             </div>
             <div className="block lg:hidden">
                 <EligibilityForm />
