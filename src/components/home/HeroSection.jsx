@@ -241,7 +241,7 @@ export default function HeroSection() {
                 style={{ backgroundColor: heroSlides[activeSlide].background }}
             >
                 <div
-                    className={`absolute z-10 inset-0 bg-[radial-gradient(80%_177.96%,#ffffff05_18%,#ffffffde_100%)] ${
+                    className={`hidden lg:block absolute z-10 inset-0 bg-[radial-gradient(70%_177.96%,#ffffff00_18%,#ffffff_100%)] ${
                         heroSlides[activeSlide].showGradient === false ? "lg:hidden" : ""
                     }`}
                 />
@@ -260,7 +260,7 @@ export default function HeroSection() {
                             loop={heroSlides.length > 1}
                             autoHeight
                             allowTouchMove={false}
-                            autoplay={heroSlides.length > 1 ? { delay: 16000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
+                            autoplay={heroSlides.length > 1 ? { delay: 16000000, disableOnInteraction: false, pauseOnMouseEnter: true } : false}
                             onSwiper={setSwiperInstance}
                             onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                         >
