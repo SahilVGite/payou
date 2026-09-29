@@ -43,7 +43,7 @@ export default function PageBanner({
 
         {subtitle && (
           <p
-            className={`mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white ${onlyTxt === true ? "text-center" : "max-w-[46ch] lg:max-w-[56ch]"}`}
+            className={`mt-3 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white ${onlyTxt === true ? "text-center max-w-[95ch] mx-auto" : "max-w-[46ch] lg:max-w-[56ch]"}`}
           >
             {subtitle}
           </p>

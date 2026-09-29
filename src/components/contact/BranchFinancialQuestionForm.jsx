@@ -86,6 +86,8 @@ export default function BranchFinancialQuestionForm({
   const [formMessage, setFormMessage] = useState(null);
   const resetTimer = useRef(null);
   const touched = useRef({});
+  const valuesRef = useRef(values);
+  valuesRef.current = values;
   const message = values.message;
 
   useEffect(
@@ -98,13 +100,11 @@ export default function BranchFinancialQuestionForm({
   function setField(key, value, reveal = false) {
     const nextValue = value ?? "";
     if (reveal) touched.current[key] = true;
-    const nextValues = { ...values, [key]: nextValue };
-    let changed = false;
-    setValues((current) => {
-      if (current[key] === nextValue) return current;
-      changed = true;
-      return { ...current, [key]: nextValue };
-    });
+    const previous = valuesRef.current;
+    const changed = previous[key] !== nextValue;
+    const nextValues = changed ? { ...previous, [key]: nextValue } : previous;
+    if (changed) valuesRef.current = nextValues;
+    setValues((current) => (current[key] === nextValue ? current : { ...current, [key]: nextValue }));
     if (changed || reveal) {
       setErrors((current) =>
         applyEnquiryFieldError(current, key, nextValues, touched.current[key]),
@@ -120,7 +120,7 @@ export default function BranchFinancialQuestionForm({
 
   function blurField(key) {
     touched.current[key] = true;
-    setErrors((current) => applyEnquiryFieldError(current, key, values, true));
+    setErrors((current) => applyEnquiryFieldError(current, key, valuesRef.current, true));
   }
 
   async function handleSubmit(event) {
@@ -142,6 +142,7 @@ export default function BranchFinancialQuestionForm({
       if (resetTimer.current) clearTimeout(resetTimer.current);
       resetTimer.current = setTimeout(() => {
         touched.current = {};
+        valuesRef.current = { ...EMPTY_ENQUIRY };
         setValues({ ...EMPTY_ENQUIRY });
         setErrors({});
         setFormMessage(null);

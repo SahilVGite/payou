@@ -12,14 +12,13 @@ export default function PrivacyPolicyPage({ breadcrumbs = [{ label: "Terms and C
       <PageBanner
         title={
           <>
-            Terms and Conditions
-            <br />
-            <span>& Privacy Policy</span>
+            Terms and Conditions <span>& Privacy Policy</span>
           </>
         }
         subtitle="This document is an electronic record in terms of the Information Technology Act, 2000 and the rules made thereunder, as amended from time to time, and does not require any physical or digital signature."
-        image="/images/privacy-policy-banner.png"
-        imageAlt="Privacy Policy"
+        // image="/images/privacy-policy-banner.png"
+        // imageAlt="Privacy Policy"
+        onlyTxt={true}
       />
       <TextArea />
     </>

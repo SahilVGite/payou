@@ -3,7 +3,7 @@ import React from 'react'
 const TextArea = () => {
   return (
     <section className='relative secGap px-[4%] lg:px-[3%] backdrop-blur-sm bg-white/28'>
-        <div className='bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.41)_0%,rgba(19,75,150,0.41)_100%)] absolute inset-0' />
+        {/* <div className='bg-[radial-gradient(19.33%_167.96%_at_50%_50%,rgba(255,255,255,0.41)_0%,rgba(19,75,150,0.41)_100%)] absolute inset-0' /> */}
         <div className='privacyContent'>
             <p>Please read these Terms and Conditions (“Terms”, “Terms of Use”) carefully before using the website <a href="https://www.payyouadvisory.com">www.payyouadvisory.com</a> (“Website”) owned and operated by Payyou Advisory Private Ltd. (“Company”, “PayYou Advisory”, “we”, “us”, “our”). By accessing, browsing, or using this Website, submitting an enquiry, or availing any service offered through it, you (“User”, “Customer”, “you”) agree to be bound by these Terms and by our Privacy Policy set out in Part B below. If you do not agree with any part of these Terms, please do not use this Website.</p>
             <h2>Part A: Terms and Conditions</h2>
