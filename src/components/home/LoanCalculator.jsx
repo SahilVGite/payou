@@ -564,7 +564,7 @@ export default function LoanCalculator() {
           <strong className="font-bold text-primary">Before You Apply</strong>
         </h2>
         <p className="mx-auto mb-(--sec-gap) text-left md:text-center text-[16px] md:text-[16px] lg:text-[20px] text-[#4B5563]">
-          Use our free loan EMI calculators to plan your principal, interest, and tenure.  With our redundant loan advisory services you get no surprises later.
+          Use our free loan EMI calculators to plan your principal, interest, and tenure.  <br />With our redundant loan advisory services you get no surprises later.
         </p>
 
         <div className="mb-4 lg:hidden">
