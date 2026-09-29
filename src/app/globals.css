@@ -256,3 +256,395 @@
 
   pointer-events: none;
 }
+
+
+/* ==========================================================================
+   Rich-text (CKEditor) content: Terms & Privacy page (components/privacy/TextArea)
+   Everything is scoped to .privacyContent so no other component is affected.
+   Kept in @layer components so Tailwind utilities can still override it.
+   Font sizes follow the site pattern: mobile clamp -> md fixed -> lg clamp (1366-1920px).
+   ========================================================================== */
+@layer components {
+  .privacyContent {
+    position: relative;
+    z-index: 1;
+    color: var(--brand-ink);
+    overflow-wrap: break-word;
+  }
+
+  .privacyContent::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* ---- Body text ---- */
+  .privacyContent p,
+  .privacyContent li,
+  .privacyContent blockquote,
+  .privacyContent table,
+  .privacyContent figcaption,
+  .privacyContent pre,
+  .privacyContent h5,
+  .privacyContent h6 {
+    font-size: clamp(0.8125rem, 0.7574rem + 0.2451vw, 0.875rem);
+    line-height: 1.6;
+  }
+
+  .privacyContent p,
+  .privacyContent li {
+    font-weight: 400;
+    color: var(--brand-ink);
+  }
+
+  /* ---- Headings ---- */
+  .privacyContent :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-primary);
+    line-height: 1.3;
+  }
+
+  .privacyContent h1 {
+    font-size: clamp(1.5rem, 1.2794rem + 0.9804vw, 1.75rem);
+    margin-top: 0.75em;
+  }
+
+  .privacyContent h2 {
+    font-size: clamp(1.375rem, 1.1544rem + 0.9804vw, 1.625rem);
+    margin-top: 0.75em;
+  }
+
+  .privacyContent h3 {
+    font-size: clamp(1.125rem, 1.0147rem + 0.4902vw, 1.25rem);
+    margin-top: 1em;
+  }
+
+  .privacyContent h4 {
+    font-size: clamp(1rem, 0.8897rem + 0.4902vw, 1.125rem);
+    margin-top: 1em;
+  }
+
+  .privacyContent :is(h5, h6) {
+    margin-top: 1em;
+  }
+
+  .privacyContent h6 {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- Block spacing ---- */
+  .privacyContent :is(p, ol, ul, blockquote, figure, table, pre, hr):not(:first-child) {
+    margin-top: 0.75em;
+  }
+
+  .privacyContent > :first-child {
+    margin-top: 0;
+  }
+
+  /* ---- Inline ---- */
+  .privacyContent :is(strong, b) {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .privacyContent :is(em, i) {
+    font-style: italic;
+  }
+
+  .privacyContent u {
+    text-decoration: underline;
+  }
+
+  .privacyContent :is(s, del, strike) {
+    text-decoration: line-through;
+  }
+
+  .privacyContent a {
+    font-weight: var(--font-weight-semibold);
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    transition: color 0.2s ease;
+  }
+
+  .privacyContent a:hover {
+    color: var(--brand-primary);
+  }
+
+  /* Email / phone links read like plain body text */
+  .privacyContent :is(a[href^="mailto:"], a[href^="tel:"]) {
+    font-weight: inherit;
+    text-decoration: none;
+  }
+
+  .privacyContent :is(sub, sup) {
+    position: relative;
+    font-size: 0.75em;
+    line-height: 0;
+  }
+
+  .privacyContent sup {
+    vertical-align: super;
+  }
+
+  .privacyContent sub {
+    vertical-align: sub;
+  }
+
+  .privacyContent mark {
+    background-color: #fdfd77;
+    color: inherit;
+    padding: 0 0.15em;
+  }
+
+  .privacyContent code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background-color: rgba(19, 75, 150, 0.08);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+
+  /* ---- Lists ---- */
+  .privacyContent ol {
+    padding-left: 3em;
+    list-style: decimal;
+  }
+
+  .privacyContent ul {
+    padding-left: 1.3em;
+    list-style: none;
+  }
+
+  .privacyContent ol ol {
+    list-style: lower-alpha;
+  }
+
+  .privacyContent ol ol ol {
+    list-style: lower-roman;
+  }
+
+  .privacyContent li + li,
+  .privacyContent li :is(ol, ul) {
+    margin-top: 0.25em;
+  }
+
+  .privacyContent li::marker {
+    color: var(--brand-ink);
+  }
+
+  /* CKEditor to-do list */
+  .privacyContent ul.todo-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .privacyContent .todo-list input[type="checkbox"] {
+    margin-right: 0.5em;
+    accent-color: var(--brand-primary);
+  }
+
+  /* ---- Blockquote ---- */
+  .privacyContent blockquote {
+    border-left: 4px solid var(--brand-primary);
+    padding: 0.5em 0 0.5em 1em;
+    font-style: italic;
+  }
+
+  /* ---- Horizontal line ---- */
+  .privacyContent hr {
+    border: 0;
+    border-top: 1px solid var(--brand-border);
+  }
+
+  /* ---- Code block ---- */
+  .privacyContent pre {
+    background-color: rgba(19, 75, 150, 0.08);
+    border-radius: 8px;
+    padding: 1em;
+    overflow-x: auto;
+  }
+
+  .privacyContent pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* ---- Images / media (CKEditor figure.image, figure.media) ---- */
+  .privacyContent img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .privacyContent figure.image {
+    display: table;
+    margin-inline: auto;
+  }
+
+  .privacyContent figure.image img {
+    display: block;
+    margin-inline: auto;
+  }
+
+  .privacyContent figure.image_resized img {
+    width: 100%;
+  }
+
+  .privacyContent :is(.image-style-align-left, .image-style-block-align-left) {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .privacyContent :is(.image-style-align-right, .image-style-block-align-right) {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .privacyContent .image-style-side {
+    float: right;
+    max-width: 50%;
+    margin-left: 1.5em;
+  }
+
+  .privacyContent figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    text-align: center;
+    color: var(--brand-muted);
+    padding-top: 0.5em;
+  }
+
+  .privacyContent figure.media iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+
+  /* ---- Tables (CKEditor wraps them in figure.table) ---- */
+  .privacyContent figure.table {
+    overflow-x: auto;
+  }
+
+  .privacyContent table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .privacyContent :is(th, td) {
+    border: 1px solid var(--brand-border);
+    padding: 0.6em 0.8em;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .privacyContent th {
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--brand-soft-blue);
+    color: var(--brand-primary);
+  }
+
+  /* ---- CKEditor font-size / highlight helpers ---- */
+  .privacyContent .text-tiny {
+    font-size: 0.7em;
+  }
+
+  .privacyContent .text-small {
+    font-size: 0.85em;
+  }
+
+  .privacyContent .text-big {
+    font-size: 1.4em;
+  }
+
+  .privacyContent .text-huge {
+    font-size: 1.8em;
+  }
+
+  .privacyContent .marker-yellow {
+    background-color: #fdfd77;
+  }
+
+  .privacyContent .marker-green {
+    background-color: #62f962;
+  }
+
+  .privacyContent .marker-pink {
+    background-color: #fc7899;
+  }
+
+  .privacyContent .marker-blue {
+    background-color: #72ccfd;
+  }
+
+  .privacyContent .pen-red {
+    color: #e71313;
+    background-color: transparent;
+  }
+
+  .privacyContent .pen-green {
+    color: #128a00;
+    background-color: transparent;
+  }
+
+  /* ---- md ---- */
+  @media (min-width: 48rem) {
+    .privacyContent p,
+    .privacyContent li,
+    .privacyContent blockquote,
+    .privacyContent table,
+    .privacyContent figcaption,
+    .privacyContent pre,
+    .privacyContent h5,
+    .privacyContent h6 {
+      font-size: 14px;
+    }
+
+    .privacyContent h1 {
+      font-size: 36px;
+    }
+
+    .privacyContent h2 {
+      font-size: 28px;
+    }
+
+    .privacyContent h3 {
+      font-size: 20px;
+    }
+
+    .privacyContent h4 {
+      font-size: 18px;
+    }
+  }
+
+  /* ---- lg (scales up to the target sizes at 1920px) ---- */
+  @media (min-width: 64rem) {
+    .privacyContent p,
+    .privacyContent li,
+    .privacyContent blockquote,
+    .privacyContent table,
+    .privacyContent figcaption,
+    .privacyContent pre,
+    .privacyContent h5,
+    .privacyContent h6 {
+      font-size: clamp(0.875rem, 0.5668rem + 0.361vw, 1rem);
+    }
+
+    .privacyContent h1 {
+      font-size: clamp(2rem, 0.4589rem + 1.8051vw, 2.625rem);
+    }
+
+    .privacyContent h2 {
+      font-size: clamp(1.75rem, 1.1336rem + 0.722vw, 2rem);
+    }
+
+    .privacyContent h3 {
+      font-size: clamp(1.25rem, 0.6336rem + 0.722vw, 1.5rem);
+    }
+
+    .privacyContent h4 {
+      font-size: clamp(1.125rem, 0.8168rem + 0.361vw, 1.25rem);
+    }
+  }
+}

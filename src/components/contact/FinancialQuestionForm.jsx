@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Select from "../common/Select2Field";
+import EnquiryFormNotice from "./EnquiryFormNotice";
+import { applyEnquiryFieldError, EMPTY_ENQUIRY, ENQUIRY_SERVICES, submitEnquiry, validateEnquiry } from "../../lib/enquiryForm";
 import LoanGuidanceIcon from "../../../public/icons/LoanGuidanceIcon";
 import InterestRateEnquiryIcon from "../../../public/icons/InterestRateEnquiryIcon";
 import ApplicationSupportIcon from "../../../public/icons/ApplicationSupportIcon";
@@ -23,16 +25,7 @@ const DEFAULT_WHATSAPP = "+91 9175535507";
 const DEFAULT_EMAIL = "info@payyouadvisory.com";
 const DEFAULT_OFFICE_LABEL = "Office No. 3, 4, 5, 6, Vishal Arcade, Chapekar Chowk, Opp. to Sonigara Jwellers, Pimpri Chinchwad (Municipal Corporation), Haveli, Pune, 411033.";
 
-const services = [
-  "Personal Loan",
-  "Business Loan",
-  "Home Loan",
-  "Loan Against Property",
-  "Gold Loan",
-  "Insurance",
-  "Investments",
-  "Other",
-];
+const services = ENQUIRY_SERVICES;
 
 export default function FinancialQuestionForm({
   phone = DEFAULT_PHONE,
@@ -43,7 +36,76 @@ export default function FinancialQuestionForm({
   mapQuery,
   gridCards = false,
 }) {
-  const [message, setMessage] = useState("");
+  const [values, setValues] = useState(EMPTY_ENQUIRY);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [formMessage, setFormMessage] = useState(null);
+  const resetTimer = useRef(null);
+  const touched = useRef({});
+  const message = values.message;
+
+  useEffect(() => () => {
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+  }, []);
+
+  function setField(key, value, reveal = false) {
+    const nextValue = value ?? "";
+    if (reveal) touched.current[key] = true;
+    const nextValues = { ...values, [key]: nextValue };
+    let changed = false;
+    setValues((current) => {
+      if (current[key] === nextValue) return current;
+      changed = true;
+      return { ...current, [key]: nextValue };
+    });
+    if (changed || reveal) {
+      setErrors((current) => applyEnquiryFieldError(current, key, nextValues, touched.current[key]));
+    }
+    if (!changed) return;
+    if (resetTimer.current) {
+      clearTimeout(resetTimer.current);
+      resetTimer.current = null;
+    }
+    setFormMessage(null);
+  }
+
+  function blurField(key) {
+    touched.current[key] = true;
+    setErrors((current) => applyEnquiryFieldError(current, key, values, true));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (submitting) return;
+    const nextErrors = validateEnquiry(values);
+    setErrors(nextErrors);
+    setFormMessage(null);
+    if (Object.keys(nextErrors).length) return;
+
+    setSubmitting(true);
+    try {
+      await submitEnquiry(values);
+      setErrors({});
+      setFormMessage({ type: "success", text: "Your enquiry has been submitted successfully." });
+      if (resetTimer.current) clearTimeout(resetTimer.current);
+      resetTimer.current = setTimeout(() => {
+        touched.current = {};
+        setValues({ ...EMPTY_ENQUIRY });
+        setErrors({});
+        setFormMessage(null);
+        resetTimer.current = null;
+      }, 5000);
+    } catch (error) {
+      const fields = error.fields || {};
+      if (Object.keys(fields).length) {
+        setErrors(fields);
+      } else {
+        setFormMessage({ type: "error", text: "Unable to submit your enquiry. Please try again." });
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   const channels = [
     [CallUsIcon, "Call us", phone, `tel:${phone.replace(/\s+/g, "")}`],
@@ -122,23 +184,26 @@ export default function FinancialQuestionForm({
 
           <form
             className="flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
-            action={`mailto:${email}`}
-            method="post"
-            encType="text/plain"
+            noValidate
+            onSubmit={handleSubmit}
           >
             <div className="grid gap-6 sm:grid-cols-2">
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="relative grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Full Name <span className="text-accent">*</span>
                 </span>
                 <input
                   required
                   name="name"
+                  value={values.name}
+                  onChange={(event) => setField("name", event.target.value)}
+                  onBlur={() => blurField("name")}
                   placeholder="Enter your name"
                   className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
+                {errors.name ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.name}</span> : null}
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="relative grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Mobile Number <span className="text-accent">*</span>
                 </span>
@@ -150,12 +215,18 @@ export default function FinancialQuestionForm({
                     required
                     type="tel"
                     name="mobile"
+                    inputMode="numeric"
+                    maxLength={10}
+                    value={values.mobile}
+                    onChange={(event) => setField("mobile", event.target.value.replace(/\D/g, "").slice(0, 10))}
+                    onBlur={() => blurField("mobile")}
                     placeholder="Enter Mobile Number"
                     className="w-full text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                   />
                 </span>
+                {errors.mobile ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.mobile}</span> : null}
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="relative grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Email Address <span className="text-accent">*</span>
                 </span>
@@ -163,18 +234,24 @@ export default function FinancialQuestionForm({
                   required
                   type="email"
                   name="email"
+                  value={values.email}
+                  onChange={(event) => setField("email", event.target.value)}
+                  onBlur={() => blurField("email")}
                   placeholder="Enter email address"
                   className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
+                {errors.email ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.email}</span> : null}
               </label>
-              <label className="grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
+              <label className="relative grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-[#EEE8E8]">
                 <span className="flex">
                   Select Service <span className="text-accent">*</span>
                 </span>
                 <Select
                   required
                   name="service"
-                  defaultValue=""
+                  value={values.service}
+                  onChange={(event) => setField("service", event.target.value)}
+                  onBlur={() => blurField("service")}
                   className="w-full rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none"
                   chevronClassName="text-[#4B5563]"
                 >
@@ -187,10 +264,11 @@ export default function FinancialQuestionForm({
                     </option>
                   ))}
                 </Select>
+                {errors.service ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.service}</span> : null}
               </label>
             </div>
 
-            <label className="mt-[1.5em] flex min-h-0 flex-1 flex-col gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-white">
+            <label className="relative mt-[1.5em] flex min-h-0 flex-1 flex-col gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-white">
               <span className="flex">
                 Message <span className="text-accent">*</span>
               </span>
@@ -202,21 +280,26 @@ export default function FinancialQuestionForm({
                   maxLength={500}
                   placeholder="Tell us how we can help you"
                   value={message}
-                  onChange={(event) => setMessage(event.target.value)}
+                  onChange={(event) => setField("message", event.target.value)}
+                  onBlur={() => blurField("message")}
                   className="w-full grow shrink-0 resize-none rounded-2xl bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                 />
                 <span className="pointer-events-none absolute bottom-3 right-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-[#4B5563]">
                   {message.length}/500
                 </span>
               </span>
+              {errors.message ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.message}</span> : null}
             </label>
 
-            <label className="mt-[1.5em] flex items-start gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] leading-relaxed text-white/85">
+            <label className="relative mt-[1.5em] flex items-start gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] leading-relaxed text-white/85">
               <span className="relative mt-0.5 h-4 lg:h-[clamp(1.125rem,0.3545rem+0.9025vw,1.4375rem)] w-4 lg:w-[clamp(1.125rem,0.3545rem+0.9025vw,1.4375rem)] shrink-0">
                 <input
                   required
                   type="checkbox"
                   name="consent"
+                  checked={values.consent}
+                  onChange={(event) => setField("consent", event.target.checked, true)}
+                  onBlur={() => blurField("consent")}
                   className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
                 />
                 <span className="pointer-events-none absolute inset-0 rounded-[5px] border-2 border-white peer-focus-visible:ring-2 peer-focus-visible:ring-white peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-primary" />
@@ -226,12 +309,14 @@ export default function FinancialQuestionForm({
               </span>
               <span className="">
                 I agree to be connected by PayYou Advisory. I accept the{" "}
-                <Link href="/" className="underline text-[#7EB6FF]">
+                <Link href="/privacy-policy" target="_blank" className="underline text-[#7EB6FF]">
                   Privacy Policy
                 </Link>{" "}
                 and consent to receive communication.
               </span>
+              {errors.consent ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.consent}</span> : null}
             </label>
+            <EnquiryFormNotice message={formMessage} />
 
             <button
               type="submit"

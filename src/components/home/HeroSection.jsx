@@ -10,10 +10,10 @@ import "swiper/css/effect-fade";
 import EligibilityForm from "./EligibilityForm";
 
 const stats = [
-    [Handshake, "25+", "Leading Partners"],
-    [ShieldCheck, "100%", "Customer Satisfaction"],
-    [Timer, "5", "Years of Experience"],
-    [Users, "100+", "Loan Processed"],
+    ["25+", "Leading Partners"],
+    ["100%", "Customer Satisfaction"],
+    ["5", "Years of Experience"],
+    ["100+", "Loan Processed"],
 ];
 
 // Only the title/subtext (and the background media) rotate — the CTAs, the eligibility
@@ -355,7 +355,7 @@ export default function HeroSection() {
                 ref={statsRef}
                 className="[@media(max-width:1023px)]:py-(--sec-gap) px-[4%] lg:absolute lg:-bottom-[clamp(2rem,-1.8321rem+3.6101vw,2.5rem)] lg:inset-x-0 z-10 mx-auto grid max-w-[clamp(62.5rem,37.843rem+28.8809vw,72.5rem)] grid-cols-4 gap-5 max-[1024px]:grid-cols-2"
             >
-                {stats.map(([Icon, value, label]) => (
+                {stats.map(([value, label]) => (
                     <div
                         key={label}
                         className="bg-glass-effect text-center flex items-center justify-center gap-4 rounded-xl bg-primary/08 lg:bg-white/55 backdrop-blur-lg px-2 md:px-[clamp(0.625rem,-0.2996rem+1.083vw,1rem)] py-3 md:py-[clamp(0.625rem,-0.9161rem+1.8051vw,1.25rem)] shadow-[2px_2px_4px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(16,25,43,0.18)]"

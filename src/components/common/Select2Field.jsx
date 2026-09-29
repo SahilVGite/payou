@@ -36,6 +36,7 @@ function getOptionLabel(children, matchValue) {
 export default function Select2Field({
   value,
   onChange,
+  onBlur,
   className = "",
   // Accepted only for drop-in compatibility with ../common/Select's props — Select2 always
   // renders its own trigger/dropdown markup (styled via select2-theme.css), so neither one
@@ -49,6 +50,7 @@ export default function Select2Field({
   const selectRef = useRef(null);
   const instanceRef = useRef(null);
   const onChangeRef = useRef(onChange);
+  const onBlurRef = useRef(onBlur);
   // Select2's own JS is loaded async (dynamically imported below), so there's an
   // unavoidable gap after mount where it isn't ready yet. Left alone, that gap showed the
   // plain native <select> — a visibly different "old" dropdown — until Select2 swapped it
@@ -60,6 +62,7 @@ export default function Select2Field({
 
   useEffect(() => {
     onChangeRef.current = onChange;
+    onBlurRef.current = onBlur;
   });
 
   useEffect(() => {
@@ -104,6 +107,9 @@ export default function Select2Field({
       $select.on("change", () => {
         onChangeRef.current?.({ target: { value: $select.val() } });
       });
+      $select.on("select2:close", () => {
+        onBlurRef.current?.();
+      });
       setIsReady(true);
     });
 
@@ -111,7 +117,7 @@ export default function Select2Field({
       cancelled = true;
       setIsReady(false);
       if (instanceRef.current) {
-        instanceRef.current.off("change");
+        instanceRef.current.off("change select2:close");
         instanceRef.current.select2("destroy");
         instanceRef.current = null;
       }
@@ -122,9 +128,11 @@ export default function Select2Field({
   // Over" reset) — skipped entirely for uncontrolled usage (no `value` prop passed at all).
   useEffect(() => {
     if (value === undefined || !instanceRef.current) return;
-    if (instanceRef.current.val() !== value) {
-      instanceRef.current.val(value).trigger("change");
-    }
+    const displayed = instanceRef.current.val();
+    const displayedValue = displayed == null ? "" : displayed;
+    if (displayedValue === value) return;
+    // An empty value has to be `null` or Select2 keeps showing the previous option.
+    instanceRef.current.val(value === "" ? null : value).trigger("change");
   }, [value]);
 
   return (

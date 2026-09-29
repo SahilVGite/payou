@@ -264,7 +264,7 @@ export default function Header() {
         </div>
       </div>
       <div className="relative bg-white shadow-[0_4px_13px_rgba(16,25,43,0.09)] px-4">
-        <div className="px-[clamp(0rem,-6.625rem+8.2813vw,3.3125rem)] mx-auto flex max-w-(--header-width) items-center gap-8 px-4 py-2 md:py-3 max-[1050px]:gap-4 max-[1024px]:flex-wrap max-[1024px]:justify-center">
+        <div className="mx-auto flex max-w-(--header-width) items-center gap-8 py-2 md:py-3 max-[1050px]:gap-4 max-[1024px]:flex-wrap max-[1024px]:justify-center">
           <Link href="/" className="shrink-0 mr-auto">
             <Image
               src="/images/siteLogoHeader.png"

@@ -132,8 +132,7 @@ export default function Footer() {
       <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 border-t border-white/55 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-bold max-[800px]:flex-col">
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
         <span>
-          <Link href="/">Privacy Policy</Link> &nbsp;|&nbsp;{" "}
-          <Link href="/">Terms &amp; Conditions</Link>{" "}
+          <Link href="/privacy-policy">Privacy Policy & Terms Conditions</Link>{" "}
           &nbsp;|&nbsp; <Link href="/">Cookie Policy</Link>{" "}
           &nbsp;|&nbsp; <Link href="/">Disclaimer</Link>
         </span>

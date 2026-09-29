@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import ContactHero from "../../../../components/contact/ContactHero";
 import BranchFinancialQuestionForm from "../../../../components/contact/BranchFinancialQuestionForm";
 import NextStepBanner from "../../../../components/contact/NextStepBanner";
 import { branches } from "../../../../data/branches";
+import PageBanner from "@/components/common/PageBanner";
 
 export function generateStaticParams() {
   return branches.map((branch) => ({ slug: branch.slug }));
@@ -24,12 +24,15 @@ export default async function BranchContactPage({ params }) {
 
   return (
     <>
-      <ContactHero
-        title={`${branch.city} Branch - Contact Us`}
+      <PageBanner
+        title={<><span>{branch.city} Branch - Contact Us</span></>}
         subtitle={`Connect with our ${branch.city} team for personalised financial guidance and assistance with your financial needs.`}
+        onlyTxt={true}
       />
       <BranchFinancialQuestionForm
         city={branch.city}
+        branchSlug={branch.slug}
+        branchName={branch.name}
         phone={branch.phone}
         whatsapp={branch.whatsapp}
         email={branch.email}
