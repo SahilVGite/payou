@@ -100,12 +100,13 @@ function LoansMegaMenuFooterBar() {
 // [label, href, hasChevron] — only Home and Contact Us are real pages for now; every other
 // label keeps its text but points at "/" until its page exists, rather than 404ing.
 const navLinks = [
-  ["LOANS", "/contact-us", true],
-  ["SERVICES", "/", true],
-  ["CALCULATORS", "/", true],
-  ["ABOUT US", "/", false],
+  // ["LOANS", "/contact-us", true],
+  // ["SERVICES", "/", true],
+  // ["CALCULATORS", "/", true],
+  // ["ABOUT US", "/", false],
+  ["HOME", "/", false],
   ["CONTACT US", "/contact-us", false],
-  ["BLOG", "/", false],
+  // ["BLOG", "/", false],
 ];
 
 // Active state is derived from the current route rather than hardcoded per link: LOANS
@@ -236,12 +237,14 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-9999 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
+      className={`sticky top-0 z-999999999 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
       onMouseLeave={closeLoansMenuOnLeave}
     >
       <div className="bg-primary font-nunito font-bold text-white">
-        <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4">
-          <div className="flex items-center font-semibold gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden">
+        <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-2 md:px-4">
+        {/* <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4"> */}
+          <div className="flex items-center font-semibold gap-1 md:gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)]">
+          {/* <div className="flex items-center font-semibold gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden"> */}
             <Phone size={17} />
             <span>
               <a href="tel:02027350055">020 2735 0055 / </a>
@@ -255,11 +258,11 @@ export default function Header() {
             aria-label="Quick links"
             className="flex items-center font-semibold gap-5 text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.75rem,0.1336rem+0.722vw,1rem)] max-[1024px]:ml-auto"
           >
-            <Link href="/">ABOUT US</Link>
-            <span className="border-l border-white/70 h-5" />
-            <Link href="/contact-us">CONTACT US</Link>
-            <span className="border-l border-white/70 h-5" />
-            <Link href="/">BLOG</Link>
+            {/* <Link href="/">ABOUT US</Link>
+            <span className="border-l border-white/70 h-5" /> */}
+            {/* <Link href="/contact-us">CONTACT US</Link> */}
+            {/* <span className="border-l border-white/70 h-5" />
+            <Link href="/">BLOG</Link> */}
           </nav>
         </div>
       </div>
@@ -343,7 +346,7 @@ export default function Header() {
             })}
           </nav>
           <div className="ml-auto flex items-center gap-3 max-[1024px]:ml-0">
-            <label className="flex w-[16.25em] items-center justify-between rounded-full border border-primary bg-white pl-4 py-[0.5em] pr-1.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-primary max-[1050px]:w-[170px] max-[1024px]:hidden">
+            {/* <label className="flex w-[16.25em] items-center justify-between rounded-full border border-primary bg-white pl-4 py-[0.5em] pr-1.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-primary max-[1050px]:w-[170px] max-[1024px]:hidden">
               <input
                 type="text"
                 name="search"
@@ -353,7 +356,7 @@ export default function Header() {
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-primary">
                 <Search size={18} />
               </span>
-            </label>
+            </label> */}
             <Link
               href="/contact-us"
               className="flex items-center gap-2 rounded-full bg-primary px-[1.5em] py-[0.75em] text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"

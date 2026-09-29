@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage({ breadcrumbs = [{ label: "Terms and C
       <PageBanner
         title={
           <>
-            Terms and Conditions <span>& Privacy Policy</span>
+            Terms and Conditions & Privacy Policy
           </>
         }
         subtitle="This document is an electronic record in terms of the Information Technology Act, 2000 and the rules made thereunder, as amended from time to time, and does not require any physical or digital signature."

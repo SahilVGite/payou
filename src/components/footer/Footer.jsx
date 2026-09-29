@@ -19,11 +19,11 @@ const popularProducts = [
 
 const usefulLinks = [
   ["Home", "/"],
-  ["About", "/"],
-  ["Careers", "/"],
+  // ["About", "/"],
+  // ["Careers", "/"],
   ["Contact", "/contact-us"],
-  ["Calculators", "/"],
-  ["Customer Care", "/"],
+  // ["Calculators", "/"],
+  // ["Customer Care", "/"],
 ];
 
 const socialLinks = [
@@ -45,7 +45,8 @@ const columnLinkClassName =
 export default function Footer() {
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
-      <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between">
+      <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_29.82%] lg:justify-between">
+      {/* <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between"> */}
         <div className="col-span-2 sm:col-span-1">
           <Link href="/" className="inline-block">
             <Image
@@ -63,7 +64,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div>
+        {/* <div>
           <h3 className={columnHeadingClassName}>POPULAR PRODUCTS</h3>
           <div className="flex flex-col">
             {popularProducts.map(([label, href]) => (
@@ -72,7 +73,7 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div>
           <h3 className={columnHeadingClassName}>USEFUL LINKS</h3>
@@ -133,8 +134,8 @@ export default function Footer() {
         <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
         <span>
           <Link href="/privacy-policy">Privacy Policy & Terms Conditions</Link>{" "}
-          &nbsp;|&nbsp; <Link href="/">Cookie Policy</Link>{" "}
-          &nbsp;|&nbsp; <Link href="/">Disclaimer</Link>
+          {/* &nbsp;|&nbsp; <Link href="/">Cookie Policy</Link>{" "}
+          &nbsp;|&nbsp; <Link href="/">Disclaimer</Link> */}
         </span>
       </div>
     </footer>

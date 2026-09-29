@@ -55,11 +55,11 @@ const loanTenures = ["1 Year", "3 Years", "5 Years", "7 Years", "10 Years", "15 
 // Shared with the Step 1 city dropdown (same pill shape, border, and text sizing) so every
 // field across all four steps reads as the same form, not a different component per step.
 const fieldClassName =
-  "mt-2.5 block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-[18px] text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none placeholder:text-[#8b93a1]";
+  "block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-[18px] text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none placeholder:text-[#8b93a1]";
 const selectFieldClassName =
-  "mt-2.5 block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-10 text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none";
+  "block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-10 text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none";
 const labelClassName =
-  "block text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80";
+  "block text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80 flex flex-col gap-2.5 relative";
 const continueButtonClassName =
   "rounded-full w-full md:w-fit bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(19,75,150,0.4)]";
 const backButtonClassName =
@@ -87,7 +87,7 @@ function FormField({ label, error, children }) {
     <label className={labelClassName}>
       {label}
       {children}
-      {error ? <span className="mt-1.5 block text-[11px] font-semibold text-accent ">{error}</span> : null}
+      {error ? <span className="absolute top-full left-0 block text-[11px] font-medium font-inter text-[#ff0009] ">{error}</span> : null}
     </label>
   );
 }
