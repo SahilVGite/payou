@@ -109,12 +109,12 @@ export default function RateComparison() {
             <table className="w-full min-w-[820px] border-collapse text-left">
               <thead>
                 <tr className="bg-primary/15 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold uppercase tracking-wide whitespace-nowrap text-[#10192C]">
-                  <th className="px-6 py-4">Lender Name</th>
-                  <th className="px-6 py-4">Facility Type</th>
-                  <th className="px-6 py-4">Starting Interest Rate</th>
-                  <th className="px-6 py-4">Standard Processing Fee</th>
-                  <th className="px-6 py-4">Sanction Speed</th>
-                  <th className="px-6 py-4 text-right">Instant Action</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">Lender Name</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">Facility Type</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">Starting Interest Rate</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">Standard Processing Fee</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">Sanction Speed</th>
+                  <th className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-right">Instant Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -123,19 +123,19 @@ export default function RateComparison() {
                     key={lender.id}
                     className={`border-t border-[#A6B6CB]/50 transition hover:bg-[#f5f8fc]`}
                   >
-                    <td className="px-6 py-4">
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">
                       <span className="flex flex-wrap items-center gap-2.5">
                         <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-[#4B5563] whitespace-nowrap">{lender.name}</span>
-                        <span className={`inline-block rounded-sm px-[0.5833em] py-[0.3333em] text-[10px] md:text-[12px] bg-white font-medium whitespace-nowrap ${toneClasses[lender.highlight.tone]}`}>
+                        {/* <span className={`inline-block rounded-sm px-[0.5833em] py-[0.3333em] text-[10px] md:text-[12px] bg-white font-medium whitespace-nowrap ${toneClasses[lender.highlight.tone]}`}>
                           {lender.highlight.text}
-                        </span>
+                        </span> */}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#10192C]">{lender.facility}</td>
-                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-accent">{lender.rate}</td>
-                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-ink">{lender.fee}</td>
-                    <td className="px-6 py-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">{lender.speed}</td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-[#10192C]">{lender.facility}</td>
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-accent">{lender.rate}</td>
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-ink">{lender.fee}</td>
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium text-primary">{lender.speed}</td>
+                    <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)] text-right">
                       <button
                         type="button"
                         className="inline-flex items-center gap-1.5 rounded-full bg-primary px-[3.3333em] py-[0.6666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold text-white transition hover:bg-primary cursor-pointer"
