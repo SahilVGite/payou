@@ -29,7 +29,7 @@ const cairo = Cairo({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://pay-you.netlify.app"),
+  metadataBase: new URL("https://payyouadvisory.com"),
   title: {
     default: "Pay You Advisory",
     template: "%s | Pay You Advisory",
