@@ -1,10 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import Select from "../common/Select2Field";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 
-// Fallback when no slide-specific range is passed (e.g. the form used outside the hero).
-const defaultIncomeRange = { min: 100000, max: 600000, step: 100000, default: 200000 };
+// "Your Income" slider range per Required Facility option (min/max, slider step, and the
+// value it resets to when that facility gets selected). The six tick labels under the
+// slider are generated from min/max, so keep (max - min) divisible by 5 for clean labels.
+const incomeRanges = {
+    "Personal Loan": { min: 100000, max: 600000, step: 100000, default: 200000 },
+    "Business Loan": { min: 500000, max: 3000000, step: 100000, default: 1000000 },
+    "Home Loan": { min: 200000, max: 1200000, step: 50000, default: 400000 },
+    "Loan Against Property": { min: 300000, max: 1800000, step: 50000, default: 600000 },
+    "Gold Loan": { min: 50000, max: 300000, step: 10000, default: 100000 },
+};
+const facilities = Object.keys(incomeRanges);
 
 // "150000" -> "1.5L", "50000" -> "50K", "12000000" -> "1.2Cr" — for the slider's tick labels.
 function formatTick(value) {
@@ -14,9 +24,9 @@ function formatTick(value) {
     return `${trim(value / 1000)}K`;
 }
 
-// Mounted with a `key` derived from the range, so switching hero slides remounts it fresh:
-// the value snaps to that slide's default instead of keeping an out-of-range number left
-// over from the previous slide (useEditableNumber only reads its initial value on mount).
+// Mounted with `key={facility}`, so changing Required Facility remounts it fresh: the value
+// snaps to that facility's default instead of keeping an out-of-range number left over
+// from the previously selected facility (useEditableNumber only reads its initial value on mount).
 function IncomeField({ range }) {
     const { min, max, step } = range;
     const incomeField = useEditableNumber(range.default, {
@@ -64,7 +74,8 @@ function IncomeField({ range }) {
     );
 }
 
-export default function EligibilityForm({ className = "", incomeRange = defaultIncomeRange }) {
+export default function EligibilityForm({ className = "" }) {
+    const [facility, setFacility] = useState(facilities[0]);
     return (
         <form
             className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 lg:rounded-[19px] bg-primary/20 backdrop-blur-lg px-5.5 py-8 lg:p-5.5 text-white max-[1023px]:w-full [@media(max-width:1023px)]:[&::before]:hidden ${className}`}
@@ -79,20 +90,18 @@ export default function EligibilityForm({ className = "", incomeRange = defaultI
                 <span className="mb-2.5">Required Facility <em className="text-accent">*</em></span>
                 <Select
                     className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] block w-full rounded-full border-0 bg-white/90 py-3.25 pl-4.5 pr-10 text-[#4B5563]"
-                    defaultValue="Personal Loan"
+                    value={facility}
+                    onChange={(event) => setFacility(event.target.value)}
                     name="facility"
                 >
-                    <option>Personal Loan</option>
-                    <option>Business Loan</option>
-                    <option>Home Loan</option>
-                    <option>Loan Against Property</option>
-                    <option>Gold Loan</option>
+                    {facilities.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
                 </Select>
             </label>
-            <IncomeField
-                key={`${incomeRange.min}-${incomeRange.max}-${incomeRange.default}`}
-                range={incomeRange}
-            />
+            <IncomeField key={facility} range={incomeRanges[facility]} />
             <label className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
                 Mobile Number
                 <input
