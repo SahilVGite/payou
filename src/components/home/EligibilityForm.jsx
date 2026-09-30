@@ -104,11 +104,14 @@ export default function EligibilityForm({ className = "" }) {
             <IncomeField key={facility} range={incomeRanges[facility]} />
             <label className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
                 Mobile Number
-                <input
-                    className="mt-2.5 block w-full rounded-full border-0 bg-white/90 px-4.5 py-3.25 text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
-                    name="mobile"
-                    placeholder="+91 Enter Mobile Number"
-                />
+                <div className="relative">
+                    <input
+                        className="mt-2.5 block w-full rounded-full border-0 bg-white/90 px-4.5 pl-12 py-3.25 text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
+                        name="mobile"
+                        placeholder="Enter Mobile Number"
+                    />
+                    <span className="absolute top-1/2 -translate-y-1/2 left-4.5 text-ink">+91</span>
+                </div>
             </label>
             <button
                 className="w-full rounded-full border-0 bg-primary py-[1.0666em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-[#0e3a75] hover:shadow-[0_6px_14px_rgba(19,75,150,0.35)] cursor-pointer"
