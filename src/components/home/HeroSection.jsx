@@ -77,12 +77,12 @@ const heroSlides = [
         ],
     },
     {
-        media: "/videos/banner-videosNimages/loan%20against%20property.jpeg",
+        media: "/videos/banner-videosNimages/loan%20against%20property.png",
         mediaType: "image",
         // Unlike the other slides' media, this photo is meant to fill the whole frame
         // edge-to-edge (full width/height, object-cover) instead of sitting letterboxed —
         // see the `fullCover` check where the media element is rendered.
-        fullCover: true,
+        // fullCover: true,
         // The blue radial-gradient overlay would otherwise sit on top of this full-bleed
         // photo — omit it just for this slide (see `showGradient` default below).
         showGradient: false,
