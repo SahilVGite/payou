@@ -38,15 +38,9 @@ const stats = [
 // (same pattern as the branch addresses in data/branches.js), so a literal `<br />` (or other
 // simple inline markup) can be dropped into any of these strings to force a manual line break
 // — it renders as a real break instead of showing up as text.
-//
-// `incomeRange` drives the eligibility form's "Your Income" slider for that slide (min/max,
-// slider step, and the value it resets to whenever the slide changes) — the six tick labels
-// under the slider are generated from min/max, so keep (max - min) divisible by 5 for clean
-// labels.
 const heroSlides = [
     {
         media: "/videos/banner-videosNimages/personal%20loan.mp4",
-        incomeRange: { min: 100000, max: 600000, step: 100000, default: 200000 },
         mediaType: "video",
         background: "#ffffff",
         titleLead: "Personal Loans  <br /> Made Simple: ",
@@ -60,7 +54,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/business%20loan.mp4",
-        incomeRange: { min: 500000, max: 3000000, step: 100000, default: 1000000 },
         mediaType: "video",
         background: "#fafafa",
         titleLead: "Fuel Your Business with the ",
@@ -74,7 +67,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/home%20loan.mp4",
-        incomeRange: { min: 200000, max: 1200000, step: 50000, default: 400000 },
         mediaType: "video",
         background: "#fafafa",
         titleLead: "Secure Your ",
@@ -87,7 +79,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/loan%20against%20property.jpeg",
-        incomeRange: { min: 300000, max: 1800000, step: 50000, default: 600000 },
         mediaType: "image",
         // Unlike the other slides' media, this photo is meant to fill the whole frame
         // edge-to-edge (full width/height, object-cover) instead of sitting letterboxed —
@@ -107,7 +98,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/gold%20loan.mp4",
-        incomeRange: { min: 50000, max: 300000, step: 10000, default: 100000 },
         mediaType: "video",
         background: "#ffffff",
         titleLead: "Instant Gold Loans, ",
@@ -120,7 +110,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/education%20loan.mp4",
-        incomeRange: { min: 100000, max: 1100000, step: 50000, default: 300000 },
         mediaType: "video",
         background: "#ffffff",
         titleLead: "Fund Your Future — ",
@@ -133,7 +122,6 @@ const heroSlides = [
     },
     {
         media: "/videos/banner-videosNimages/vehicle%20loan.png",
-        incomeRange: { min: 100000, max: 1100000, step: 50000, default: 300000 },
         mediaType: "image",
         background: "#ffffff",
         titleLead: "From Your Next  Ride to <br /> Home Essentials — ",
@@ -314,7 +302,7 @@ export default function HeroSection() {
                             </Link>
                         </div>
                     </div>
-                    <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm incomeRange={heroSlides[activeSlide].incomeRange} /></div>
+                    <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm /></div>
                     {heroSlides.length > 1 ? (
                         <div className={`lg:absolute top-1/2 left-1/2 lg:-translate-1/2 w-full max-w-[98%] flex justify-between gap-2.5 ${heroSlides[activeSlide].fullCover ? "-order-1" : ""}`}>
                             <button
@@ -361,7 +349,7 @@ export default function HeroSection() {
                 )}
             </div>
             <div className="block lg:hidden">
-                <EligibilityForm incomeRange={heroSlides[activeSlide].incomeRange} />
+                <EligibilityForm />
             </div>
             <div
                 ref={statsRef}

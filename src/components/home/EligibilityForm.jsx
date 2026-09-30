@@ -1,18 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Select from "../common/Select2Field";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
+import { submitEligibility } from "../../lib/services/eligibility.service";
 
 // "Your Income" slider range per Required Facility option (min/max, slider step, and the
 // value it resets to when that facility gets selected). The six tick labels under the
 // slider are generated from min/max, so keep (max - min) divisible by 5 for clean labels.
 const incomeRanges = {
-    "Personal Loan": { min: 100000, max: 600000, step: 100000, default: 200000 },
-    "Business Loan": { min: 500000, max: 3000000, step: 100000, default: 1000000 },
-    "Home Loan": { min: 200000, max: 1200000, step: 50000, default: 400000 },
-    "Loan Against Property": { min: 300000, max: 1800000, step: 50000, default: 600000 },
-    "Gold Loan": { min: 50000, max: 300000, step: 10000, default: 100000 },
+    "Personal Loan": {
+        min: 100000,       // ₹1L
+        max: 1000000,      // ₹10L
+        step: 10000,
+        default: 200000,   // ₹2L
+    },
+
+    "Business Loan": {
+        min: 700000,       // ₹7L
+        max: 50000000,     // ₹5Cr
+        step: 100000,
+        default: 1000000,  // ₹10L
+    },
+
+    "Home Loan": {
+        min: 100000,       // ₹1L
+        max: 100000000,    // ₹10Cr
+        step: 100000,
+        default: 400000,   // ₹4L
+    },
+
+    "Loan Against Property": {
+        min: 1000000,      // ₹10L
+        max: 150000000,    // ₹15Cr
+        step: 100000,
+        default: 1000000,  // ₹10L
+    },
+
+    "Gold Loan": {
+        min: 100000,       // ₹1L
+        max: 5000000,      // ₹50L
+        step: 10000,
+        default: 100000,   // ₹1L
+    },
 };
 const facilities = Object.keys(incomeRanges);
 
@@ -26,8 +56,9 @@ function formatTick(value) {
 
 // Mounted with `key={facility}`, so changing Required Facility remounts it fresh: the value
 // snaps to that facility's default instead of keeping an out-of-range number left over
-// from the previously selected facility (useEditableNumber only reads its initial value on mount).
-function IncomeField({ range }) {
+// from the previously selected facility (useEditableNumber only reads its initial value on
+// mount). Reports every value change up via `onIncomeChange` so the form can submit it.
+function IncomeField({ range, onIncomeChange }) {
     const { min, max, step } = range;
     const incomeField = useEditableNumber(range.default, {
         min,
@@ -35,6 +66,14 @@ function IncomeField({ range }) {
         format: (value) => value.toLocaleString("en-IN"),
     });
     const income = incomeField.value;
+    const onIncomeChangeRef = useRef(onIncomeChange);
+    useEffect(() => {
+        onIncomeChangeRef.current = onIncomeChange;
+    });
+
+    useEffect(() => {
+        onIncomeChangeRef.current?.(income);
+    }, [income]);
     const ticks = Array.from({ length: 6 }, (_, index) => formatTick(min + ((max - min) * index) / 5));
 
     return (
@@ -50,7 +89,7 @@ function IncomeField({ range }) {
                     onChange={(event) => incomeField.handleChange(event.target.value)}
                     onFocus={incomeField.handleFocus}
                     onBlur={incomeField.handleBlur}
-                    className="w-20 bg-transparent text-white outline-none"
+                    className="w-22 bg-transparent text-white outline-none"
                 />
             </span>
             <input
@@ -76,12 +115,54 @@ function IncomeField({ range }) {
 
 export default function EligibilityForm({ className = "" }) {
     const [facility, setFacility] = useState(facilities[0]);
+    const [mobile, setMobile] = useState("");
+    const [submitting, setSubmitting] = useState(false);
+    const [notice, setNotice] = useState(null);
+    const incomeRef = useRef(incomeRanges[facilities[0]].default);
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        if (submitting) return;
+        const phone = mobile.replace(/\D/g, "");
+        if (!facilities.includes(facility)) {
+            setNotice({ type: "error", text: "Please select a facility." });
+            return;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+            setNotice({ type: "error", text: "Please enter a valid 10-digit mobile number." });
+            return;
+        }
+
+        setSubmitting(true);
+        setNotice(null);
+        try {
+            const data = await submitEligibility({
+                facility,
+                income: incomeRef.current,
+                phone,
+                phoneCode: "+91",
+            });
+            if (!data?.success) {
+                throw new Error(data?.message || "Unable to submit your eligibility check. Please try again.");
+            }
+            setMobile("");
+            setNotice({ type: "success", text: "Your eligibility check has been received. We will contact you shortly." });
+        } catch (error) {
+            const fieldMessage = error?.fields?.mobile || error?.fields?.facility || error?.fields?.income;
+            setNotice({
+                type: "error",
+                text: fieldMessage || error?.message || "Unable to submit your eligibility check. Please try again.",
+            });
+        } finally {
+            setSubmitting(false);
+        }
+    }
+
     return (
         <form
             className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 lg:rounded-[19px] bg-primary/20 backdrop-blur-lg px-5.5 py-8 lg:p-5.5 text-white max-[1023px]:w-full [@media(max-width:1023px)]:[&::before]:hidden ${className}`}
-            action="mailto:info@payyouadvisory.com"
-            method="post"
-            encType="text/plain"
+            onSubmit={handleSubmit}
+            noValidate
         >
             <h2 className="m-0 text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.6336rem+0.722vw,1.5rem)] font-bold text-white">
                 Instant Loan Eligibility Check
@@ -91,8 +172,11 @@ export default function EligibilityForm({ className = "" }) {
                 <Select
                     className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] block w-full rounded-full border-0 bg-white/90 py-3.25 pl-4.5 pr-10 text-[#4B5563]"
                     value={facility}
-                    onChange={(event) => setFacility(event.target.value)}
                     name="facility"
+                    onChange={(event) => {
+                        setFacility(event.target.value);
+                        setNotice(null);
+                    }}
                 >
                     {facilities.map((option) => (
                         <option key={option} value={option}>
@@ -101,15 +185,28 @@ export default function EligibilityForm({ className = "" }) {
                     ))}
                 </Select>
             </label>
-            <IncomeField key={facility} range={incomeRanges[facility]} />
+            <IncomeField
+                key={facility}
+                range={incomeRanges[facility]}
+                onIncomeChange={(value) => {
+                    incomeRef.current = value;
+                }}
+            />
             <label className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-[#EEE8E8]">
                 Mobile Number
                 <div className="relative">
                     <input
                         className="mt-2.5 block w-full rounded-full border-0 bg-white/90 px-4.5 pl-12 py-3.25 text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
                         name="mobile"
-                        placeholder="Enter Mobile Number"
-                    />
+                        inputMode="numeric"
+                    maxLength={10}
+                    value={mobile}
+                    placeholder="Enter Mobile Number"
+                        onChange={(event) => {
+                        setMobile(event.target.value.replace(/\D/g, "").slice(0, 10));
+                        setNotice(null);
+                    }}
+                />
                     <span className="absolute top-1/2 -translate-y-1/2 left-4.5 text-ink">+91</span>
                 </div>
             </label>
@@ -119,6 +216,14 @@ export default function EligibilityForm({ className = "" }) {
             >
                 CHECK FREE ELIGIBILITY
             </button>
+            {notice ? (
+                <p
+                    className="m-0 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white lg:text-[#DADADA]"
+                    role={notice.type === "error" ? "alert" : "status"}
+                >
+                    {notice.text}
+                </p>
+            ) : null}
             <p className="m-0 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white lg:text-[#DADADA] [text-shadow:-0.5px_0_#134B96,0_0.5px_#134B96,0.5px_0_#134B96,0_-0.5px_#134B96]">
                 We charge zero processing fees and keep your credit score safe. No hidden charges.
             </p>
