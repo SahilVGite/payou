@@ -149,6 +149,16 @@ export default function Header() {
     });
   };
 
+  // Any link clicked inside the header (nav items, the loans menu, logo, APPLY NOW) closes
+  // the mobile hamburger panel. Done on click rather than on pathname change so it also
+  // closes when the link points at the page the visitor is already on, or opens a popup
+  // instead of navigating.
+  const closeMenusOnLinkClick = (event) => {
+    if (!event.target.closest("a")) return;
+    setHamburgerOpen(false);
+    setLoansMenuOpen(false);
+  };
+
   const openLoansMenu = () => {
     if (isDesktopViewport()) setLoansMenuOpen(true);
   };
@@ -239,6 +249,7 @@ export default function Header() {
     <header
       className={`sticky top-0 z-999999999 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
       onMouseLeave={closeLoansMenuOnLeave}
+      onClick={closeMenusOnLinkClick}
     >
       <div className="bg-primary font-nunito font-bold text-white">
         <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-2 md:px-4">
