@@ -34,6 +34,21 @@ export const metadata = {
     template: "%s | Pay You Advisory",
   },
   description: "Clear financial guidance for the decisions that shape your next chapter.",
+  openGraph: {
+    title: "Pay You Advisory",
+    description:
+      "Clear financial guidance for the decisions that shape your next chapter.",
+    siteName: "Pay You Advisory",
+    type: "website",
+    images: [
+      {
+        url: "/images/siteLogoHeader.png",
+        width: 124,
+        height: 65,
+        alt: "Pay You Advisory",
+      },
+    ],
+  },
   icons: {
     icon: [
       { url: "/images/favicon_io/favicon.ico", sizes: "any" },
