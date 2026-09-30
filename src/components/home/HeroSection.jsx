@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -8,7 +7,7 @@ import { ChevronLeft, ChevronRight, Handshake, ShieldCheck, Timer, Users } from 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import EligibilityForm from "./EligibilityForm";
-
+import PopupLink from "../popup/PopupLink";
 const stats = [
     ["25+", "Leading Partners"],
     ["100%", "Customer Satisfaction"],
@@ -181,6 +180,8 @@ export default function HeroSection() {
         // hijacking the scroll there isn't wanted.
         function tryJump(isScrollingDown) {
             if (isAnimating || !isScrollingDown) return false;
+            // A global popup is open (see components/popup/PopupProvider) — page is scroll-locked.
+            if (document.documentElement.dataset.popupOpen) return false;
             if (!window.matchMedia("(min-width: 1024px)").matches) return false;
             const targetY = computeTargetY();
             if (targetY === null || window.scrollY >= targetY) return false;
@@ -288,18 +289,18 @@ export default function HeroSection() {
                             ))}
                         </Swiper>
                         <div className="flex gap-2 md:gap-4.5">
-                            <Link
+                            <PopupLink
                                 href="/contact-us"
                                 className="rounded-full bg-[#b11f24] px-[3em] py-[0.8em] text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)]"
                             >
                                 APPLY NOW
-                            </Link>
-                            <Link
+                            </PopupLink>
+                            <PopupLink
                                 href="/contact-us"
                                 className="rounded-full bg-[#134b96] px-[1.7333em] py-[0.8em] text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white shadow-[0_5px_10px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)]"
                             >
                                 Speak to an Advisor
-                            </Link>
+                            </PopupLink>
                         </div>
                     </div>
                     <div className="hidden lg:block max-w-[clamp(21.875rem,-8.1758rem+35.1986vw,34.0625rem)]"><EligibilityForm /></div>

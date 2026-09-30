@@ -2,6 +2,7 @@ import { Cairo, Inter, Nunito, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import PopupProvider from "../components/popup/PopupProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -48,9 +49,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-hidden bg-white font-poppins text-[#10192b]">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <PopupProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </PopupProvider>
       </body>
     </html>
   );

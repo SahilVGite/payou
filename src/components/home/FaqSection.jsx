@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, ChevronDown, Plus } from "lucide-react";
 import Collapse from "../common/Collapse";
 import Dropdown from "../common/Dropdown";
-
+import PopupLink from "../popup/PopupLink";
 const categories = ["General FAQ's", "Loans", "Insurance", "Investment", "EMI"];
 
 const faqsByCategory = {
@@ -186,13 +185,13 @@ export default function FaqSection() {
 
             <div className="border-t border-[#E4E6EB] mt-4 pt-4">
               <p className="text-[18px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-[#18181B] mb-[0.6em]">Can't Find What You Need?</p>
-              <Link
+              <PopupLink
                 href="/contact-us"
                 className="float-left inline-flex gap-2 items-center justify-center text-center w-full rounded-full bg-accent px-[1em] py-[0.5555em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-white transition-all hover:bg-accent/90 hover:gap-6"
               >
                 SUBMIT QUERIES
                 <ArrowRight size={20} className="inline-block" />
-              </Link>
+              </PopupLink>
             </div>
           </div>
 

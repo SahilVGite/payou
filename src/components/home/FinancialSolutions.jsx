@@ -34,7 +34,7 @@ import TwoWheelerLoanIcon from "../../../public/icons/TwoWheelerLoanIcon";
 import UsedCarLoanIcon from "../../../public/icons/UsedCarLoanIcon";
 import ConsumerDurableLoanIcon from "../../../public/icons/ConsumerDurableLoanIcon";
 import CarLoanIcon from "../../../public/icons/CarLoanIcon";
-
+import PopupLink from "../popup/PopupLink";
 const tabs = [
   { label: "Loans", icon: LoansTabIcon },
   { label: "Insurance", icon: ShieldCheck },
@@ -532,12 +532,12 @@ function ProductCard({ card }) {
         <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white line-clamp-3">
           {card.description}
         </p>
-        <Link
+        <PopupLink
           href="/contact-us"
           className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
         >
           Explore More <ArrowRight size={12} className="inline-block" />
-        </Link>
+        </PopupLink>
       </div>
     </article>
   );
@@ -647,13 +647,13 @@ export default function FinancialSolutions() {
                         {expandedDescriptionByTabAndItem[activeTab][item]}
                       </p>
                       <div className="mt-3 flex flex-col gap-2">
-                        <Link
+                        <PopupLink
                           href="/contact-us"
                           className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
                         >
                           Know More{" "}
                           <ArrowRight size={12} className="inline-block" />
-                        </Link>
+                        </PopupLink>
                       </div>
                     </div>
                   </Collapse>

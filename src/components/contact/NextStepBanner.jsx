@@ -1,5 +1,5 @@
-import Link from "next/link";
 
+import PopupLink from "../popup/PopupLink";
 // "primary" (default) is the original blue-gradient banner used on the main Contact Us
 // page — left untouched. "light" is only for the per-branch contact page's own Figma
 // design (grey gradient, dark title, primary-blue button) and must never change what
@@ -36,12 +36,12 @@ export default function NextStepBanner({ variant = "primary" }) {
         <p className={`mt-3 max-w-[70ch] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] ${styles.paragraph}`}>
           Get expert advice, personalized solutions and the right loan options to achieve your financial goals.
         </p>
-        <Link
+        <PopupLink
           href="/contact-us"
           className={`mt-3 inline-block rounded-full px-[2.8em] py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold transition hover:-translate-y-0.5 ${styles.button}`}
         >
           TALK TO AN EXPERT
-        </Link>
+        </PopupLink>
       </div>
     </section>
   );

@@ -7,3 +7,5 @@ export const ENDPOINTS = {
   contactSubmit: '/contact',
   eligibilitySubmit: '/eligibility',
 }
+
+

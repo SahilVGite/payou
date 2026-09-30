@@ -1,5 +1,5 @@
-import Link from "next/link";
 
+import PopupLink from "../popup/PopupLink";
 const cards = [
   {
     title: "Grievance Redressal",
@@ -42,12 +42,12 @@ export default function GrievanceDispute() {
               {description}
             </p>
             {cta ? (
-              <Link
+              <PopupLink
                 href="/contact-us"
                 className="mt-10 inline-block rounded-full bg-accent text-center [@media(max-width:767px)]:w-full px-[5em] lg:px-[10.4666em] py-[0.9411em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-accent"
               >
                 {cta}
-              </Link>
+              </PopupLink>
             ) : null}
             <img
               src={image}

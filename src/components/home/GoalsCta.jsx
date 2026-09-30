@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-
+import PopupLink from "../popup/PopupLink";
 export default function GoalsCta() {
   return (
     <section
@@ -14,18 +13,18 @@ export default function GoalsCta() {
             <strong className="font-bold">Our Smarter Loan Solutions.</strong>
           </h2>
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-            <Link
+            <PopupLink
               href="/contact-us"
               className="w-full md:w-fit text-center rounded-full border border-white px-8 py-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white transition hover:bg-white hover:text-[#134b96]"
             >
               GET STARTED TODAY
-            </Link>
-            <Link
+            </PopupLink>
+            <PopupLink
               href="/contact-us"
               className="w-full md:w-fit text-center rounded-full bg-[#b11f24] px-8 py-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-bold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
             >
               TALK TO OUR EXPERT NOW
-            </Link>
+            </PopupLink>
           </div>
         </div>
         <img src="/images/Our_Smarter_Loan_Solutions.png" alt="PayYou Advisory app" className="hidden lg:block absolute bottom-0 right-0 max-w-[42%] [@media(min-width:1400px)]:max-w-[35%]  h-auto object-contain object-bottom-right" />
