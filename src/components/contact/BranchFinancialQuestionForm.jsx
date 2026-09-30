@@ -185,7 +185,7 @@ export default function BranchFinancialQuestionForm({
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width) rounded-2xl md:rounded-4xl bg-primary py-[clamp(2rem,0.7482rem+1.4599vw,2.5rem)] px-[clamp(1.25rem,0.2464rem+2.9197vw,3.75rem)]">
         <div className="grid gap-10 lg:grid-cols-[1fr_50.2%]">
-          <div className="text-white">
+          <div className="text-white order-2 lg:order-1">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
               BRANCH DETAILS
             </span>
@@ -240,7 +240,7 @@ export default function BranchFinancialQuestionForm({
             </div>
           </div>
 
-          <div className="flex flex-col gap-6 rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8">
+          <div className="order-1 lg:order-2 flex flex-col gap-6 rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8">
             <form className="flex flex-col" noValidate onSubmit={handleSubmit}>
               <div className="grid gap-6 sm:grid-cols-2">
                 <label className="relative grid gap-2 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-medium text-white">

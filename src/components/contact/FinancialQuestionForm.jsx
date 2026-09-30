@@ -119,7 +119,7 @@ export default function FinancialQuestionForm({
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width) rounded-2xl md:rounded-4xl bg-primary py-[clamp(2rem,0.7482rem+1.4599vw,2.5rem)] px-[clamp(1.25rem,0.2464rem+2.9197vw,3.75rem)]">
         <div className="grid gap-10 lg:grid-cols-[1fr_50.2%]">
-          <div className="text-white">
+          <div className="text-white order-2 lg:order-1">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
               GET EXPERT GUIDANCE
             </span>
@@ -184,7 +184,7 @@ export default function FinancialQuestionForm({
           </div>
 
           <form
-            className="flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
+            className="order-1 lg:order-2 flex flex-col rounded-3xl bg-[rgba(255,255,255,0.02)] bg-glass-effect backdrop-blur-sm shadow-[0px_16px_32px_rgba(0,0,0,0.25098)] p-5 md:p-8"
             noValidate
             onSubmit={handleSubmit}
           >
