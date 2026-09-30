@@ -290,7 +290,7 @@ export default function EligibilityChecker() {
                     <button
                       type="button"
                       onClick={() => goToStep(1)}
-                      className="rounded-full w-full bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
+                      className="rounded-full w-full bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5  hover:shadow-[0_8px_18px_rgba(19,75,150,0.4)]"
                     >
                       Continue to Income
                     </button>
