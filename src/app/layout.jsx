@@ -29,6 +29,7 @@ const cairo = Cairo({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://payyouadvisory.com"),
   title: {
     default: "Pay You Advisory",
     template: "%s | Pay You Advisory",
@@ -42,9 +43,9 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/images/siteLogoHeader.png",
-        width: 124,
-        height: 65,
+        url: "/images/og_tag_logo.png",
+        width: 107,
+        height: 107,
         alt: "Pay You Advisory",
       },
     ],
