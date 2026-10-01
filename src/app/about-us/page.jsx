@@ -3,6 +3,8 @@ import PageHero from "../../components/common/PageHero";
 import SectionHeading from "../../components/common/SectionHeading";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import AboutUs from "@/components/about/AboutUs";
+import VisionMission from "@/components/about/VisionMission";
+import ValuesThatDefineUs from "@/components/about/ValuesThatDefineUs";
 import { homeFaqsByCategory } from "../../data/homeFaqs";
 import FaqSection from "@/components/common/FaqSection";
 import OurOfficesCards from "@/components/contact/OurOfficesCards";
@@ -27,6 +29,8 @@ export default function AboutUsPage({ breadcrumbs = [{ label: "About US" }] }) {
         imageAlt="Contact us"
       />
       <AboutUs />
+      <VisionMission />
+      <ValuesThatDefineUs />
       <PartnerLogos />
       <GoalsCta className="mb-0!" />
       <OurOfficesCards />
