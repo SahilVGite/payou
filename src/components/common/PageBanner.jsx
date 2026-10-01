@@ -14,7 +14,7 @@ export default function PageBanner({
     >
       {image && !bottomRightImage && (
         <img
-          className="absolute w-full h-full object-cover inset-0"
+          className="absolute w-full h-full object-cover inset-0 max-w-[70%] ml-auto"
           src={image}
           alt={imageAlt ?? title ?? ""}
         />

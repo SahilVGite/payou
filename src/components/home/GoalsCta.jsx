@@ -1,9 +1,9 @@
 import Image from "next/image";
 import PopupLink from "../popup/PopupLink";
-export default function GoalsCta() {
+export default function GoalsCta({className=""}) {
   return (
     <section
-      className="relative px-[4%] secGap"
+      className={`relative px-[4%] secGap ${className}`}
     >
       <div className="relative mx-auto grid max-w-(--content-width) rounded-[28px] overflow-hidden bg-primary grid-cols-[1.5fr_1fr] items-center gap-10 secGap px-[calc(var(--sec-gap)/2)] lg:px-(--sec-gap) [@media(min-width:1700px)]:px-[calc(var(--sec-gap)*2)] max-[1024px]:grid-cols-1" style={{ backgroundImage: "url('/images/our_smarter_loan_solutions_bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="text-white relative z-10">

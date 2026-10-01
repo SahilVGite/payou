@@ -2,6 +2,7 @@ import { MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import HomeLoanIcon from "../../../public/icons/HomeLoanIcon";
+import Link from "next/link";
 
 const OurOffices = [
   {
@@ -43,11 +44,10 @@ const OurOfficesCards = () => {
     >
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2.5 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] text-ink">
-          Visit <strong className="font-bold text-primary">Our Offices</strong>
+          <strong className="font-bold text-primary">Our Loan Advisory Offices</strong>
         </h2>
         <p className="mx-auto text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563] mb-[1.8em] lg:mb-[2.4em] max-w-[50ch]">
-          Meet our experts at any of our office locations for personalized
-          financial consultation and support. approval.
+          Prefer to talk face-to-face? Visit any of our offices for expert loan and financial guidance.
         </p>
         <div className="flex flex-wrap justify-center items-stretch gap-7">
           {OurOffices.map((office) => (
@@ -85,12 +85,12 @@ const OurOfficesCards = () => {
               </p>
 
               <div className="relative mt-auto pt-8">
-                <a
-                  href="#office-locations"
+                <Link
+                  href="/contact-us#office-locations"
                   className="inline-block rounded-full bg-accent px-7 py-3 md:px-8 lg:px-9 lg:py-3.5 text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase text-white shadow-[0_6px_16px_rgba(0,0,0,0.2)] transition hover:brightness-110"
                 >
                   Get Direction
-                </a>
+                </Link>
               </div>
             </div>
           ))}

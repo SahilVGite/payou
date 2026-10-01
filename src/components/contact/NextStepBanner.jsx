@@ -28,20 +28,20 @@ export default function NextStepBanner({ variant = "primary" }) {
       <div className={`absolute inset-0 z-10 [@media(max-width:1023px)]:backdrop-blur-2xl ${styles.gradient}`} />
       <div className="mx-auto max-w-(--content-width) relative z-10">
         <span className="inline-block rounded-full bg-white border border-primary px-[1.0769em] py-[0.5384em] font-semibold text-primary text-[10px] md:text-[12px] lg:text-[clamp(0.6875rem,0.3793rem+0.361vw,0.8125rem)]">
-          YOUR TRUSTED PARTNER
+          DSA-Trusted Loan Advisory
         </span>
         <h2 className={`mt-3 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight ${styles.title}`}>
-          Let's take the <strong className="font-bold">Next Step Together</strong>
+          Your Next Financial Move, <strong className="font-bold">Made Simple</strong>
         </h2>
         <p className={`mt-3 max-w-[70ch] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] ${styles.paragraph}`}>
-          Get expert advice, personalized solutions and the right loan options to achieve your financial goals.
+          Talk to our loan advisory team and get matched with the right loan, insurance, or investment option for your goals.
         </p>
         <PopupLink
           href="/contact-us"
           source={{ page: variant === "light" ? "Contact – Branch" : "Contact", section: "Next step", button: "TALK TO AN EXPERT" }}
           className={`mt-3 inline-block rounded-full px-[2.8em] py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold transition hover:-translate-y-0.5 ${styles.button}`}
         >
-          TALK TO AN EXPERT
+          Get Started
         </PopupLink>
       </div>
     </section>

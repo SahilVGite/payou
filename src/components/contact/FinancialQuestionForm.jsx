@@ -16,7 +16,7 @@ import VisitOfficeIcon from "../../../public/icons/VisitOfficeIcon";
 const highlights = [
   [LoanGuidanceIcon, "Loan Guidance"],
   [InterestRateEnquiryIcon, "Interest Rate Enquiry"],
-  [ApplicationSupportIcon, "Application Support"],
+  [ApplicationSupportIcon, "General Enquiry"],
   // [ApplicationSupportIcon, "Application Support"],
 ];
 
@@ -121,14 +121,13 @@ export default function FinancialQuestionForm({
         <div className="grid gap-10 lg:grid-cols-[1fr_50.2%]">
           <div className="text-white order-2 lg:order-1">
             <span className="inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold text-primary md:text-[13px]">
-              GET EXPERT GUIDANCE
+              Free Loan Advisory
             </span>
             <h2 className="mt-[0.3809em] text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] font-medium leading-tight">
-              Have a <strong className="font-bold">Financial Question?</strong>
+              Need Help Deciding? <strong className="font-bold"> Ask Us.</strong>
             </h2>
             <p className="mt-[0.75em] text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] max-w-[55ch] leading-relaxed text-white">
-              Get personalized advice from our loan experts. We'll help you find
-              the right solution for your needs.
+              Whatever your query, our loan experts are here to guide you to the right solution.
             </p>
 
             {mapQuery ? (
@@ -309,11 +308,11 @@ export default function FinancialQuestionForm({
                 </span>
               </span>
               <span className="">
-                I agree to be connected by PayYou Advisory. I accept the{" "}
+                I agree to be contacted by PayYouAdvisory and accept the {" "}
                 <Link href="/privacy-policy" target="_blank" className="underline text-[#7EB6FF]">
                   Privacy Policy
                 </Link>{" "}
-                and consent to receive communication.
+                for further communication.
               </span>
               {errors.consent ? <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">{errors.consent}</span> : null}
             </label>

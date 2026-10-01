@@ -4,18 +4,18 @@ const cards = [
   {
     title: "Grievance Redressal",
     description:
-      "In case you are not satisfied with the response, you can contact our Grievance Redressal Officer",
+      "If the response hasn't fully resolved your query, our Grievance Redressal Officer is here to help you further.",
     image: "/images/grievance_redressal.png",
     bg: "bg-primary/6",
     cta: "KNOW MORE",
   },
   {
-    title: "Raise a Dispute",
+    title: "Report Fraud",
     description:
-      "In addition to reporting unauthorized credit card transactions or electronic banking transactions to the bank, you can also report the incident to National Cyber Crime Helpline Number at 1930.",
+      "If you notice an unauthorized transaction on your credit card or bank account, report it to your bank immediately, and to the National Cyber Crime Helpline at 1930.",
     image: "/images/raise_dispute.png",
     bg: "bg-primary/6",
-    cta: null,
+    cta: "Report Now",
   },
 ];
 

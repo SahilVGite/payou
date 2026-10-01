@@ -8,8 +8,9 @@ import WhyChooseUs from "../components/home/WhyChooseUs";
 import PartnerLogos from "../components/home/PartnerLogos";
 import Testimonials from "../components/home/Testimonials";
 import GoalsCta from "../components/home/GoalsCta";
-import FaqSection from "../components/home/FaqSection";
+import FaqSection from "../components/common/FaqSection";
 import StickyWhatsapp from "@/components/common/StickyWhatsapp";
+import { homeFaqsByCategory } from "../data/homeFaqs";
 
 export default function Home() {
   return (
@@ -24,7 +25,16 @@ export default function Home() {
       <PartnerLogos />
       <Testimonials />
       <GoalsCta />
-      <FaqSection />
+      <FaqSection
+        title={
+          <>
+            PayYouAdvisory FAQs: <strong className="font-bold text-primary">Everything You Need to Know</strong>
+          </>
+        }
+        faqsByCategory={homeFaqsByCategory}
+        categoriesDescription="Browse by topic to find answers relevant to your loan, insurance, or investment questions."
+        ctaSource={{ page: "Home", section: "FAQ", button: "SUBMIT QUERIES" }}
+      />
       <StickyWhatsapp />
     </>
   );
