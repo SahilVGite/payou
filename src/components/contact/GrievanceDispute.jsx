@@ -14,7 +14,7 @@ const cards = [
     description:
       "In addition to reporting unauthorized credit card transactions or electronic banking transactions to the bank, you can also report the incident to National Cyber Crime Helpline Number at 1930.",
     image: "/images/raise_dispute.png",
-    bg: "bg-[rgba(177,31,36,0.065)]",
+    bg: "bg-primary/6",
     cta: null,
   },
 ];
@@ -33,7 +33,7 @@ export default function GrievanceDispute() {
         {cards.map(({ title, description, image, bg, cta }) => (
           <div
             key={title}
-            className={`bg-glass-effect relative overflow-hidden rounded-4xl ${bg} p-8 md:pb-50 md:pr-32 backdrop-blur-lg shadow-[inset_5px_5px_12px_rgba(0,0,0,0.1)]`}
+            className={`bg-glass-effect relative overflow-hidden rounded-4xl ${bg} p-8 md:pb-50 md:pr-32 backdrop-blur-xs shadow-[inset_5px_5px_12px_rgba(0,0,0,0.1)]`}
           >
             <h3 className="text-[clamp(1.375rem,1.2857rem+0.4464vw,1.5rem)] md:text-[26px] lg:text-[clamp(2.25rem,2.5rem+-0.3125vw,2.125rem)] font-semibold text-ink">
               {title}
@@ -44,6 +44,7 @@ export default function GrievanceDispute() {
             {cta ? (
               <PopupLink
                 href="/contact-us"
+                source={{ page: "Contact", section: title, button: cta }}
                 className="mt-10 inline-block rounded-full bg-accent text-center [@media(max-width:767px)]:w-full px-[5em] lg:px-[10.4666em] py-[0.9411em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white transition hover:bg-accent"
               >
                 {cta}

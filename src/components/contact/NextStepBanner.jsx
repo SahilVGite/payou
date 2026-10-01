@@ -38,6 +38,7 @@ export default function NextStepBanner({ variant = "primary" }) {
         </p>
         <PopupLink
           href="/contact-us"
+          source={{ page: variant === "light" ? "Contact – Branch" : "Contact", section: "Next step", button: "TALK TO AN EXPERT" }}
           className={`mt-3 inline-block rounded-full px-[2.8em] py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold transition hover:-translate-y-0.5 ${styles.button}`}
         >
           TALK TO AN EXPERT

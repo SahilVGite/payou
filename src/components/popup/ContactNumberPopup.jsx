@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import PopupShell from "./PopupShell";
+import { submitCallback } from "../../lib/services/callback.service";
 
 // "Enter your contact number" popup. Only collects the mobile number — what happens with it
 // is up to the caller, via `onSubmit(phone)` (a 10-digit string, no +91). If `onSubmit`
@@ -11,6 +12,7 @@ import PopupShell from "./PopupShell";
 export default function ContactNumberPopup({
     onClose,
     onSubmit,
+    source,
     message = "Enter your contact number to know more. Our team will get in touch with you shortly.",
 }) {
     const titleId = useId();
@@ -34,7 +36,20 @@ export default function ContactNumberPopup({
         setSubmitting(true);
         setError("");
         try {
-            await onSubmit?.(mobile);
+            if (onSubmit) {
+                await onSubmit(mobile);
+            } else {
+                const data = await submitCallback({
+                    phone: mobile,
+                    phoneCode: "+91",
+                    page: source?.page || "Website",
+                    section: source?.section || "Popup",
+                    button: source?.button || "Submit",
+                });
+                if (!data?.success) {
+                    throw new Error(data?.message || "Unable to submit your number. Please try again.");
+                }
+            }
             setSubmitted(true);
         } catch (submitError) {
             setError(submitError?.message || "Unable to submit your number. Please try again.");

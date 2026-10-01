@@ -17,6 +17,17 @@ import {
 import { loanGroups, loanMenu } from "../../data/navigation";
 import Collapse from "../common/Collapse";
 import PopupLink from "../popup/PopupLink";
+
+function popupPageName(pathname) {
+  if (!pathname || pathname === "/") return "Home";
+  if (pathname.startsWith("/contact-us/branch")) return "Contact – Branch";
+  if (pathname.startsWith("/contact-us")) return "Contact";
+  if (pathname.startsWith("/about-us")) return "About";
+  if (pathname.startsWith("/faq")) return "FAQ";
+  if (pathname.startsWith("/blog")) return "Blog";
+  if (pathname.startsWith("/privacy-policy")) return "Privacy Policy";
+  return "Website";
+}
 // Shared between the desktop hover overlay and the mobile accordion panel so the two
 // don't drift apart — only how each one is positioned/animated differs. Split into a
 // scrollable "body" and a separate "footer bar" (rather than one block with the footer
@@ -370,6 +381,7 @@ export default function Header() {
             </label> */}
             <PopupLink
               href="/contact-us"
+              source={{ page: popupPageName(pathname), section: "Header", button: "APPLY NOW" }}
               className="flex items-center gap-2 rounded-full bg-primary px-[1.5em] py-[0.75em] text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
             >
               <UserRound size={16} /> APPLY NOW

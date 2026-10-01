@@ -534,6 +534,7 @@ function ProductCard({ card }) {
         </p>
         <PopupLink
           href="/contact-us"
+          source={{ page: "Home", section: `Financial solutions – ${card.title}`, button: "Explore More" }}
           className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
         >
           Explore More <ArrowRight size={12} className="inline-block" />
@@ -649,6 +650,7 @@ export default function FinancialSolutions() {
                       <div className="mt-3 flex flex-col gap-2">
                         <PopupLink
                           href="/contact-us"
+                          source={{ page: "Home", section: `Financial solutions – ${activeTab} – ${item}`, button: "Know More" }}
                           className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
                         >
                           Know More{" "}

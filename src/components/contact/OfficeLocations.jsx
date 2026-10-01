@@ -2,14 +2,15 @@
 
 import { useRef, useState } from "react";
 import { Mic, Phone, Search } from "lucide-react";
-import Select from "../common/Select";
+import Select from "../common/Select2Field";
 import BranchLocationIcon from "../../../public/icons/BranchLocationIcon";
 import OfficeLocationsMap from "./OfficeLocationsMap";
 import { branches } from "../../data/branches";
 
 export default function OfficeLocations() {
-  const [branch, setBranch] = useState("");
-  const [activeSlug, setActiveSlug] = useState(null);
+  // Single source of truth for the selected branch — drives both the Branch dropdown's
+  // value and the list's active item, so either one selecting a branch updates the other.
+  const [activeSlug, setActiveSlug] = useState("");
   const mapRef = useRef(null);
   const mapWrapperRef = useRef(null);
 
@@ -49,14 +50,19 @@ export default function OfficeLocations() {
           <div className="lg:absolute bottom-4 left-4 top-4 p-5 flex w-full max-w-full lg:max-w-[30%] flex-col overflow-hidden rounded-2xl bg-primary/15 shadow-[0px_4px_12px_rgba(0,0,0,0.0784314)] backdrop-blur-md">
             <div className="flex flex-col gap-4">
               <Select
-                value={branch}
-                onChange={(event) => setBranch(event.target.value)}
+                value={activeSlug}
+                onChange={(event) => {
+                  const slug = event.target.value;
+                  // A list click sets activeSlug, which Select2Field then pushes into Select2
+                  // and re-emits as a change event — skip that echo so the map doesn't fly twice.
+                  if (slug && slug !== activeSlug) selectBranch(slug);
+                }}
                 className="w-full rounded-full border border-[#E5E7EB] bg-white px-[1.1428em] py-[0.8571em] text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-[#4B5563] outline-none"
                 chevronClassName="text-[#767676]"
               >
                 <option value="">Branch</option>
                 {branches.map((item) => (
-                  <option key={item.name} value={item.name}>{item.name}</option>
+                  <option key={item.slug} value={item.slug}>{item.name}</option>
                 ))}
               </Select>
               <label className="flex items-center gap-2 rounded-full border border-[#dce1e7] bg-[#F3F4F6] px-[1.1428em] py-[1.1666em] text-[10px] md:text-[12px]">

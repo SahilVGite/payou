@@ -59,7 +59,7 @@ const OfficeLocationsMap = forwardRef(function OfficeLocationsMap({ branches }, 
 
             const map = L.map(containerRef.current, {
                 zoomControl: false,
-                attributionControl: true,
+                attributionControl: false,
             });
             mapRef.current = map;
 

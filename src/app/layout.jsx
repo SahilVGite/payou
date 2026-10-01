@@ -63,7 +63,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased scroll-smooth`}>
       <body className="flex min-h-full flex-col overflow-x-hidden bg-white font-poppins text-[#10192b]">
         <PopupProvider>
           <Header />

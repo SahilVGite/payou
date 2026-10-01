@@ -6,6 +6,7 @@
 export const ENDPOINTS = {
   contactSubmit: '/contact',
   eligibilitySubmit: '/eligibility',
+  callbackSubmit: '/callbacks',
 }
 
 

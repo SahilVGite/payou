@@ -8,7 +8,7 @@ import { POPUPS, usePopup } from "./PopupProvider";
 // real link, so the href stays the no-JS / open-in-new-tab fallback. To make any one CTA go
 // back to navigating normally, rename its <PopupLink> back to <Link> — nothing else changes.
 // `popup`/`popupProps` pick which popup opens (see POPUPS in PopupProvider) and its props.
-export default function PopupLink({ popup = POPUPS.CONTACT_NUMBER, popupProps, onClick, ...props }) {
+export default function PopupLink({ popup = POPUPS.CONTACT_NUMBER, popupProps, source, onClick, ...props }) {
     const { openPopup } = usePopup();
 
     return (
@@ -21,7 +21,7 @@ export default function PopupLink({ popup = POPUPS.CONTACT_NUMBER, popupProps, o
                     return;
                 }
                 event.preventDefault();
-                openPopup(popup, popupProps);
+                openPopup(popup, { ...popupProps, source });
             }}
         />
     );

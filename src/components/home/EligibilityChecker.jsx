@@ -454,6 +454,7 @@ export default function EligibilityChecker() {
                   </button>
                   <PopupLink
                     href="/contact-us"
+                    source={{ page: "Home", section: "Loan options", button: "Explore Loan Options" }}
                     className="rounded-full bg-primary px-10 py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-center text-white cursor-pointer transition hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(122,16,21,0.4)]"
                   >
                     Explore Loan Options
