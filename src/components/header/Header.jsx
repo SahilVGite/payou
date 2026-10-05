@@ -115,7 +115,7 @@ const navLinks = [
   // ["SERVICES", "/", true],
   // ["CALCULATORS", "/", true],
   ["HOME", "/", false],
-  ["ABOUT US", "/", false],
+  ["ABOUT US", "/about-us", false],
   ["CONTACT US", "/contact-us", false],
   // ["BLOG", "/", false],
 ];
