@@ -47,9 +47,11 @@ export default function WhyChooseUs() {
           PayYouAdvisory assists eligible applicants to negotiate waivers on institutional processing fees and preferential interest rate spreads across Indian public and private sector banks.
         </p>
 
-        <div className="grid grid-cols-[1fr_1fr_28%] gap-6 max-[1100px]:grid-cols-1">
-          <div className="bg-glass-effect rounded-2xl bg-primary/15 p-7 shadow-[0px_8px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
-            <div className="flex items-center justify-between">
+        {/* Both cards subgrid into the same rows (header + one per list item), so each row is as
+            tall as the bigger of its left/right item. Single-column below 1101px, so no subgrid there. */}
+        <div className="grid grid-cols-[1fr_1fr_28%] gap-6 min-[1101px]:gap-y-0 max-[1100px]:grid-cols-1">
+          <div className="bg-glass-effect grid gap-y-0 min-[1101px]:row-span-6 min-[1101px]:grid-rows-subgrid rounded-2xl bg-primary/15 p-5 lg:p-[clamp(1.125rem,-0.4161rem+1.8051vw,1.75rem)] shadow-[0px_8px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
+            <div className="mb-6 flex items-center justify-between">
               <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-primary">
                 PayYou Advisory
               </h3>
@@ -57,18 +59,18 @@ export default function WhyChooseUs() {
                 RECOMMENDED
               </span>
             </div>
-            <ul className="mt-6 flex flex-col">
+            <ul className="contents">
               {PayYouAdvisory.map((point, index) => (
                 <li
                   key={point}
-                  className={`flex items-center gap-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
+                  className={`flex text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
                 >
                   <div className="flex w-full items-center gap-3">
                     <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white lg:h-[27px] lg:w-[27px]">
                       <ShieldCheckIcon size={20} />
                     </span>
                     <span
-                      className={`flex-1 py-3 ${index !== PayYouAdvisory.length - 1 ? "border-b border-white/18" : ""}`}
+                      className={`flex flex-1 items-center self-stretch py-3 ${index !== PayYouAdvisory.length - 1 ? "border-b border-white/18" : ""}`}
                     >
                       {point}
                     </span>
@@ -78,22 +80,22 @@ export default function WhyChooseUs() {
             </ul>
           </div>
 
-          <div className="bg-glass-effect rounded-[18px] bg-[rgba(78,88,104,0.15)] p-7 shadow-[7px_14px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
-            <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-[#333333]">
+          <div className="bg-glass-effect grid gap-y-0 min-[1101px]:row-span-6 min-[1101px]:grid-rows-subgrid rounded-[18px] bg-[rgba(78,88,104,0.15)] p-5 lg:p-[clamp(1.125rem,-0.4161rem+1.8051vw,1.75rem)] shadow-[7px_14px_18px_rgba(0,46,102,0.14902)] backdrop-blur-sm">
+            <h3 className="mb-6 text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-[#333333]">
               Traditional Bank Visit
             </h3>
-            <ul className="mt-6 flex flex-col">
+            <ul className="contents">
               {traditionalBankVisit.map((point, index) => (
                 <li
                   key={point}
-                  className={`flex items-start gap-3 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
+                  className={`flex text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-ink`}
                 >
                   <div className="flex w-full items-center gap-3">
                     <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white lg:h-[27px] lg:w-[27px]">
                       <CircleXIcon size={20} />
                     </span>
                     <span
-                      className={`flex-1 py-3 ${index !== traditionalBankVisit.length - 1 ? "border-b border-[#B5BBC1]" : ""}`}
+                      className={`flex flex-1 items-center self-stretch py-3 ${index !== traditionalBankVisit.length - 1 ? "border-b border-[#B5BBC1]" : ""}`}
                     >
                       {point}
                     </span>
@@ -110,7 +112,7 @@ export default function WhyChooseUs() {
               key={label}
               className="bg-glass-effect content-center rounded-xl bg-[rgba(248,245,240,0.12)] text-center shadow-[2px_2px_4px_rgba(0,0,0,0.25)] backdrop-blur-sm"
             >
-              <p className="m-0 text-[16px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-semibold text-ink py-[1.3636em] px-[1.5em]">
+              <p className="m-0 text-[16px] md:text-[20px] lg:text-[clamp(0.9375rem,-0.1412rem+1.2635vw,1.375rem)] font-semibold text-ink py-[1.3636em] px-[1.5em]">
                 {label}
               </p>
             </div>

@@ -14,7 +14,7 @@ export default function PageBanner({
     >
       {image && !bottomRightImage && (
         <img
-          className="absolute w-full h-full object-cover inset-0 max-w-[70%] ml-auto"
+          className="absolute w-full h-full object-cover inset-0 md:max-w-[70%] ml-auto"
           src={image}
           alt={imageAlt ?? title ?? ""}
         />
@@ -22,7 +22,7 @@ export default function PageBanner({
 
       {image && bottomRightImage && (
         <img
-          className="hidden md:block absolute w-[45%] [@media(min-width:1280px)]:w-[clamp(42.6875rem,-14.8125rem+71.875vw,71.4375rem)] h-full object-bottom-right object-contain bottom-[-6%] [@media(min-width:1280px)]:bottom-[-18%] right-0 z-10"
+          className="hidden md:block absolute w-full md:w-[45%] [@media(min-width:1280px)]:w-[clamp(42.6875rem,-14.8125rem+71.875vw,71.4375rem)] h-full object-bottom-right object-contain bottom-[-6%] [@media(min-width:1280px)]:bottom-[-18%] right-0 z-10"
           src={image}
           alt={imageAlt ?? title ?? ""}
         />

@@ -525,11 +525,11 @@ function ProductCard({ card }) {
           <CardIcon size={24} />
         </span>
       </div>
-      <div className="flex flex-1 flex-col p-5 pt-6 group-hover:bg-[#0F172A] transition">
-        <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-semibold text-ink group-hover:text-white line-clamp-1">
+      <div className="flex flex-1 flex-col p-4 lg:p-[clamp(0.75rem,-0.4829rem+1.444vw,1.25rem)] pt-6! group-hover:bg-[#0F172A] transition">
+        <h3 className="m-0 text-[14px] md:text-[16px] lg:text-[clamp(0.875rem,0.2586rem+0.722vw,1.125rem)] font-semibold text-ink group-hover:text-white">
           {card.title}
         </h3>
-        <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white line-clamp-3">
+        <p className="mt-[0.8em] mb-[1.3333em] flex-1 text-[12px] md:text-[14px] lg:text-[clamp(0.75rem,0.2877rem+0.5415vw,0.9375rem)] leading-relaxed text-[#4B5563] group-hover:text-white">
           {card.description}
         </p>
         <PopupLink
@@ -559,14 +559,15 @@ export default function FinancialSolutions() {
 
   return (
     <section
-      className="secGapB pt-(--sec-gap) lg:pt-[calc(var(--sec-gap)*2)] px-[4%] bg-[#F7F8FC]"
-      style={{
-        backgroundImage: "url('/images/hmSecondSectionBg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="secGapB pt-(--sec-gap) lg:pt-[calc(var(--sec-gap)*2)] px-[4%] bg-[#F7F8FC] relative"
+      // style={{
+      //   backgroundImage: "url('/images/hmSecondSectionBg.png')",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
     >
-      <div className="mx-auto max-w-(--content-width)">
+      <div className="absolute inset-0 object-cover opacity-75" style={{backgroundImage: "url('/images/hmSecondSectionBg.png')",backgroundSize: "cover",backgroundPosition: "center",}} />
+      <div className="mx-auto max-w-(--content-width) relative z-10">
         <h2 className="mb-2 text-left md:text-center text-ink text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)]">
           Top-Notch Loan Advisory:{" "}
           <strong className="font-bold text-primary">
@@ -740,11 +741,11 @@ export default function FinancialSolutions() {
                 </div>
               )}
             </div>
-            <div className="mt-14">
+            <div className="mt-6">
               <p className="mb-[0.5454em] text-[18px] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-medium text-ink tracking-[-0.44px]">
                 Popular Products
               </p>
-              <div className="grid [@media(min-width:1366px)]:grid-cols-4 gap-5 md:grid-cols-2">
+              <div className="grid [@media(min-width:1366px)]:grid-cols-4 gap-[clamp(0.75rem,-0.4829rem+1.444vw,1.25rem)] md:grid-cols-2">
                 {popularProducts.map(([Icon, eyebrow, label]) => (
                   <Link
                     href="/contact-us"
@@ -756,7 +757,7 @@ export default function FinancialSolutions() {
                       <span className="text-[10px] md:text-[12px] lg:text-[clamp(0.6875rem,0.3793rem+0.361vw,0.8125rem)] font-medium uppercase tracking-[0.1538em] text-[#4E5968]">
                         {eyebrow}
                       </span>
-                      <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium tracking-[-0.0093em] text-primary">
+                      <span className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium tracking-[-0.0093em] text-primary leading-[1.2]">
                         {label}
                       </span>
                     </span>

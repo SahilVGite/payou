@@ -39,12 +39,9 @@ const highlights = [
 ];
 
 const cities = [
-  "Pune & PCMC (Local Doorstep Branch)",
-  "Mumbai",
-  "Pimpri-Chinchwad",
-  "Nashik",
-  "Bengaluru",
-  "Delhi NCR",
+  "Pune & PCMC Pimpri Chinchwad",
+  "Bhigwan Chowk, Baramati, Pune",
+  "Phaltan Dist Satara",
 ];
 
 const incomeFrequencies = ["Monthly", "Annual"];
@@ -272,7 +269,7 @@ export default function EligibilityChecker() {
                 </div>
 
                 <div className="flex justify-between items-end flex-wrap">
-                  <label className="mt-6 block mb-3 md:mb-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80 w-full md:w-fit">
+                  <label className="mt-6 flex flex-col gap-2 mb-3 md:mb-0 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-bold text-white/80 w-full md:w-fit">
                     Your Current City / Base Location
                     <Select
                       className="mt-2.5 block w-full rounded-full border border-[#dce1e7] bg-white py-3 pl-[18px] pr-10 text-ink text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] focus:border-[#dce1e7] focus:ring-0 focus:outline-none lg:min-w-120"

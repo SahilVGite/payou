@@ -137,6 +137,19 @@
   background: var(--brand-primary);
 }
 
+/* Smaller dots on mobile, where they replace the prev/next arrows (same sizing as FourSteps). */
+@media (max-width: 767px) {
+  .testimonials-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    margin: 0 3px !important;
+  }
+
+  .testimonials-pagination .swiper-pagination-bullet-active {
+    width: 20px;
+  }
+}
+
 /* Equal-height slides: Swiper's own `.swiper-slide { height: 100% }` doesn't stretch
    reliably against an auto-height `.swiper` container, so force it explicitly. */
 .testimonials-swiper .swiper-wrapper {

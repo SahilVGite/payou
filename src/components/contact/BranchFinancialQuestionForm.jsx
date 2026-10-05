@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Select from "../common/Select2Field";
 import EnquiryFormNotice from "./EnquiryFormNotice";
+import { POPUPS, usePopup } from "../popup/PopupProvider";
 import {
   applyEnquiryFieldError,
   EMPTY_ENQUIRY,
@@ -85,6 +86,7 @@ export default function BranchFinancialQuestionForm({
   const [submitting, setSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState(null);
   const resetTimer = useRef(null);
+  const { openPopup } = usePopup();
   const touched = useRef({});
   const valuesRef = useRef(values);
   valuesRef.current = values;
@@ -134,20 +136,16 @@ export default function BranchFinancialQuestionForm({
     setSubmitting(true);
     try {
       await submitEnquiry(values, { branchSlug, branchName, branchCode });
-      setErrors({});
-      setFormMessage({
-        type: "success",
-        text: "Your enquiry has been submitted successfully.",
-      });
       if (resetTimer.current) clearTimeout(resetTimer.current);
-      resetTimer.current = setTimeout(() => {
-        touched.current = {};
-        valuesRef.current = { ...EMPTY_ENQUIRY };
-        setValues({ ...EMPTY_ENQUIRY });
-        setErrors({});
-        setFormMessage(null);
-        resetTimer.current = null;
-      }, 5000);
+      resetTimer.current = null;
+      touched.current = {};
+      valuesRef.current = { ...EMPTY_ENQUIRY };
+      setValues({ ...EMPTY_ENQUIRY });
+      setErrors({});
+      setFormMessage(null);
+      openPopup(POPUPS.SUBMISSION_SUCCESS, {
+        message: `Your enquiry${branchName ? ` for our ${branchName} branch` : ""} has been submitted successfully. Our team will get in touch with you shortly.`,
+      });
     } catch (error) {
       const fields = error.fields || {};
       if (Object.keys(fields).length) {
@@ -257,7 +255,7 @@ export default function BranchFinancialQuestionForm({
                     className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                   />
                   {errors.name ? (
-                    <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                    <span className="absolute top-[calc(100%+3px)] left-4 text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                       {errors.name}
                     </span>
                   ) : null}
@@ -289,7 +287,7 @@ export default function BranchFinancialQuestionForm({
                     />
                   </span>
                   {errors.mobile ? (
-                    <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                    <span className="absolute top-[calc(100%+3px)] left-4 text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                       {errors.mobile}
                     </span>
                   ) : null}
@@ -309,7 +307,7 @@ export default function BranchFinancialQuestionForm({
                     className="rounded-full bg-white px-4 py-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-ink outline-none placeholder:text-[#4B5563]"
                   />
                   {errors.email ? (
-                    <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                    <span className="absolute top-[calc(100%+3px)] left-4 text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                       {errors.email}
                     </span>
                   ) : null}
@@ -339,7 +337,7 @@ export default function BranchFinancialQuestionForm({
                     ))}
                   </Select>
                   {errors.service ? (
-                    <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                    <span className="absolute top-[calc(100%+3px)] left-4 text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                       {errors.service}
                     </span>
                   ) : null}
@@ -369,7 +367,7 @@ export default function BranchFinancialQuestionForm({
                   </span>
                 </span>
                 {errors.message ? (
-                  <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                  <span className="absolute top-[calc(100%+3px)] left-4 text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                     {errors.message}
                   </span>
                 ) : null}
@@ -401,7 +399,7 @@ export default function BranchFinancialQuestionForm({
                   and consent to receive communication.
                 </span>
                 {errors.consent ? (
-                  <span className="absolute top-full left-0 text-[11px] font-medium font-inter leading-snug text-[#ff0009]">
+                  <span className="absolute top-[calc(100%+3px)] left-[clamp(1.75rem,0.75rem+1.25vw,2.25rem)] text-[11px] md:text-[12px] font-semibold font-inter leading-snug text-[#ff0009] [text-shadow:0_1px_3px_#ff000969]">
                     {errors.consent}
                   </span>
                 ) : null}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Mic, Phone, Search } from "lucide-react";
+import { Clock, Mic, Phone, Search } from "lucide-react";
 import Select from "../common/Select2Field";
 import BranchLocationIcon from "../../../public/icons/BranchLocationIcon";
 import OfficeLocationsMap from "./OfficeLocationsMap";
@@ -82,23 +82,27 @@ export default function OfficeLocations() {
                   type="button"
                   onClick={() => selectBranch(item.slug)}
                   aria-pressed={activeSlug === item.slug}
-                  className={`block w-full py-4 text-left transition ${index !== branches.length - 1 ? "border-b border-[#E5E7EB]" : ""}`}
+                  className={`relative flex w-full items-start gap-3 rounded-xl py-4.5 text-left transition cursor-pointer ${index !== branches.length - 1 ? "after:absolute after:inset-x-0 after:-bottom-px after:h-px after:bg-[#E5E7EB] after:content-['']" : ""}`}
                 >
-                  <div className="mt-1 flex items-center gap-2">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-glass-effect bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>
-                    <div>
-                      <p className="text-[11px] text-[#4B5563]">Distance unavailable</p>
-                      <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-primary leading-[1.3]">{item.name}</p>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-glass-effect bg-[#F3F4F6]/20 shadow-[inset_0_1px_12px_rgba(255,255,255,0.4),inset_0_-1px_12px_rgba(255,255,255,0.25)] backdrop-blur-sm"><BranchLocationIcon size={16} className="mt-0.5 shrink-0" /></span>
+                  {/* Address removed per client request — name, phone and hours now share one
+                      column beside the icon so each item reads as a single aligned block. */}
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] text-[#4B5563]">Distance unavailable</p>
+                    <p className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-primary leading-[1.3]">{item.name}</p>
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)]">
+                      {item.phone ? (
+                        <span className="flex items-center gap-1.5 font-semibold text-primary">
+                          <Phone size={14} className="shrink-0" />
+                          {item.phone}
+                        </span>
+                      ) : null}
+                      <span className="flex items-center gap-1.5 font-medium text-ink">
+                        <Clock size={14} className="shrink-0 text-primary" />
+                        {item.hours}
+                      </span>
                     </div>
                   </div>
-                  <p
-                    className="mt-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-[#4B5563]"
-                    dangerouslySetInnerHTML={{ __html: item.address }}
-                  />
-                  {item.phone ? (
-                    <div className="mt-1.5 flex gap-2 items-center"><Phone size={16} className="shrink-0 text-primary" /><p className="text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-semibold text-primary">{item.phone}</p></div>
-                  ) : null}
-                  <p className="mt-1 text-[10px] md:text-[12px] font-semibold text-ink">{item.hours}</p>
                 </button>
               ))}
             </div>

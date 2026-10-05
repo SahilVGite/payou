@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import PopupProvider from "../components/popup/PopupProvider";
+import StickyWhatsapp from "../components/common/StickyWhatsapp";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <StickyWhatsapp />
         </PopupProvider>
       </body>
     </html>

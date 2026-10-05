@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import Link from "next/link";
 import PopupShell from "./PopupShell";
+import SubmissionSuccessPopup from "./SubmissionSuccessPopup";
 import { submitCallback } from "../../lib/services/callback.service";
 
 // "Enter your contact number" popup. Only collects the mobile number — what happens with it
@@ -58,65 +60,73 @@ export default function ContactNumberPopup({
         }
     }
 
+    // Swaps straight to the shared confirmation popup (rendered here rather than reopened via
+    // openPopup, which would mean importing PopupProvider — and that already imports this file).
+    if (submitted) {
+        return (
+            <SubmissionSuccessPopup
+                onClose={onClose}
+                message="Your contact number has been received. Our team will get in touch with you shortly."
+            />
+        );
+    }
+
     return (
         <PopupShell
             onClose={onClose}
             labelledBy={titleId}
             className="max-w-135 bg-primary/50 px-5 py-7 md:px-8 md:py-9"
         >
-            {submitted ? (
+            <form className="flex flex-col gap-5 md:gap-6" onSubmit={handleSubmit} noValidate>
                 <p
                     id={titleId}
-                    role="status"
-                    className="m-0 pr-8 text-[14px] md:text-[15px] lg:text-[clamp(0.875rem,0.7209rem+0.1805vw,0.9375rem)] font-medium leading-relaxed text-white"
+                    className="m-0 pr-8 text-[14px] md:text-[15px] lg:text-[clamp(0.875rem,0.7209rem+0.1805vw,0.9375rem)] font-normal leading-relaxed text-white"
                 >
-                    Thank you! Our team will get in touch with you shortly.
+                    {message}
                 </p>
-            ) : (
-                <form className="flex flex-col gap-5 md:gap-6" onSubmit={handleSubmit} noValidate>
-                    <p
-                        id={titleId}
-                        className="m-0 pr-8 text-[14px] md:text-[15px] lg:text-[clamp(0.875rem,0.7209rem+0.1805vw,0.9375rem)] font-normal leading-relaxed text-white"
-                    >
-                        {message}
-                    </p>
-                    <div>
-                        <div className="relative">
-                            <input
-                                ref={inputRef}
-                                className="block w-full rounded-full border-0 bg-white/95 px-4.5 pl-12 py-3.25 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
-                                name="mobile"
-                                inputMode="numeric"
-                                autoComplete="tel-national"
-                                aria-label="Mobile number"
-                                aria-invalid={error ? "true" : undefined}
-                                maxLength={10}
-                                value={mobile}
-                                placeholder="Enter Mobile Number"
-                                onChange={(event) => {
-                                    setMobile(event.target.value.replace(/\D/g, "").slice(0, 10));
-                                    setError("");
-                                }}
-                            />
-                            <span className="absolute top-1/2 -translate-y-1/2 left-4.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink">
-                                +91
-                            </span>
-                        </div>
-                        {error ? (
-                            <p role="alert" className="m-0 mt-2 pl-4.5 text-[12px] md:text-[13px] font-medium text-[#ffb4b6]">
-                                {error}
-                            </p>
-                        ) : null}
+                <div>
+                    <div className="relative">
+                        <input
+                            ref={inputRef}
+                            className="block w-full rounded-full border-0 bg-white/95 px-4.5 pl-12 py-3.25 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink placeholder:text-[#4B5563] focus:ring-0 focus:outline-none"
+                            name="mobile"
+                            inputMode="numeric"
+                            autoComplete="tel-national"
+                            aria-label="Mobile number"
+                            aria-invalid={error ? "true" : undefined}
+                            maxLength={10}
+                            value={mobile}
+                            placeholder="Enter Mobile Number"
+                            onChange={(event) => {
+                                setMobile(event.target.value.replace(/\D/g, "").slice(0, 10));
+                                setError("");
+                            }}
+                        />
+                        <span className="absolute top-1/2 -translate-y-1/2 left-4.5 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] text-ink">
+                            +91
+                        </span>
                     </div>
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        className="w-full rounded-full border-0 bg-[#b11f24] py-[0.9em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
-                    >
-                        {submitting ? "Submitting..." : "Submit"}
-                    </button>
-                </form>
-            )}
+                    {error ? (
+                        <p role="alert" className="m-0 mt-2 pl-4.5 text-[12px] md:text-[13px] font-medium text-[#ffb4b6]">
+                            {error}
+                        </p>
+                    ) : null}
+                </div>
+                <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full rounded-full border-0 bg-[#b11f24] py-[0.9em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+                >
+                    {submitting ? "Submitting..." : "Submit"}
+                </button>
+                <p className="m-0 -mt-1 md:-mt-2 text-center text-[11px] md:text-[12px] lg:text-[clamp(0.75rem,0.5959rem+0.1805vw,0.8125rem)] text-white/85">
+                    By submitting, you agree to our{" "}
+                    <Link href="/privacy-policy" target="_blank" className="underline text-white">
+                        Privacy Policy
+                    </Link>
+                    .
+                </p>
+            </form>
         </PopupShell>
     );
 }

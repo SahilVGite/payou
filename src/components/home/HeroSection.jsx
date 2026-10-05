@@ -85,7 +85,7 @@ const heroSlides = [
         // fullCover: true,
         // The blue radial-gradient overlay would otherwise sit on top of this full-bleed
         // photo — omit it just for this slide (see `showGradient` default below).
-        showGradient: false,
+        // showGradient: false,
         background: "#ffffff",
         titleLead: "Evaluate Your<br /> Property's Value with Our ",
         titleAccent: "Expert Loan Advisory",
@@ -238,7 +238,7 @@ export default function HeroSection() {
     return (
         <section className="relative">
             <div
-                className={`relative min-h-[88dvh] lg:min-h-[80dvh] secGap ${heroSlides[activeSlide].fullCover ? "[@media(max-width:1023px)]:pt-0! flex-col-reverse" : "[@media(max-width:1023px)]:pb-0!"} [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700`}
+                className={`relative min-h-[60dvh] lg:min-h-[80dvh] secGap ${heroSlides[activeSlide].fullCover ? "[@media(max-width:1023px)]:pt-0! flex-col-reverse" : "[@media(max-width:1023px)]:pb-0!"} [@media(min-width:1366px)]:!pt-[clamp(1.25rem,-3.75rem+6.25vw,3.75rem)] flex flex-col justify-between lg:justify-center transition-colors duration-700`}
                 style={{ backgroundColor: heroSlides[activeSlide].background }}
             >
                 <div
@@ -267,7 +267,7 @@ export default function HeroSection() {
                         >
                             {heroSlides.map((slide, index) => (
                                 <SwiperSlide key={index}>
-                                    <h1 className="m-0 text-[23px] md:text-[30px] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-ink">
+                                    <h1 className="m-0 text-[clamp(1.25rem,1.0289rem+0.9828vw,1.5rem)] md:text-[clamp(1.5rem,0.3706rem+2.3529vw,1.875rem)] lg:text-[clamp(1.75rem,0.2089rem+1.8051vw,2.375rem)] font-medium leading-[1.34] text-ink">
                                         <span className="[&_br]:hidden lg:[&_br]:inline" dangerouslySetInnerHTML={{ __html: slide.titleLead }} />
                                         <br />
                                         <strong
@@ -275,7 +275,7 @@ export default function HeroSection() {
                                             dangerouslySetInnerHTML={{ __html: slide.titleAccent }}
                                         />
                                     </h1>
-                                    <p className="my-[1em] md:my-[1.3333em] text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-ink max-[800px]:text-[15px]">
+                                    <p className="my-[1em] md:my-[1.3333em] text-[clamp(0.6875rem,0.5217rem+0.7371vw,0.875rem)] md:text-[clamp(0.875rem,0.4985rem+0.7843vw,1rem)] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] leading-relaxed text-ink">
                                         {slide.subtextLines.map((line, lineIndex) => (
                                             <Fragment key={lineIndex}>
                                                 <span dangerouslySetInnerHTML={{ __html: line }} />{" "}

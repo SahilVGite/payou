@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Select from "../common/Select2Field";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 import { submitEligibility } from "../../lib/services/eligibility.service";
+import { POPUPS, usePopup } from "../popup/PopupProvider";
 
 // "Your Income" slider range per Required Facility option (min/max, slider step, and the
-// value it resets to when that facility gets selected). The six tick labels under the
-// slider are generated from min/max, so keep (max - min) divisible by 5 for clean labels.
+// value it resets to when that facility gets selected). Only min and max are labelled
+// under the slider.
 const incomeRanges = {
     "Personal Loan": {
         min: 100000,       // ₹1L
-        max: 1000000,      // ₹10L
+        max: 20000000,     // ₹2Cr
         step: 10000,
         default: 200000,   // ₹2L
     },
@@ -74,7 +76,6 @@ function IncomeField({ range, onIncomeChange }) {
     useEffect(() => {
         onIncomeChangeRef.current?.(income);
     }, [income]);
-    const ticks = Array.from({ length: 6 }, (_, index) => formatTick(min + ((max - min) * index) / 5));
 
     return (
         <label className="relative text-sm font-semibold">
@@ -104,10 +105,9 @@ function IncomeField({ range, onIncomeChange }) {
                     "--range-progress": `${((income - min) / (max - min)) * 100}%`,
                 }}
             />
-            <span className="flex justify-between text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-white mt-[1.25em]">
-                {ticks.map((tick) => (
-                    <span key={tick}>{tick}</span>
-                ))}
+            <span className="mt-[1.25em] flex justify-between text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] text-white">
+                <span>{formatTick(min)}</span>
+                <span>{formatTick(max)}</span>
             </span>
         </label>
     );
@@ -118,6 +118,7 @@ export default function EligibilityForm({ className = "" }) {
     const [mobile, setMobile] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [notice, setNotice] = useState(null);
+    const { openPopup } = usePopup();
     const incomeRef = useRef(incomeRanges[facilities[0]].default);
 
     async function handleSubmit(event) {
@@ -146,7 +147,9 @@ export default function EligibilityForm({ className = "" }) {
                 throw new Error(data?.message || "Unable to submit your eligibility check. Please try again.");
             }
             setMobile("");
-            setNotice({ type: "success", text: "Your eligibility check has been received. We will contact you shortly." });
+            openPopup(POPUPS.SUBMISSION_SUCCESS, {
+                message: "Your eligibility check has been received. Our team will contact you shortly.",
+            });
         } catch (error) {
             const fieldMessage = error?.fields?.mobile || error?.fields?.facility || error?.fields?.income;
             setNotice({
@@ -160,7 +163,7 @@ export default function EligibilityForm({ className = "" }) {
 
     return (
         <form
-            className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 lg:rounded-[19px] bg-primary/20 backdrop-blur-lg px-5.5 py-8 lg:p-5.5 text-white max-[1023px]:w-full [@media(max-width:1023px)]:[&::before]:hidden ${className}`}
+            className={`bg-glass-effect flex basis-[35%] flex-col gap-4.25 lg:rounded-[19px] bg-primary/60 lg:bg-primary/20 backdrop-blur-lg px-5.5 py-8 lg:p-5.5 text-white max-[1023px]:w-full [@media(max-width:1023px)]:[&::before]:hidden ${className}`}
             onSubmit={handleSubmit}
             noValidate
         >
@@ -225,7 +228,12 @@ export default function EligibilityForm({ className = "" }) {
                 </p>
             ) : null}
             <p className="m-0 text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-medium text-white lg:text-[#DADADA] [text-shadow:-0.5px_0_#134B96,0_0.5px_#134B96,0.5px_0_#134B96,0_-0.5px_#134B96]">
-                We charge zero processing fees and keep your credit score safe. No hidden charges.
+                We charge zero processing fees and keep your credit score safe. No hidden charges.{" "}
+                By submitting, you agree to our{" "}
+                <Link href="/privacy-policy" target="_blank" className="underline text-white">
+                    Privacy Policy
+                </Link>
+                .
             </p>
         </form>
     );

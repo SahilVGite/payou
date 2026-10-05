@@ -10,6 +10,7 @@ import {
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
 import Dropdown from "../common/Dropdown";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
+import { POPUPS, usePopup } from "../popup/PopupProvider";
 
 const formatInr = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
 const formatWhole = (value) => Math.round(value).toLocaleString("en-IN");
@@ -36,7 +37,6 @@ const calculatorConfig = {
         step: 5000,
         default: 500000,
         format: formatWhole,
-        inputWidthClass: "w-20 md:w-24",
         ticks: ["₹50K", "₹25L", "₹50L"],
       },
       {
@@ -51,7 +51,6 @@ const calculatorConfig = {
         decimals: 1,
         default: 12,
         format: formatOneDecimal,
-        inputWidthClass: "w-10",
         ticks: ["8%", "19%", "30%"],
       },
       {
@@ -64,7 +63,6 @@ const calculatorConfig = {
         max: 7,
         step: 1,
         default: 3,
-        inputWidthClass: "w-6",
         ticks: ["1 Year", "4 Years", "7 Years"],
       },
     ],
@@ -86,7 +84,6 @@ const calculatorConfig = {
         step: 50000,
         default: 3000000,
         format: formatWhole,
-        inputWidthClass: "w-20 md:w-24",
         ticks: ["₹5L", "₹2.5Cr", "₹5Cr"],
       },
       {
@@ -101,7 +98,6 @@ const calculatorConfig = {
         decimals: 1,
         default: 8.5,
         format: formatOneDecimal,
-        inputWidthClass: "w-10",
         ticks: ["6%", "10.5%", "15%"],
       },
       {
@@ -114,7 +110,6 @@ const calculatorConfig = {
         max: 30,
         step: 1,
         default: 20,
-        inputWidthClass: "w-6",
         ticks: ["5 Years", "17 Years", "30 Years"],
       },
     ],
@@ -136,7 +131,6 @@ const calculatorConfig = {
         step: 50000,
         default: 2000000,
         format: formatWhole,
-        inputWidthClass: "w-20 md:w-24",
         ticks: ["₹1L", "₹5Cr", "₹10Cr"],
       },
       {
@@ -151,7 +145,6 @@ const calculatorConfig = {
         decimals: 1,
         default: 14,
         format: formatOneDecimal,
-        inputWidthClass: "w-10",
         ticks: ["8%", "16%", "24%"],
       },
       {
@@ -164,7 +157,6 @@ const calculatorConfig = {
         max: 15,
         step: 1,
         default: 5,
-        inputWidthClass: "w-6",
         ticks: ["1 Year", "8 Years", "15 Years"],
       },
     ],
@@ -186,7 +178,6 @@ const calculatorConfig = {
         step: 5000,
         default: 75000,
         format: formatWhole,
-        inputWidthClass: "w-20 md:w-24",
         ticks: ["₹20K", "₹5L", "₹10L"],
       },
       {
@@ -200,7 +191,6 @@ const calculatorConfig = {
         step: 1000,
         default: 10000,
         format: formatWhole,
-        inputWidthClass: "w-16 md:w-20",
         ticks: ["₹0", "₹2.5L", "₹5L"],
       },
       {
@@ -215,7 +205,6 @@ const calculatorConfig = {
         decimals: 1,
         default: 10.5,
         format: formatOneDecimal,
-        inputWidthClass: "w-10",
         ticks: ["6%", "15%", "24%"],
       },
       {
@@ -228,7 +217,6 @@ const calculatorConfig = {
         max: 30,
         step: 1,
         default: 15,
-        inputWidthClass: "w-6",
         ticks: ["1 Year", "15 Years", "30 Years"],
       },
       {
@@ -241,7 +229,6 @@ const calculatorConfig = {
         max: 70,
         step: 1,
         default: 50,
-        inputWidthClass: "w-8",
         ticks: ["30%", "50%", "70%"],
       },
     ],
@@ -300,7 +287,7 @@ function SliderField({ field, editable, isLast }) {
   const suffix = typeof field.suffix === "function" ? field.suffix(editable.value) : field.suffix;
 
   return (
-    <div className={isLast ? "mb-6" : "mb-7"}>
+    <div className={isLast ? "mb-[clamp(0.875rem,-0.6661rem+1.8051vw,1.5rem)]" : "mb-[clamp(1rem,-0.8493rem+2.1661vw,1.75rem)]"}>
       <div className="mb-3 flex items-center justify-between text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-medium text-white">
         <span className="flex items-center gap-2">
           <Icon size={16} className="text-white font-inter" />
@@ -318,7 +305,10 @@ function SliderField({ field, editable, isLast }) {
             onChange={(event) => editable.handleChange(event.target.value)}
             onFocus={editable.handleFocus}
             onBlur={editable.handleBlur}
-            className={`${field.inputWidthClass} bg-transparent text-[13px] md:text-[14px] lg:text-[15px] outline-none`}
+            // Sized to its own text (1ch ≈ one digit) so the box hugs the value instead of a
+            // fixed width leaving empty space after shorter numbers.
+            style={{ width: `${Math.max(String(editable.text).length, 1) + 0.25}ch` }}
+            className="min-w-0 bg-transparent text-[13px] md:text-[14px] lg:text-[15px] outline-none"
           />
           {suffix ? (
             <span className="text-[13px] md:text-[14px] lg:text-[15px]">{suffix}</span>
@@ -350,7 +340,16 @@ function SliderField({ field, editable, isLast }) {
 // Mounted with `key={activeTab}` by the parent so switching tabs remounts this fresh —
 // each calculator gets its own defaults instead of inheriting stale values (or an
 // out-of-range slider position) left over from a different tab's fields.
-function CalculatorPanel({ config }) {
+function CalculatorPanel({ config, calculatorName }) {
+  const { openPopup } = usePopup();
+  // Every action button opens the same contact-number popup as the site's APPLY NOW CTAs,
+  // tagged with which calculator + button the lead came from, with a message that says what
+  // the visitor gets for leaving their number (so "View Schedule" doesn't read like a dead end).
+  const openLeadPopup = (button, message) =>
+    openPopup(POPUPS.CONTACT_NUMBER, {
+      source: { page: "Home", section: `Loan Calculator – ${calculatorName}`, button },
+      message,
+    });
   const [f0, f1, f2, f3, f4] = config.fields;
   const noopField = { min: 0, max: 1, step: 1, default: 0 };
   // Always exactly 5 useEditableNumber calls regardless of tab (React requires a stable
@@ -392,9 +391,10 @@ function CalculatorPanel({ config }) {
       const [income, existingEmi, rate, tenure, foir] = editables.map((e) => e.value);
       const { eligiblePrincipal, maxAffordableEmi, totalInterest, totalRepayment } =
         calculateEligibility({ income, existingEmi, rate, tenureYears: tenure, foir });
-      const principalPercent =
-        totalRepayment > 0 ? Math.round((eligiblePrincipal / totalRepayment) * 100) : 0;
+      const hasEligibility = totalRepayment > 0;
+      const principalPercent = hasEligibility ? Math.round((eligiblePrincipal / totalRepayment) * 100) : 0;
       return {
+        hasResult: hasEligibility,
         headline: eligiblePrincipal,
         principalLabel: "Maximum Affordable EMI",
         principalValue: maxAffordableEmi,
@@ -406,7 +406,8 @@ function CalculatorPanel({ config }) {
         totalLabel: "Estimated Total Repayment",
         totalAmount: totalRepayment,
         principalPercent,
-        interestPercent: 100 - principalPercent,
+        // No eligibility means nothing to split — show 0% / 0%, not "Interest (100%)".
+        interestPercent: hasEligibility ? 100 - principalPercent : 0,
       };
     }
     const [amount, rate, tenure] = editables.map((e) => e.value);
@@ -416,6 +417,7 @@ function CalculatorPanel({ config }) {
       tenure,
     );
     return {
+      hasResult: true,
       headline: emi,
       principalLabel: "Principal Amount",
       principalValue: amount,
@@ -474,6 +476,11 @@ function CalculatorPanel({ config }) {
             </span>
           )}
         </p>
+        {result.hasResult ? null : (
+          <p role="status" className="mt-2 text-[12px] md:text-[13px] lg:text-[clamp(0.8125rem,0.6584rem+0.1805vw,0.875rem)] text-[#FFD3D5]">
+            Your existing EMIs already use up the {editables[4].value}% FOIR limit for this income. Try a lower existing EMI or a higher FOIR — or talk to us about options.
+          </p>
+        )}
 
         <div className="mt-6 flex justify-between text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] text-white/75">
           <span>Principal ({result.principalPercent}%)</span>
@@ -487,7 +494,7 @@ function CalculatorPanel({ config }) {
             />
           </div>
           <svg
-            className="absolute top-full -translate-x-1/2"
+            className={`absolute top-full -translate-x-1/2 ${result.hasResult ? "" : "hidden"}`}
             style={{ left: `${result.principalPercent}%` }}
             width="10"
             height="8"
@@ -529,6 +536,12 @@ function CalculatorPanel({ config }) {
         <div className="mt-auto flex flex-col gap-4 pt-8">
           <button
             type="button"
+            onClick={() =>
+              openLeadPopup(
+                isEligibility ? "APPLY FOR THIS LOAN" : "APPLY FOR THIS LOAN EMI",
+                "Share your contact number and our loan expert will call you to start your application at the best available rate.",
+              )
+            }
             className="w-full rounded-full bg-accent py-[0.9333em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] cursor-pointer transition hover:-translate-y-0.5 hover:bg-[#961a1e]"
           >
             {isEligibility ? "Apply For This Loan" : "Apply For This Loan EMI"}
@@ -536,12 +549,24 @@ function CalculatorPanel({ config }) {
           <div className="flex gap-2.5">
             <button
               type="button"
+              onClick={() =>
+                openLeadPopup(
+                  "VIEW SCHEDULE",
+                  "Share your contact number and our team will send you the full month-by-month repayment schedule for this loan.",
+                )
+              }
               className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white cursor-pointer transition hover:bg-white hover:text-[#0e3153]"
             >
               View Schedule
             </button>
             <button
               type="button"
+              onClick={() =>
+                openLeadPopup(
+                  "SHARE QUOTE",
+                  "Share your contact number and we'll send you this loan quote along with the best offers from our partner lenders.",
+                )
+              }
               className="flex-1 rounded-full border border-white bg-white/12 py-[0.8em] text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold uppercase tracking-wide text-white cursor-pointer transition hover:bg-white hover:text-[#0e3153]"
             >
               Share Quote
@@ -563,7 +588,7 @@ export default function LoanCalculator() {
           Know Your EMI{" "}
           <strong className="font-bold text-primary">Before You Apply</strong>
         </h2>
-        <p className="mx-auto mb-(--sec-gap) text-left md:text-center text-[16px] md:text-[16px] lg:text-[20px] text-[#4B5563]">
+        <p className="mx-auto mb-9 text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
           Use our free loan EMI calculators to plan your principal, interest, and tenure.  <br className="hidden md:inline" />With our redundant loan advisory services you get no surprises later.
         </p>
 
@@ -577,7 +602,7 @@ export default function LoanCalculator() {
           />
         </div>
 
-        <div className="relative hidden max-w-[90%] [@media(min-width:1500px)]:max-w-[85%] z-10 mx-auto -mb-5 [@media(min-width:1500px)]:justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
+        <div className="relative hidden max-w-[90%] [@media(min-width:1500px)]:max-w-[85%] z-10 mx-auto -mb-5 [@media(min-width:1280px)]:justify-center overflow-hidden overflow-x-auto rounded-[14px] bg-[#E1E7F1]/70 backdrop-blur-sm px-2 shadow-[0_10px_24px_rgba(16,25,43,0.1)] lg:flex">
           <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;
@@ -586,7 +611,7 @@ export default function LoanCalculator() {
                   key={label}
                   type="button"
                   onClick={() => setActiveTab(label)}
-                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
+                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0711rem+0.722vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
                     isActive
                       ? "text-primary "
                       : "text-[#092B49] hover:text-primary"
@@ -603,8 +628,8 @@ export default function LoanCalculator() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-4xl bg-primary pt-16">
-          <CalculatorPanel key={activeTab} config={calculatorConfig[activeTab]} />
+        <div className="relative overflow-hidden rounded-4xl bg-primary pt-[clamp(2.8125rem,-0.1155rem+3.4296vw,4rem)]">
+          <CalculatorPanel key={activeTab} config={calculatorConfig[activeTab]} calculatorName={activeTab} />
         </div>
       </div>
     </section>

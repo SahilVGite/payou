@@ -3,15 +3,18 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import ContactNumberPopup from "./ContactNumberPopup";
+import SubmissionSuccessPopup from "./SubmissionSuccessPopup";
 
 // Every popup the site can open, by name. Add a new popup by creating its component in this
 // folder and registering it here — callers then open it with `openPopup(POPUPS.<NAME>)`.
 export const POPUPS = {
     CONTACT_NUMBER: "contactNumber",
+    SUBMISSION_SUCCESS: "submissionSuccess",
 };
 
 const registry = {
     [POPUPS.CONTACT_NUMBER]: ContactNumberPopup,
+    [POPUPS.SUBMISSION_SUCCESS]: SubmissionSuccessPopup,
 };
 
 const PopupContext = createContext(null);

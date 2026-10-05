@@ -22,7 +22,7 @@ const baseTestimonials = [
     location: "Pune (Bhosari)",
   },
   {
-    rating: 2,
+    rating: 5,
     badge: "₹40 Lakh Sanctioned",
     heading:
       "Doctor Professional Loan of ₹40 Lakh sanctioned with zero physical collateral.",
@@ -33,7 +33,7 @@ const baseTestimonials = [
     location: "Mumbai (Andheri)",
   },
   {
-    rating: 4,
+    rating: 5,
     badge: "₹7.8L Interest Saved",
     heading:
       "Home Loan Balance Transfer of ₹65 Lakh saving ₹7.8 Lakhs in interest over 15 years.",
@@ -44,7 +44,7 @@ const baseTestimonials = [
     location: "Pune (Kothrud)",
   },
   {
-    rating: 2,
+    rating: 5,
     badge: "12-Hour Emergency Disbursal",
     heading:
       "Emergency Medical Loan of ₹5 Lakh sanctioned within 12 hours with zero stress.",
@@ -137,7 +137,7 @@ export default function Testimonials() {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className="absolute z-50 md:top-1/2 md:-translate-y-1/2 flex items-center justify-center gap-4 md:justify-between w-[calc(100%+60px)] [@media(min-width:1700px)]:w-[calc(100%+140px)] left-1/2 [@media(max-width:767px)]:-translate-x-1/2 md:left-[-30px] [@media(min-width:1700px)]:left-[-70px] px-2.5 [@media(max-width:767px)]:max-w-fit">
+            <div className="absolute z-50 md:top-1/2 md:-translate-y-1/2 max-[767px]:hidden flex items-center justify-center gap-4 md:justify-between w-[calc(100%+60px)] [@media(min-width:1700px)]:w-[calc(100%+140px)] left-1/2 [@media(max-width:767px)]:-translate-x-1/2 md:left-[-30px] [@media(min-width:1700px)]:left-[-70px] px-2.5 [@media(max-width:767px)]:max-w-fit">
               <button
                 type="button"
                 onClick={() => swiperInstance?.slidePrev()}
@@ -157,7 +157,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className="mt-3 md:mt-6 lg:mt-8 flex items-center justify-center gap-6 max-[767px]:hidden">
+          <div className="md:mt-6 lg:mt-8 flex items-center justify-center gap-6">
             {/* <button
               type="button"
               onClick={() => swiperInstance?.slidePrev()}

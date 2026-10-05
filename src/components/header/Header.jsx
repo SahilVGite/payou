@@ -146,9 +146,7 @@ export default function Header() {
   // panel closed, since both were driven by the same state.
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [loansMenuOpen, setLoansMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [desktopMenuMaxHeight, setDesktopMenuMaxHeight] = useState(null);
-  const lastScrollY = useRef(0);
   const menuRef = useRef(null);
   const scrollAreaRef = useRef(null);
 
@@ -236,29 +234,9 @@ export default function Header() {
     };
   }, [hamburgerOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (hamburgerOpen || loansMenuOpen || currentScrollY <= 10) {
-        setIsVisible(true);
-      } else if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current) {
-        setIsVisible(false);
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    lastScrollY.current = window.scrollY;
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hamburgerOpen, loansMenuOpen]);
-
   return (
     <header
-      className={`sticky top-0 z-999999999 font-poppins transition-transform duration-300 ease-out ${isVisible ? "translate-y-0" : "-translate-y-full"} ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
+      className={`sticky top-0 z-999999999 font-poppins ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
       onMouseLeave={closeLoansMenuOnLeave}
       onClick={closeMenusOnLinkClick}
     >

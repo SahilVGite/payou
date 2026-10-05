@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Autoplay } from "swiper/modules";
+import { CheckCircle2 } from "lucide-react";
 import "swiper/css";
 import SecureBadgeIcon from "../../../public/icons/SecureBadgeIcon";
 import DigitalKycIcon from "../../../public/icons/DigitalKycIcon";
@@ -56,6 +57,7 @@ function StepCard({ number, icon: Icon, title, description, tag }) {
 
 export default function FourSteps() {
   const [swiperInstance, setSwiperInstance] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section
@@ -77,12 +79,17 @@ export default function FourSteps() {
         </div>
 
         <div className="lg:hidden">
+          {/* Swipe, tap a dot, or let it auto-advance every 6s (dots replace the old prev/next
+              arrows, which took up a lot of vertical space). */}
           <Swiper
+            modules={[Autoplay]}
+            autoplay={{ delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true }}
             spaceBetween={20}
             slidesPerView={1}
             slidesPerGroup={1}
             loop
             onSwiper={setSwiperInstance}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             breakpoints={{
               640: { slidesPerView: 2 },
             }}
@@ -94,23 +101,19 @@ export default function FourSteps() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={() => swiperInstance?.slidePrev()}
-              aria-label="Previous step"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dce1e7] text-white bg-primary transition hover:border-[#134b96] hover:bg-[#134b96] hover:text-white cursor-pointer"
-            >
-              <ChevronLeft size={22} />
-            </button>
-            <button
-              type="button"
-              onClick={() => swiperInstance?.slideNext()}
-              aria-label="Next step"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dce1e7] text-white bg-primary transition hover:border-[#134b96] hover:bg-[#134b96] hover:text-white cursor-pointer"
-            >
-              <ChevronRight size={22} />
-            </button>
+          <div className="flex items-center justify-center gap-1.5 md:gap-2">
+            {steps.map((step, index) => (
+              <button
+                key={step.number}
+                type="button"
+                onClick={() => swiperInstance?.slideToLoop(index)}
+                aria-label={`Go to step ${step.number}`}
+                aria-current={activeIndex === index ? "true" : undefined}
+                className={`h-2.5 md:h-3.5 rounded-full border border-primary transition-all duration-300 cursor-pointer ${
+                  activeIndex === index ? "w-5 md:w-7 bg-primary" : "w-2.5 md:w-3.5 bg-transparent"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
