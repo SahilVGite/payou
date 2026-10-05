@@ -9,7 +9,7 @@ const stats = [
 
 const AboutUs = () => {
   return (
-    <section className="relative secGap px-[4%] bg-[#C4D2E5]/50">
+    <section className="relative secGap px-[4%]">
         <img src="/images/about_bg.png" alt="About Us" className="absolute inset-0 object-cover object-bottom w-full h-full opacity-40" />
       <div className="relative z-10 max-w-(--content-width) mx-auto flex items-stretch justify-between [@media(max-width:1023px)]:flex-col-reverse gap-6 lg:gap-[clamp(1.875rem,-0.2679rem+3.3482vw,3.75rem)]">
         <img

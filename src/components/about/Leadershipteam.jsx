@@ -83,7 +83,7 @@ export default function LeadershipTeam() {
                     breakpoints={{
                         640: { slidesPerView: 2 },
                         1024: { slidesPerView: 3 },
-                        1280: { slidesPerView: 4, spaceBetween: 32 },
+                        1440: { slidesPerView: 4, spaceBetween: 32 },
                     }}
                     className="leadership-swiper"
                 >
@@ -98,7 +98,7 @@ export default function LeadershipTeam() {
                                     loading="lazy"
                                     className="aspect-389/245 w-full object-cover"
                                 />
-                                <div className="bg-white/10 px-4 py-4 lg:px-5 lg:py-5">
+                                <div className="px-4 py-4 lg:px-5 lg:py-5">
                                     <p className="m-0 text-[12px] md:text-[13px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium uppercase tracking-[0.12em] text-white/90">
                                         {role}
                                     </p>
@@ -106,7 +106,7 @@ export default function LeadershipTeam() {
                                         aria-hidden="true"
                                         className="my-3 block h-0.5 w-12 bg-white"
                                     />
-                                    <h3 className="m-0 text-[clamp(1.125rem,1.0rem+0.5vw,1.25rem)] lg:text-[clamp(1.25rem,0.8rem+0.6vw,1.5rem)] font-medium leading-snug">
+                                    <h3 className="m-0 text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.6336rem+0.722vw,1.5rem)] font-medium leading-snug">
                                         {name}
                                     </h3>
                                 </div>
@@ -153,8 +153,8 @@ export default function LeadershipTeam() {
                                 onClick={() => swiperInstance?.slideToLoop(index)}
                                 aria-label={`Go to ${name}`}
                                 aria-current={isActive}
-                                className={`h-4 cursor-pointer rounded-full border border-white transition-all duration-300 ${
-                                    isActive ? "w-8 bg-white" : "w-4 bg-transparent hover:bg-white/40"
+                                className={`h-2.5 md:h-4 cursor-pointer rounded-full border border-white transition-all duration-300 ${
+                                    isActive ? "w-5 md:w-8 bg-white" : "w-2.5 md:w-4 bg-transparent hover:bg-white/40"
                                 }`}
                             />
                         );

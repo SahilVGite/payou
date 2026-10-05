@@ -114,8 +114,8 @@ const navLinks = [
   // ["LOANS", "/contact-us", true],
   // ["SERVICES", "/", true],
   // ["CALCULATORS", "/", true],
-  // ["ABOUT US", "/", false],
   ["HOME", "/", false],
+  ["ABOUT US", "/", false],
   ["CONTACT US", "/contact-us", false],
   // ["BLOG", "/", false],
 ];

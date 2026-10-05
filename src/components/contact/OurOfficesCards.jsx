@@ -149,8 +149,8 @@ const OurOfficesCards = () => {
                 onClick={() => swiperInstance?.slideToLoop(index)}
                 aria-label={`Go to ${office.title}`}
                 aria-current={activeIndex === index ? "true" : undefined}
-                className={`h-2.5 md:h-3.5 rounded-full border border-primary transition-all duration-300 cursor-pointer ${
-                  activeIndex === index ? "w-5 md:w-7 bg-primary" : "w-2.5 md:w-3.5 bg-transparent"
+                className={`h-2.5 md:h-4 rounded-full border border-primary transition-all duration-300 cursor-pointer ${
+                  activeIndex === index ? "w-5 md:w-8 bg-primary" : "w-2.5 md:w-4 bg-transparent"
                 }`}
               />
             ))}
