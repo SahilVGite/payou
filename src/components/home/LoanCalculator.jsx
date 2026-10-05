@@ -11,6 +11,7 @@ import LoansTabIcon from "../../../public/icons/LoansTabIcon";
 import Dropdown from "../common/Dropdown";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 import { POPUPS, usePopup } from "../popup/PopupProvider";
+import { trackEvent } from "../../lib/analytics";
 
 const formatInr = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
 const formatWhole = (value) => Math.round(value).toLocaleString("en-IN");
@@ -345,11 +346,11 @@ function CalculatorPanel({ config, calculatorName }) {
   // Every action button opens the same contact-number popup as the site's APPLY NOW CTAs,
   // tagged with which calculator + button the lead came from, with a message that says what
   // the visitor gets for leaving their number (so "View Schedule" doesn't read like a dead end).
-  const openLeadPopup = (button, message) =>
-    openPopup(POPUPS.CONTACT_NUMBER, {
-      source: { page: "Home", section: `Loan Calculator – ${calculatorName}`, button },
-      message,
-    });
+  const openLeadPopup = (button, message) => {
+    const source = { page: "Home", section: `Loan Calculator – ${calculatorName}`, button };
+    if (button.startsWith("APPLY")) trackEvent("apply_now_click", source);
+    openPopup(POPUPS.CONTACT_NUMBER, { source, message });
+  };
   const [f0, f1, f2, f3, f4] = config.fields;
   const noopField = { min: 0, max: 1, step: 1, default: 0 };
   // Always exactly 5 useEditableNumber calls regardless of tab (React requires a stable
@@ -580,6 +581,11 @@ function CalculatorPanel({ config, calculatorName }) {
 
 export default function LoanCalculator() {
   const [activeTab, setActiveTab] = useState(tabs[0].label);
+  const [panelKey, setPanelKey] = useState(0);
+  const selectTab = (label) => {
+    if (label !== activeTab) setPanelKey((current) => current + 1);
+    setActiveTab(label);
+  };
 
   return (
     <section className="px-[4%] secGap">
@@ -595,7 +601,7 @@ export default function LoanCalculator() {
         <div className="mb-4 lg:hidden">
           <Dropdown
             value={activeTab}
-            onChange={setActiveTab}
+            onChange={selectTab}
             options={tabs.map(({ label }) => label)}
             className="rounded-full border border-white/40 bg-primary/10 py-3.25 pl-4.5 pr-4.5 text-[12px] md:text-[14px] font-semibold text-[#10192b] backdrop-blur-lg"
             ariaLabel="Choose a calculator"
@@ -610,7 +616,7 @@ export default function LoanCalculator() {
                 <button
                   key={label}
                   type="button"
-                  onClick={() => setActiveTab(label)}
+                  onClick={() => selectTab(label)}
                   className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0711rem+0.722vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
                     isActive
                       ? "text-primary "
@@ -629,7 +635,15 @@ export default function LoanCalculator() {
         </div>
 
         <div className="relative overflow-hidden rounded-4xl bg-primary pt-[clamp(2.8125rem,-0.1155rem+3.4296vw,4rem)]">
-          <CalculatorPanel key={activeTab} config={calculatorConfig[activeTab]} calculatorName={activeTab} />
+          {tabs.map(({ label }) => (
+            <div key={label} className={activeTab === label ? undefined : "hidden"}>
+              <CalculatorPanel
+                key={activeTab === label ? `${label}-${panelKey}` : label}
+                config={calculatorConfig[label]}
+                calculatorName={label}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

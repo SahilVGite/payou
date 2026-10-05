@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react'
+import { trackEvent } from '../../lib/analytics'
 
 const TextArea = () => {
   return (
@@ -79,7 +82,7 @@ const TextArea = () => {
             <ul>
                 <li><strong>Name:</strong> Mr Ajay Kasbe</li>
                 <li><strong>Email:</strong> <a href="mailto:grievance@payyouadvisory.com">grievance@payyouadvisory.com</a></li>
-                <li><strong>Phone:</strong> <a href="tel:+912027350055">020 2735 0055</a></li>
+                <li><strong>Phone:</strong> <a href="tel:+912027350055" onClick={() => trackEvent("click_to_call", { page: "Privacy Policy", section: "Grievance Redressal", button: "020 2735 0055" })}>020 2735 0055</a></li>
                 <li><strong>Address:</strong> Vishal Arcade, Office No. 3, 4, 5, 6, Chafekar Chowk, Chinchwad, Pune – 411033</li>
                 <li><strong>Office hours:</strong> Mon–Sat, 9:30 AM – 6:30 PM</li>
             </ul>
@@ -100,7 +103,7 @@ const TextArea = () => {
                 <li><strong>Registered Office:</strong> Plot No. 92, Laxminagar, Phaltan, Dist. Satara – 415523, Maharashtra</li>
                 <li><strong>Corporate Office:</strong> Vishal Arcade, Office No. 3, 4, 5, 6, Chafekar Chowk, Chinchwad, Pune – 411033</li>
                 <li><strong>Branch Office:</strong> Bhigwan Chowk, Baramati, Dist. Pune – 413102</li>
-                <li><strong>Phone:</strong> <a href="tel:+919175535507">+91 9175535507</a> | <a href="tel:+912027350055">020 2735 0055</a></li>
+                <li><strong>Phone:</strong> <a href="tel:+919175535507" onClick={() => trackEvent("click_to_call", { page: "Privacy Policy", section: "Contact Us", button: "+91 9175535507" })}>+91 9175535507</a> | <a href="tel:+912027350055" onClick={() => trackEvent("click_to_call", { page: "Privacy Policy", section: "Contact Us", button: "020 2735 0055" })}>020 2735 0055</a></li>
                 <li><strong>Email:</strong> <a href="mailto:info@payyouadvisory.com">info@payyouadvisory.com</a></li>
             </ul>
 
@@ -219,7 +222,7 @@ const TextArea = () => {
             <ul>
                 <li><strong>Name:</strong> Mr Ajay Kasbe</li>
                 <li><strong>Email:</strong> <a href="mailto:grievance@payyouadvisory.com">grievance@payyouadvisory.com</a></li>
-                <li><strong>Phone:</strong> <a href="tel:+912027350055">020 2735 0055</a></li>
+                <li><strong>Phone:</strong> <a href="tel:+912027350055" onClick={() => trackEvent("click_to_call", { page: "Privacy Policy", section: "Grievance Redressal", button: "020 2735 0055" })}>020 2735 0055</a></li>
                 <li><strong>Address:</strong> Vishal Arcade, Office No. 3, 4, 5, 6, Chafekar Chowk, Chinchwad, Pune – 411033</li>
                 <li><strong>Office hours:</strong> Mon–Sat, 9:30 AM – 6:30 PM</li>
             </ul>

@@ -21,6 +21,7 @@ import AddressIcon from "../../../public/icons/AddressIcon";
 import PincodeIcon from "../../../public/icons/PincodeIcon";
 import IfscCodeIcon from "../../../public/icons/IfscCodeIcon";
 import ServicesOfferedIcon from "../../../public/icons/ServicesOfferedIcon";
+import { trackEvent } from "../../lib/analytics";
 
 const services = ENQUIRY_SERVICES;
 
@@ -218,6 +219,10 @@ export default function BranchFinancialQuestionForm({
                     {href ? (
                       <a
                         href={href}
+                        onClick={() => {
+                          if (href.startsWith("tel:")) trackEvent("click_to_call", { page: "Contact – Branch", section: "Branch Details", button: label });
+                          if (href.includes("wa.me")) trackEvent("whatsapp_click", { page: "Contact – Branch", section: "Branch Details", button: label });
+                        }}
                         className="text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white transition hover:underline"
                       >
                         {value}

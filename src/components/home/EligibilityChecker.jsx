@@ -178,7 +178,7 @@ export default function EligibilityChecker() {
               fill
               className="object-contain object-top"
             /> */}
-            <img src="/images/home-loan-2.png" alt="Happy couple" className="absolute top-0 w-[80%] h-auto" />
+            <img src="/images/home-loan-2.png" alt="Happy couple" loading="lazy" className="absolute top-0 w-[80%] h-auto" />
           </div>
         </div>
 

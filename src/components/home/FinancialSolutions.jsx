@@ -519,6 +519,7 @@ function ProductCard({ card }) {
         <img
           src={card.image}
           alt={card.title}
+          loading="lazy"
           className="object-cover aspect-4/3 group-hover:scale-105 transition-transform duration-300"
         />
         <span className="absolute -bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full border border-[#dce1e7] bg-white group-hover:bg-white/30 group-hover:backdrop-blur-sm text-[#134b96] shadow-[0_4px_10px_rgba(16,25,43,0.15)]">
@@ -621,48 +622,52 @@ export default function FinancialSolutions() {
 
         <div className="grid grid-cols-[327px_1fr] gap-8 max-[1024px]:grid-cols-1">
           <div className="hidden flex-col overflow-hidden rounded-2xl border border-[#dce1e7] bg-white lg:flex">
-            {sidebarItems.map((item, index) => {
-              const isActive = item === activeItem;
-              const isLast = index === sidebarItems.length - 1;
-              return (
-                <div key={item}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveItem(item)}
-                    className={`flex w-full items-center justify-between px-5 py-4 text-left text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold transition cursor-pointer ${
-                      isActive
-                        ? "bg-[#E5E7EB] text-primary"
-                        : `text-[#10192b] hover:bg-[#eaf1fb] ${!isLast ? "border-b border-[#E2E8F0]" : ""}`
-                    }`}
-                  >
-                    {item}
-                    <ChevronRight
-                      size={16}
-                      className={`shrink-0 transition-transform duration-200 ${isActive ? "-rotate-90" : ""}`}
-                    />
-                  </button>
-                  <Collapse open={isActive}>
-                    <div
-                      className={`bg-[#E5E7EB] p-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
-                    >
-                      <p className="m-0">
-                        {expandedDescriptionByTabAndItem[activeTab][item]}
-                      </p>
-                      <div className="mt-3 flex flex-col gap-2">
-                        <PopupLink
-                          href="/contact-us"
-                          source={{ page: "Home", section: `Financial solutions – ${activeTab} – ${item}`, button: "Know More" }}
-                          className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
+            {tabs.map(({ label: tabLabel }) => (
+              <div key={tabLabel} className={activeTab === tabLabel ? "contents" : "hidden"}>
+                {sidebarByTab[tabLabel].map((item, index) => {
+                  const isActive = item === activeItem;
+                  const isLast = index === sidebarByTab[tabLabel].length - 1;
+                  return (
+                    <div key={item}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveItem(item)}
+                        className={`flex w-full items-center justify-between px-5 py-4 text-left text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold transition cursor-pointer ${
+                          isActive
+                            ? "bg-[#E5E7EB] text-primary"
+                            : `text-[#10192b] hover:bg-[#eaf1fb] ${!isLast ? "border-b border-[#E2E8F0]" : ""}`
+                        }`}
+                      >
+                        {item}
+                        <ChevronRight
+                          size={16}
+                          className={`shrink-0 transition-transform duration-200 ${isActive ? "-rotate-90" : ""}`}
+                        />
+                      </button>
+                      <Collapse open={isActive}>
+                        <div
+                          className={`bg-[#E5E7EB] p-4 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] font-medium leading-relaxed text-[#5f6a7b] ${!isLast ? "border-b border-[#eef0f3]" : ""}`}
                         >
-                          Know More{" "}
-                          <ArrowRight size={12} className="inline-block" />
-                        </PopupLink>
-                      </div>
+                          <p className="m-0">
+                            {expandedDescriptionByTabAndItem[tabLabel][item]}
+                          </p>
+                          <div className="mt-3 flex flex-col gap-2">
+                            <PopupLink
+                              href="/contact-us"
+                              source={{ page: "Home", section: `Financial solutions – ${tabLabel} – ${item}`, button: "Know More" }}
+                              className="inline-block text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-medium text-primary hover:text-accent group-hover:text-white"
+                            >
+                              Know More{" "}
+                              <ArrowRight size={12} className="inline-block" />
+                            </PopupLink>
+                          </div>
+                        </div>
+                      </Collapse>
                     </div>
-                  </Collapse>
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            ))}
           </div>
 
           <div className="lg:hidden">
@@ -739,6 +744,21 @@ export default function FinancialSolutions() {
                     </div>
                   ))}
                 </div>
+              )}
+            </div>
+            <div className="hidden">
+              {tabs.flatMap(({ label: tabLabel }) =>
+                sidebarByTab[tabLabel].map((item) => {
+                  if (tabLabel === activeTab && item === activeItem) return null;
+                  const itemCards = rawCardsByTabAndItem[tabLabel][item] ?? [];
+                  return (
+                    <div key={`${tabLabel}-${item}`}>
+                      {itemCards.map((card) => (
+                        <ProductCard key={card.id} card={card} />
+                      ))}
+                    </div>
+                  );
+                })
               )}
             </div>
             <div className="mt-6">

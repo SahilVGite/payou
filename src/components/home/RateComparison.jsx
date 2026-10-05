@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import Dropdown from "../common/Dropdown";
 import { POPUPS, usePopup } from "../popup/PopupProvider";
+import { trackEvent } from "../../lib/analytics";
 
 const filters = ["All", "PERSONAL LOAN", "HOME LOAN", "BUSINESS LOAN", "LAP"];
 
@@ -68,10 +69,11 @@ export default function RateComparison() {
   const { openPopup } = usePopup();
   // Same contact-number popup as the site's APPLY NOW CTAs, tagged with the lender and loan
   // type the visitor picked so the team knows which offer they're after.
-  const openApplyPopup = (lender) =>
-    openPopup(POPUPS.CONTACT_NUMBER, {
-      source: { page: "Home", section: `Rate Comparison – ${lender.name} (${lender.facility})`, button: "APPLY" },
-    });
+  const openApplyPopup = (lender) => {
+    const source = { page: "Home", section: `Rate Comparison – ${lender.name} (${lender.facility})`, button: "APPLY" };
+    trackEvent("apply_now_click", source);
+    openPopup(POPUPS.CONTACT_NUMBER, { source });
+  };
   const [showAllCards, setShowAllCards] = useState(false);
 
   const changeFilter = (filter) => {
@@ -83,7 +85,6 @@ export default function RateComparison() {
     activeFilter === "All"
       ? lenders
       : lenders.filter((lender) => lender.facility.toUpperCase() === activeFilter.toUpperCase());
-  const cardLenders = showAllCards ? visibleLenders : visibleLenders.slice(0, MOBILE_CARD_LIMIT);
   const hiddenCardCount = visibleLenders.length - MOBILE_CARD_LIMIT;
 
   return (
@@ -127,10 +128,13 @@ export default function RateComparison() {
         {/* Below lg (same breakpoint where the filter pills become a dropdown) each lender is a
             stacked card instead of a table row, so the 6 columns never need horizontal scrolling. */}
         <div className="grid gap-2.5 sm:grid-cols-2 lg:hidden">
-          {cardLenders.map((lender) => (
+          {lenders.map((lender) => {
+            const matchIndex = visibleLenders.findIndex((item) => item.id === lender.id);
+            const pastMobileLimit = matchIndex !== -1 && !showAllCards && matchIndex >= MOBILE_CARD_LIMIT;
+            return (
             <div
               key={lender.id}
-              className="rounded-[14px] border border-[#dce1e7] bg-white/60 px-3.5 py-3 shadow-[0_6px_18px_rgba(16,25,43,0.08)] backdrop-blur-sm"
+              className={`rounded-[14px] border border-[#dce1e7] bg-white/60 px-3.5 py-3 shadow-[0_6px_18px_rgba(16,25,43,0.08)] backdrop-blur-sm ${matchIndex !== -1 && !pastMobileLimit ? "" : "hidden"}`}
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
@@ -163,7 +167,8 @@ export default function RateComparison() {
                 </div>
               </dl>
             </div>
-          ))}
+            );
+          })}
         </div>
         {hiddenCardCount > 0 ? (
           <div className="mt-4 text-center lg:hidden">
@@ -192,10 +197,12 @@ export default function RateComparison() {
                 </tr>
               </thead>
               <tbody>
-                {visibleLenders.map((lender, index) => (
+                {lenders.map((lender) => {
+                  const matchesFilter = visibleLenders.some((item) => item.id === lender.id);
+                  return (
                   <tr
                     key={lender.id}
-                    className={`border-t border-[#A6B6CB]/50 transition hover:bg-[#f5f8fc]`}
+                    className={`border-t border-[#A6B6CB]/50 transition hover:bg-[#f5f8fc] ${matchesFilter ? "" : "hidden"}`}
                   >
                     <td className="px-[clamp(0.75rem,-0.75rem+1.875vw,1.5rem)] py-[clamp(0.5rem,-0.5rem+1.25vw,1rem)]">
                       <span className="flex flex-wrap items-center gap-2.5">
@@ -220,7 +227,8 @@ export default function RateComparison() {
                       </button>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

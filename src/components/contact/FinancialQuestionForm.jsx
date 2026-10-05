@@ -13,6 +13,7 @@ import CallUsIcon from "../../../public/icons/CallUsIcon";
 import EmailUsIcon from "../../../public/icons/EmailUsIcon";
 import WhatsappIcon from "../../../public/icons/WhatsappIcon";
 import VisitOfficeIcon from "../../../public/icons/VisitOfficeIcon";
+import { trackEvent } from "../../lib/analytics";
 
 const highlights = [
   [LoanGuidanceIcon, "Loan Guidance"],
@@ -165,6 +166,10 @@ export default function FinancialQuestionForm({
                 <a
                   key={label}
                   href={href}
+                  onClick={() => {
+                    if (href.startsWith("tel:")) trackEvent("click_to_call", { page: "Contact", section: "Ask Us", button: label });
+                    if (href.includes("wa.me")) trackEvent("whatsapp_click", { page: "Contact", section: "Ask Us", button: label });
+                  }}
                   className="flex items-center gap-4 rounded-2xl bg-[rgba(255,255,255,0.08)] backdrop-blur-xs border border-white/30 px-5 py-2.5 [@media(min-width:1700px)]:py-3.5 transition hover:bg-white/15"
                 >
                   <span className="flex h-10 [@media(max-width:1700px)]:h-8 w-10 [@media(max-width:1700px)]:w-8 bg-glass-effect backdrop-blur-xs shrink-0 items-center justify-center rounded-full bg-white/10">

@@ -9,6 +9,8 @@ import Image from "next/image";
 import React from "react";
 import HomeLoanIcon from "../../../public/icons/HomeLoanIcon";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { pageNameFromPath, trackEvent } from "../../lib/analytics";
 
 const OurOffices = [
   {
@@ -46,6 +48,7 @@ const glassBorderClass =
 const pillClass = `${glassBorderClass} flex items-center gap-2 rounded-2xl bg-white/10 px-4 lg:px-5 py-[0.9333em] text-[13px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-inter font-bold text-white backdrop-blur-xs whitespace-nowrap`;
 
 function OfficeCard({ office, className = "" }) {
+  const page = pageNameFromPath(usePathname());
   return (
     <div
       className={`relative overflow-hidden flex flex-col min-h-[300px] bg-primary rounded-2xl px-6 py-8 lg:px-[1.875rem] shadow-[0_8px_24px_rgba(22,75,151,0.25)] transition hover:shadow-[0_12px_32px_rgba(22,75,151,0.4)] ${className}`}
@@ -59,6 +62,7 @@ function OfficeCard({ office, className = "" }) {
         {office.phone ? (
           <a
             href={`tel:${office.phone.replace(/\s/g, "")}`}
+            onClick={() => trackEvent("click_to_call", { page, section: "Our Offices", button: office.phone })}
             className={pillClass}
           >
             <Phone className="size-4 lg:size-5 shrink-0" />

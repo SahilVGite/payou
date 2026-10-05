@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import EligibilityForm from "./EligibilityForm";
 import PopupLink from "../popup/PopupLink";
+import { trackEvent } from "../../lib/analytics";
 const stats = [
     ["25+", "Leading Partners"],
     ["100%", "Customer Satisfaction"],
@@ -292,6 +293,7 @@ export default function HeroSection() {
                             <PopupLink
                                 href="/contact-us"
                                 source={{ page: "Home", section: "Banner", button: "APPLY NOW" }}
+                                onClick={() => trackEvent("apply_now_click", { page: "Home", section: "Banner", button: "APPLY NOW" })}
                                 className="rounded-full bg-[#b11f24] px-[3em] py-[0.8em] text-center text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-semibold text-white shadow-[0_5px_10px_rgba(177,31,36,0.25)] transition hover:-translate-y-0.5 hover:bg-[#961a1e] hover:shadow-[0_8px_16px_rgba(177,31,36,0.32)]"
                             >
                                 APPLY NOW

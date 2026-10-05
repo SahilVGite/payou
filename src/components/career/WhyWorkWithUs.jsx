@@ -45,7 +45,7 @@ const sliderReasons = [...reasons, ...reasons].map((reason, index) => ({ ...reas
 function ReasonCard({ title, text, icon, bg, art, className = "" }) {
     return (
         <div
-            className={`relative overflow-hidden rounded-[18px] bg-primary p-5 text-white shadow-[0_8px_20px_rgba(16,25,43,0.16)] lg:min-h-[clamp(12rem,8rem+6.2vw,13.75rem)] ${className}`}
+            className={`relative overflow-hidden rounded-[18px] bg-primary p-5 text-white shadow-[1px_1px_21px_rgba(0,0,0,0.4)] lg:min-h-[clamp(12rem,8rem+6.2vw,13.75rem)] ${className}`}
         >
             <img
                 src={bg}

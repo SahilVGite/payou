@@ -29,7 +29,7 @@ export default function GoalsCta({className=""}) {
             </PopupLink>
           </div>
         </div>
-        <img src="/images/Our_Smarter_Loan_Solutions.png" alt="PayYou Advisory app" className="hidden lg:block absolute bottom-0 right-0 max-w-[42%] [@media(min-width:1400px)]:max-w-[35%]  h-auto object-contain object-bottom-right" />
+        <img src="/images/Our_Smarter_Loan_Solutions.png" alt="PayYou Advisory app" loading="lazy" className="hidden lg:block absolute bottom-0 right-0 max-w-[42%] [@media(min-width:1400px)]:max-w-[35%]  h-auto object-contain object-bottom-right" />
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ import Footer from "../components/footer/Footer";
 import PopupProvider from "../components/popup/PopupProvider";
 import StickyWhatsapp from "../components/common/StickyWhatsapp";
 
+const GTM_ID = "GTM-MZ8B6559";
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -31,6 +33,9 @@ const cairo = Cairo({
 
 export const metadata = {
   metadataBase: new URL("https://payyouadvisory.com"),
+  alternates: {
+    canonical: "./",
+  },
   title: {
     default: "Pay You Advisory",
     template: "%s | Pay You Advisory",
@@ -65,7 +70,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased scroll-smooth`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col overflow-x-hidden bg-white font-poppins text-[#10192b]">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <PopupProvider>
           <Header />
           <main className="flex-1">{children}</main>

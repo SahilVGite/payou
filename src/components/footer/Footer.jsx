@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
+import { pageNameFromPath, trackEvent } from "../../lib/analytics";
 import FacebookIcon from "../../../public/icons/FacebookIcon";
 import GlobeIcon from "../../../public/icons/GlobeIcon";
 import InstagramIcon from "../../../public/icons/InstagramIcon";
@@ -43,6 +45,7 @@ const columnLinkClassName =
   "py-1 font-inter text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-white/75 transition hover:text-white";
 
 export default function Footer() {
+  const page = pageNameFromPath(usePathname());
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
       <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_29.82%] lg:justify-between">
@@ -96,10 +99,10 @@ export default function Footer() {
             </p>
             <Phone size={18} className="mt-0.5" />
             <p>
-              <a href="tel:02027350055">
+              <a href="tel:02027350055" onClick={() => trackEvent("click_to_call", { page, section: "Footer", button: "020 2735 0055" })}>
                 020 2735 0055 |{" "}
               </a>
-              <a href="tel:+91 91755 35555">
+              <a href="tel:+91 91755 35555" onClick={() => trackEvent("click_to_call", { page, section: "Footer", button: "+91 91755 35555" })}>
                 +91 91755 35555
               </a>
             </p>

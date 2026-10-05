@@ -5,6 +5,7 @@ import Link from "next/link";
 import PopupShell from "./PopupShell";
 import SubmissionSuccessPopup from "./SubmissionSuccessPopup";
 import { submitCallback } from "../../lib/services/callback.service";
+import { trackEvent } from "../../lib/analytics";
 
 // "Enter your contact number" popup. Only collects the mobile number — what happens with it
 // is up to the caller, via `onSubmit(phone)` (a 10-digit string, no +91). If `onSubmit`
@@ -38,20 +39,26 @@ export default function ContactNumberPopup({
         setSubmitting(true);
         setError("");
         try {
+            const leadSource = {
+                page: source?.page || "Website",
+                section: source?.section || "Popup",
+                button: source?.button || "Submit",
+            };
             if (onSubmit) {
                 await onSubmit(mobile);
             } else {
                 const data = await submitCallback({
                     phone: mobile,
                     phoneCode: "+91",
-                    page: source?.page || "Website",
-                    section: source?.section || "Popup",
-                    button: source?.button || "Submit",
+                    page: leadSource.page,
+                    section: leadSource.section,
+                    button: leadSource.button,
                 });
                 if (!data?.success) {
                     throw new Error(data?.message || "Unable to submit your number. Please try again.");
                 }
             }
+            trackEvent("generate_lead", leadSource);
             setSubmitted(true);
         } catch (submitError) {
             setError(submitError?.message || "Unable to submit your number. Please try again.");

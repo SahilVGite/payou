@@ -24,13 +24,32 @@ export default function FaqSection({
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [openIndex, setOpenIndex] = useState(0);
 
-  const faqs = faqsByCategory[activeCategory] ?? [];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: categories.flatMap((category) =>
+      (faqsByCategory[category] ?? []).map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      }))
+    ),
+  };
 
   return (
     <section
       className="px-[4%] secGap"
       style={{ backgroundImage: `url('${backgroundImage}')`, backgroundSize: "cover", backgroundPosition: "center" }}
     >
+      {faqSchema.mainEntity.length > 0 ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      ) : null}
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-5 md:mb-8 lg:mb-10 text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
           {title}
@@ -90,27 +109,35 @@ export default function FaqSection({
             />
           </div>
 
-          <div className="flex flex-col gap-3">
-            {faqs.map((faq, index) => {
-              const isOpen = index === openIndex;
+          <div>
+            {categories.map((category) => {
+              const isActive = category === activeCategory;
+              const categoryFaqs = faqsByCategory[category] ?? [];
               return (
-                <div
-                  key={faq.question}
-                  className={`overflow-hidden rounded-[14px] border bg-white/15 border-[#E4E6EB] backdrop-blur-xs shadow-[0px_4px_4px_rgba(0,0,0,0.1)] transition ${
-                    isOpen ? "border-[#134b96]" : "border-[#E4E6EB]"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                    className={`flex w-full items-center gap-2 md:gap-4 px-4 md:px-6 py-4 md:py-5 text-left cursor-pointer ${isOpen && "bg-primary/10"}`}
-                  >
-                    <span className={`text-[12px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-bold bg-white aspect-square rounded-full py-1 px-2 inline-flex items-center justify-center ${isOpen ? "text-[#134b96]" : "text-ink"}`}>{String(index + 1).padStart(2, "0")}</span>
-                    <span className="flex-1 text-[clamp(1rem,0.7794rem+0.9804vw,1.25rem)] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-medium text-[#18181B]">{faq.question}</span>
-                  </button>
-                  <Collapse open={isOpen}>
-                    <div className={`px-6 py-6 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-medium text-[#52525B] border-t-2 ${isOpen ? "border-white" : "border-transparent"}`}>{faq.answer}</div>
-                  </Collapse>
+                <div key={category} className={isActive ? "flex flex-col gap-3" : "hidden"}>
+                  {categoryFaqs.map((faq, index) => {
+                    const isOpen = isActive && index === openIndex;
+                    return (
+                      <div
+                        key={faq.question}
+                        className={`overflow-hidden rounded-[14px] border bg-white/15 border-[#E4E6EB] backdrop-blur-xs shadow-[0px_4px_4px_rgba(0,0,0,0.1)] transition ${
+                          isOpen ? "border-[#134b96]" : "border-[#E4E6EB]"
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                          className={`flex w-full items-center gap-2 md:gap-4 px-4 md:px-6 py-4 md:py-5 text-left cursor-pointer ${isOpen && "bg-primary/10"}`}
+                        >
+                          <span className={`text-[12px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-bold bg-white aspect-square rounded-full py-1 px-2 inline-flex items-center justify-center ${isOpen ? "text-[#134b96]" : "text-ink"}`}>{String(index + 1).padStart(2, "0")}</span>
+                          <span className="flex-1 text-[clamp(1rem,0.7794rem+0.9804vw,1.25rem)] md:text-[20px] lg:text-[clamp(1.125rem,0.5086rem+0.722vw,1.375rem)] font-medium text-[#18181B]">{faq.question}</span>
+                        </button>
+                        <Collapse open={isOpen}>
+                          <div className={`px-6 py-6 text-[14px] md:text-[16px] lg:text-[clamp(0.9375rem,0.4752rem+0.5415vw,1.125rem)] font-medium text-[#52525B] border-t-2 ${isOpen ? "border-white" : "border-transparent"}`}>{faq.answer}</div>
+                        </Collapse>
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })}

@@ -24,7 +24,7 @@ const textSm = "text-[12px] md:text-[14px] lg:text-[clamp(0.875rem,0.6438rem+0.2
 
 function JobCard({ job, onApply }) {
     return (
-        <article className="group flex flex-col gap-5 rounded-xl border border-white/80 bg-white/45 px-5 py-6 shadow-[0_4px_12px_rgba(16,25,43,0.1)] backdrop-blur-sm transition hover:bg-[#DEE6F1]/80 md:flex-row md:items-start md:gap-8 lg:px-8 lg:py-8">
+        <article className="group flex flex-col gap-5 rounded-xl border border-white/80 bg-white/45 px-5 py-6 shadow-[4px_4px_12px_rgba(0,0,0,0.15)] backdrop-blur-sm transition hover:bg-[#DEE6F1]/80 md:flex-row md:items-start md:gap-8 lg:px-8 lg:py-8">
             <div className="min-w-0 flex-1">
                 <h3 className="text-[18px] md:text-[22px] lg:text-[clamp(1.25rem,0.6336rem+0.722vw,1.625rem)] font-semibold leading-snug text-primary">
                     {job.title}
