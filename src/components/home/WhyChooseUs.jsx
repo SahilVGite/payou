@@ -55,7 +55,7 @@ export default function WhyChooseUs() {
               <h3 className="text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-primary">
                 PayYou Advisory
               </h3>
-              <span className="rounded-[9px] bg-accent py-[0.625em] px-[1.5em] text-[8px] font-bold text-white">
+              <span className="rounded-[9px] bg-accent py-[0.625em] px-[1.5em] text-[8px] font-bold text-white leading-[1.4]">
                 RECOMMENDED
               </span>
             </div>
