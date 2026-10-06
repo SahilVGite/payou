@@ -104,10 +104,10 @@ const navLinks = [
   // ["LOANS", "/contact-us", true],
   // ["SERVICES", "/", true],
   // ["CALCULATORS", "/", true],
+  // ["ABOUT US", "/", false],
   ["HOME", "/", false],
-  ["ABOUT US", "/about-us", false],
   ["CONTACT US", "/contact-us", false],
-  // ["BLOG", "/", false],
+  ["BLOG", "/blog", false],
 ];
 
 // Active state is derived from the current route rather than hardcoded per link: LOANS
@@ -123,13 +123,11 @@ function isNavLinkActive(label, href, pathname) {
 // Desktop nav switches from click-to-open to hover-to-open above this width; matches the
 // header's own max-[1024px] mobile breakpoint (mobile/touch keeps click via the hamburger).
 const isDesktopViewport = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(min-width: 1025px)").matches;
+  typeof window !== "undefined" && window.matchMedia("(min-width: 1025px)").matches;
 
 // Mobile hamburger menu lives at max-[1024px], same breakpoint the header markup itself uses.
 const isMobileMenuViewport = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(max-width: 1024px)").matches;
+  typeof window !== "undefined" && window.matchMedia("(max-width: 1024px)").matches;
 
 export default function Header() {
   const pathname = usePathname();
@@ -234,36 +232,13 @@ export default function Header() {
     >
       <div className="bg-primary font-nunito font-bold text-white">
         <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-2 md:px-4">
-          {/* <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4"> */}
+        {/* <div className="mx-auto flex min-h-9 max-w-(--header-width) items-center justify-between px-4"> */}
           <div className="flex items-center font-semibold gap-1 md:gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)]">
-            {/* <div className="flex items-center font-semibold gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden"> */}
+          {/* <div className="flex items-center font-semibold gap-3 text-[clamp(0.5625rem,0.3839rem+0.8929vw,0.8125rem)] md:text-[13px] lg:text-[clamp(0.75rem,0.4418rem+0.361vw,0.875rem)] max-[1024px]:hidden"> */}
             <Phone size={17} />
             <span>
-              <a
-                href="tel:02027350055"
-                onClick={() =>
-                  trackEvent("click_to_call", {
-                    page: pageNameFromPath(pathname),
-                    section: "Header",
-                    button: "020 2735 0055",
-                  })
-                }
-              >
-                020 2735 0055 /{" "}
-              </a>
-              <a
-                href="tel:+919175535507"
-                onClick={() =>
-                  trackEvent("click_to_call", {
-                    page: pageNameFromPath(pathname),
-                    section: "Header",
-                    button: "+91 9175535507",
-                  })
-                }
-              >
-                {" "}
-                + 91 9175535507
-              </a>
+              <a href="tel:02027350055" onClick={() => trackEvent("click_to_call", { page: pageNameFromPath(pathname), section: "Header", button: "020 2735 0055" })}>020 2735 0055 / </a>
+              <a href="tel:+919175535507" onClick={() => trackEvent("click_to_call", { page: pageNameFromPath(pathname), section: "Header", button: "+91 9175535507" })}> + 91 9175535507</a>
             </span>
             <span className="border-l border-white/70 h-5" />
             <Mail size={17} />
@@ -310,53 +285,53 @@ export default function Header() {
               const isActive = isNavLinkActive(label, href, pathname);
               return (
                 <Fragment key={label}>
-                  <span
-                    // Mega menu temporarily disabled — do not open on desktop hover for now.
-                    // onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
-                    className={`relative flex items-center [@media(max-width:1023px)]:justify-between gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
-                      index > 0
-                        ? "before:content-[''] before:absolute before:-left-[clamp(1.25rem,-0.25rem+1.875vw,2rem)] before:top-1/2 before:h-[15px] before:w-px before:-translate-y-1/2 before:bg-[#BFCFE6] max-[1050px]:before:-left-2 max-[1024px]:before:hidden"
-                        : ""
-                    } ${
-                      isActive
-                        ? "border-b-2 border-primary text-primary"
-                        : "border-b-2 border-transparent text-[#364152] hover:text-primary"
-                    }`}
-                  >
-                    {label === "LOANS" ? (
-                      <button
-                        type="button"
-                        // Mega menu temporarily disabled — do not open on click for now
-                        // (this is also mobile's only trigger, since it has no hover).
-                        // onClick={() => setLoansMenuOpen((open) => !open)}
-                        className="flex w-full items-center justify-between gap-1.5"
-                      >
-                        {label}
-                        {hasChevron ? (
-                          <ChevronDown
-                            size={22}
-                            className={`transition-transform duration-200 ${loansMenuOpen ? "max-[1024px]:rotate-180" : ""}`}
-                          />
-                        ) : null}
-                      </button>
-                    ) : (
-                      <>
-                        <Link href={href}>{label}</Link>
-                        {hasChevron ? <ChevronDown size={22} /> : null}
-                      </>
-                    )}
-                  </span>
+                <span
+                  // Mega menu temporarily disabled — do not open on desktop hover for now.
+                  // onMouseEnter={label === "LOANS" ? openLoansMenu : undefined}
+                  className={`relative flex items-center [@media(max-width:1023px)]:justify-between gap-1.5 py-1 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0625rem+0.7813vw,1rem)] font-semibold tracking-wide max-[1024px]:w-full max-[1024px]:border-b max-[1024px]:border-[#eef0f3] max-[1024px]:py-3 max-[1024px]:text-left ${
+                    index > 0
+                      ? "before:content-[''] before:absolute before:-left-[clamp(1.25rem,-0.25rem+1.875vw,2rem)] before:top-1/2 before:h-[15px] before:w-px before:-translate-y-1/2 before:bg-[#BFCFE6] max-[1050px]:before:-left-2 max-[1024px]:before:hidden"
+                      : ""
+                  } ${
+                    isActive
+                      ? "border-b-2 border-primary text-primary"
+                      : "border-b-2 border-transparent text-[#364152] hover:text-primary"
+                  }`}
+                >
                   {label === "LOANS" ? (
-                    <div className="hidden w-full max-[1024px]:block">
-                      <Collapse open={loansMenuOpen}>
-                        <div className="flex min-h-[625px] w-full flex-col bg-[#e5ebf3]">
-                          <LoansMegaMenuBody />
-                          <LoansMegaMenuFooterBar />
-                        </div>
-                      </Collapse>
-                    </div>
-                  ) : null}
-                </Fragment>
+                    <button
+                      type="button"
+                      // Mega menu temporarily disabled — do not open on click for now
+                      // (this is also mobile's only trigger, since it has no hover).
+                      // onClick={() => setLoansMenuOpen((open) => !open)}
+                      className="flex w-full items-center justify-between gap-1.5"
+                    >
+                      {label}
+                      {hasChevron ? (
+                        <ChevronDown
+                          size={22}
+                          className={`transition-transform duration-200 ${loansMenuOpen ? "max-[1024px]:rotate-180" : ""}`}
+                        />
+                      ) : null}
+                    </button>
+                  ) : (
+                    <>
+                      <Link href={href}>{label}</Link>
+                      {hasChevron ? <ChevronDown size={22} /> : null}
+                    </>
+                  )}
+                </span>
+                {label === "LOANS" ? (
+                  <div className="hidden w-full max-[1024px]:block">
+                    <Collapse open={loansMenuOpen}>
+                      <div className="flex min-h-[625px] w-full flex-col bg-[#e5ebf3]">
+                        <LoansMegaMenuBody />
+                        <LoansMegaMenuFooterBar />
+                      </div>
+                    </Collapse>
+                  </div>
+                ) : null}
+              </Fragment>
               );
             })}
           </nav>
@@ -374,18 +349,8 @@ export default function Header() {
             </label> */}
             <PopupLink
               href="/contact-us"
-              source={{
-                page: pageNameFromPath(pathname),
-                section: "Header",
-                button: "APPLY NOW",
-              }}
-              onClick={() =>
-                trackEvent("apply_now_click", {
-                  page: pageNameFromPath(pathname),
-                  section: "Header",
-                  button: "APPLY NOW",
-                })
-              }
+              source={{ page: pageNameFromPath(pathname), section: "Header", button: "APPLY NOW" }}
+              onClick={() => trackEvent("apply_now_click", { page: pageNameFromPath(pathname), section: "Header", button: "APPLY NOW" })}
               className="flex items-center gap-2 rounded-full bg-primary px-[1.5em] py-[0.75em] text-[clamp(0.625rem,0.4464rem+0.8929vw,0.875rem)] md:text-[14px] lg:text-[clamp(0.875rem,0.5668rem+0.361vw,1rem)] font-semibold text-white shadow-[0_6px_12px_rgba(19,75,150,0.23)] transition hover:-translate-y-0.5 hover:bg-[#0e3a75] hover:shadow-[0_8px_16px_rgba(19,75,150,0.3)] max-[480px]:px-3"
             >
               <UserRound size={16} /> APPLY NOW
@@ -408,10 +373,7 @@ export default function Header() {
               : undefined
           }
         >
-          <div
-            ref={scrollAreaRef}
-            className="flex min-h-0 flex-1 overflow-y-auto"
-          >
+          <div ref={scrollAreaRef} className="flex min-h-0 flex-1 overflow-y-auto">
             <LoansMegaMenuBody />
           </div>
           <LoansMegaMenuFooterBar />

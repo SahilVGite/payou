@@ -42,7 +42,7 @@ export default function Breadcrumbs({
                   {isLast || !item.href ? (
                     <span
                       aria-current={isLast ? "page" : undefined}
-                      className={`flex items-center gap-1.5 ${isLast ? "text-primary" : ""}`}
+                      className={`flex items-center gap-1.5 capitalize ${isLast ? "text-primary" : ""}`}
                     >
                       {renderIcon(item.icon)}
                       {item.label}

@@ -21,8 +21,8 @@ const popularProducts = [
 
 const usefulLinks = [
   ["Home", "/"],
-  ["About", "/about-us"],
-  ["Careers", "/career"],
+  // ["About", "/"],
+  // ["Careers", "/"],
   ["Contact", "/contact-us"],
   // ["Calculators", "/"],
   // ["Customer Care", "/"],

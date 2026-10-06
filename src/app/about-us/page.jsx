@@ -15,7 +15,7 @@ import LeadershipTeam from "@/components/about/Leadershipteam";
 
 export const metadata = { title: "About Us" };
 
-export default function AboutUsPage({ breadcrumbs = [{ label: "About US" }] }) {
+export default function AboutUsPage({ breadcrumbs = [{ label: "About Us" }] }) {
     return (
         <>
             <Breadcrumbs items={breadcrumbs} />
