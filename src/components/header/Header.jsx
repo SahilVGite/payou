@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { loanGroups, loanMenu } from "../../data/navigation";
+import { calculatorPages } from "../../data/calculators";
 import Collapse from "../common/Collapse";
 import PopupLink from "../popup/PopupLink";
 import { pageNameFromPath, trackEvent } from "../../lib/analytics";
@@ -104,10 +105,13 @@ const navLinks = [
   // ["LOANS", "/contact-us", true],
   // ["SERVICES", "/", true],
   // ["CALCULATORS", "/", true],
+  // ["ABOUT US", "/", false],
   ["HOME", "/", false],
+  ["CALCULATORS", "/calculator", true],
   ["ABOUT US", "/about-us", false],
   ["CONTACT US", "/contact-us", false],
   ["BLOG", "/blog", false],
+  // ["BLOG", "/", false],
 ];
 
 // Active state is derived from the current route rather than hardcoded per link: LOANS
@@ -119,6 +123,13 @@ function isNavLinkActive(label, href, pathname) {
   if (label === "LOANS" || href === "/") return false;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+// CALCULATORS is a dropdown trigger, not a link — its sub-items open each calculator page
+// (/calculator/<slug>, the same pages its tabs link to). It only shows as active while one of
+// those pages is open.
+const calculatorSubmenu = calculatorPages.map(({ label, slug }) => ({ label, href: `/calculator/${slug}` }));
+const isSubmenuItemActive = (href, pathname) =>
+  pathname === href || (href === calculatorSubmenu[0].href && pathname === "/calculator");
 
 // Desktop nav switches from click-to-open to hover-to-open above this width; matches the
 // header's own max-[1024px] mobile breakpoint (mobile/touch keeps click via the hamburger).
@@ -136,6 +147,14 @@ export default function Header() {
   // panel closed, since both were driven by the same state.
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [loansMenuOpen, setLoansMenuOpen] = useState(false);
+  const [mobileCalcOpen, setMobileCalcOpen] = useState(false);
+  // Desktop CALCULATORS dropdown: opened by hover/focus, but driven by state (not CSS :hover /
+  // :focus-within) so clicking an item can close it even while the pointer is still over it.
+  const [calcMenuOpen, setCalcMenuOpen] = useState(false);
+  const closeCalcMenu = () => {
+    setCalcMenuOpen(false);
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  };
   const [desktopMenuMaxHeight, setDesktopMenuMaxHeight] = useState(null);
   const menuRef = useRef(null);
   const scrollAreaRef = useRef(null);
@@ -146,6 +165,10 @@ export default function Header() {
       if (!next) setLoansMenuOpen(false);
       return next;
     });
+  };
+  const closeHamburger = () => {
+    setHamburgerOpen(false);
+    setLoansMenuOpen(false);
   };
 
   // Any link clicked inside the header (nav items, the loans menu, logo, APPLY NOW) closes
@@ -219,14 +242,19 @@ export default function Header() {
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setHamburgerOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
     return () => {
       document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
     };
   }, [hamburgerOpen]);
 
   return (
     <header
-      className={`sticky top-0 z-999999999 font-poppins ${hamburgerOpen ? "max-[1024px]:max-h-dvh max-[1024px]:overflow-y-auto" : ""}`}
+      className="sticky top-0 z-999999999 font-poppins"
       onMouseLeave={closeLoansMenuOnLeave}
       onClick={closeMenusOnLinkClick}
     >
@@ -273,13 +301,14 @@ export default function Header() {
             type="button"
             onClick={toggleHamburger}
             aria-expanded={hamburgerOpen}
-            aria-label="Toggle navigation"
+            aria-controls="mobile-menu"
+            aria-label="Open navigation menu"
           >
-            {hamburgerOpen ? <X size={25} /> : <Menu size={25} />}
+            <Menu size={25} />
           </button>
           <nav
             aria-label="Main navigation"
-            className={`flex flex-1 items-center justify-center gap-[clamp(2.5rem,-0.5rem+3.75vw,4rem)] max-[1050px]:gap-4 max-[1024px]:order-4 max-[1024px]:basis-full max-[1024px]:flex-col max-[1024px]:items-start max-[1024px]:gap-0 max-[1024px]:pb-3 ${hamburgerOpen ? "max-[1024px]:flex" : "max-[1024px]:hidden"}`}
+            className="flex flex-1 items-center justify-center gap-[clamp(2.5rem,-0.5rem+3.75vw,4rem)] max-[1050px]:gap-4 max-[1024px]:hidden"
           >
             {navLinks.map(([label, href, hasChevron], index) => {
               const isActive = isNavLinkActive(label, href, pathname);
@@ -298,7 +327,57 @@ export default function Header() {
                       : "border-b-2 border-transparent text-[#364152] hover:text-primary"
                   }`}
                 >
-                  {label === "LOANS" ? (
+                  {label === "CALCULATORS" ? (
+                    <div
+                      className="relative"
+                      onMouseEnter={() => setCalcMenuOpen(true)}
+                      onMouseLeave={() => setCalcMenuOpen(false)}
+                      onFocus={() => setCalcMenuOpen(true)}
+                      onBlur={(event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget)) setCalcMenuOpen(false);
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === "Escape") closeCalcMenu();
+                      }}
+                    >
+                      <button
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded={calcMenuOpen}
+                        onClick={() => setCalcMenuOpen((open) => !open)}
+                        className="flex items-center gap-1.5 cursor-default"
+                      >
+                        {label}
+                        <ChevronDown size={18} className={`transition-transform duration-200 ${calcMenuOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      {/* pt-4 bridges the gap so the menu stays open while the pointer moves down to it */}
+                      <div
+                        className={`absolute left-1/2 top-full z-20 -translate-x-1/2 pt-4 transition duration-200 ${
+                          calcMenuOpen ? "visible opacity-100" : "invisible opacity-0"
+                        }`}
+                      >
+                        <ul className="min-w-[17.5rem] rounded-xl border border-[#e3e8ef] bg-white p-2 shadow-[0_14px_34px_rgba(16,25,43,0.16)]">
+                          {calculatorSubmenu.map((item) => {
+                            const itemActive = isSubmenuItemActive(item.href, pathname);
+                            return (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  onClick={closeCalcMenu}
+                                  aria-current={itemActive ? "page" : undefined}
+                                  className={`block rounded-lg px-4 py-2.5 text-[14px] font-medium normal-case tracking-normal transition ${
+                                    itemActive ? "bg-primary/10 text-primary" : "text-[#364152] hover:bg-primary/5 hover:text-primary"
+                                  }`}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    </div>
+                  ) : label === "LOANS" ? (
                     <button
                       type="button"
                       // Mega menu temporarily disabled — do not open on click for now
@@ -358,6 +437,115 @@ export default function Header() {
           </div>
         </div>
       </div>
+      {/* Mobile menu: full-height drawer (up to 550px wide) that slides in from the right over a
+          dimmed backdrop and slides back out to the right on close. Always rendered so both
+          directions animate; `inert` keeps it out of tab order / screen readers while closed. */}
+      <div className="min-[1025px]:hidden">
+        <div
+          aria-hidden="true"
+          onClick={closeHamburger}
+          className={`fixed inset-0 z-40 bg-[#10192b]/50 backdrop-blur-[2px] transition-opacity duration-300 ${
+            hamburgerOpen ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        />
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          inert={!hamburgerOpen}
+          className={`fixed inset-y-0 right-0 z-50 flex h-dvh w-full max-w-[550px] flex-col bg-white shadow-[-12px_0_40px_rgba(16,25,43,0.25)] transition-transform duration-300 ease-out ${
+            hamburgerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b border-[#eef0f3] px-5 py-3">
+            <Link href="/" className="shrink-0">
+              <Image src="/images/siteLogoHeader.png" alt="PayYou Advisory Private Limited" width={124} height={65} className="h-auto w-20" />
+            </Link>
+            <button
+              type="button"
+              onClick={closeHamburger}
+              aria-label="Close navigation menu"
+              className="flex size-10 items-center justify-center rounded-full text-primary transition hover:bg-primary/10"
+            >
+              <X size={26} />
+            </button>
+          </div>
+
+          <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-5 py-2">
+            <ul>
+              {navLinks.map(([label, href]) => {
+                const isActive = isNavLinkActive(label, href, pathname);
+                const rowClass = `flex w-full items-center justify-between border-b border-[#eef0f3] py-4 text-[15px] font-semibold tracking-wide ${
+                  isActive ? "text-primary" : "text-[#364152]"
+                }`;
+                if (label === "CALCULATORS") {
+                  return (
+                    <li key={label}>
+                      <button
+                        type="button"
+                        onClick={() => setMobileCalcOpen((open) => !open)}
+                        aria-expanded={mobileCalcOpen}
+                        className={rowClass}
+                      >
+                        {label}
+                        <ChevronDown size={20} className={`transition-transform duration-200 ${mobileCalcOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      <Collapse open={mobileCalcOpen}>
+                        <ul className="border-b border-[#eef0f3] py-2 pl-3">
+                          {calculatorSubmenu.map((item) => {
+                            const itemActive = isSubmenuItemActive(item.href, pathname);
+                            return (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  aria-current={itemActive ? "page" : undefined}
+                                  className={`block rounded-lg px-3 py-2.5 text-[14px] font-medium ${
+                                    itemActive ? "bg-primary/10 text-primary" : "text-[#364152]"
+                                  }`}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </Collapse>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={label}>
+                    <Link href={href} className={rowClass}>
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className="border-t border-[#eef0f3] px-5 py-5">
+            <PopupLink
+              href="/contact-us"
+              source={{ page: pageNameFromPath(pathname), section: "Header – Mobile Menu", button: "APPLY NOW" }}
+              onClick={() => trackEvent("apply_now_click", { page: pageNameFromPath(pathname), section: "Header – Mobile Menu", button: "APPLY NOW" })}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 text-[14px] font-semibold text-white"
+            >
+              <UserRound size={16} /> APPLY NOW
+            </PopupLink>
+            <div className="mt-4 flex flex-col gap-2 text-[13px] text-[#4B5563]">
+              <a href="tel:02027350055" className="flex items-center gap-2">
+                <Phone size={15} className="text-primary" /> 020 2735 0055 / +91 9175535507
+              </a>
+              <a href="mailto:info@payyouadvisory.com" className="flex items-center gap-2">
+                <Mail size={15} className="text-primary" /> info@payyouadvisory.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Desktop hover overlay only — mobile has its own accordion panel rendered
           inline right after the LOANS nav item, further up. The scrollable body and the
           footer bar are separate flex-column rows (not one block with the footer bar

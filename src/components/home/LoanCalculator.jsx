@@ -8,6 +8,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 import LoansTabIcon from "../../../public/icons/LoansTabIcon";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Dropdown from "../common/Dropdown";
 import { useEditableNumber } from "../../hooks/useEditableNumber";
 import { POPUPS, usePopup } from "../popup/PopupProvider";
@@ -579,23 +581,52 @@ function CalculatorPanel({ config, calculatorName }) {
   );
 }
 
-export default function LoanCalculator() {
-  const [activeTab, setActiveTab] = useState(tabs[0].label);
+// "Personal Loan EMI Calculator" -> "personal-loan-emi-calculator" (matches data/calculators.js).
+export const calculatorSlug = (label) => label.toLowerCase().replace(/\s+/g, "-");
+
+// Home page: tabs switch in place (internal state). Calculator pages pass `activeTab` (from the
+// URL) plus `tabBasePath` ("/calculator"), which turns each tab into a link to its own page
+// (/calculator/<slug>) — the route then drives the active tab, banner and heading. `heading` /
+// `description` override the section's default copy.
+export default function LoanCalculator({
+  activeTab: routeTab,
+  tabBasePath,
+  heading = (
+    <>
+      Know Your EMI{" "}
+      <strong className="font-bold text-primary">Before You Apply</strong>
+    </>
+  ),
+  descriptionClassName = "",
+  description = (
+    <>
+      Use our free loan EMI calculators to plan your principal, interest, and tenure.  <br className="hidden md:inline" />With our redundant loan advisory services you get no surprises later.
+    </>
+  ),
+}) {
+  const router = useRouter();
+  const [stateTab, setStateTab] = useState(tabs[0].label);
   const [panelKey, setPanelKey] = useState(0);
+  const isRouted = Boolean(tabBasePath);
+  const getTabHref = (label) => `${tabBasePath}/${calculatorSlug(label)}`;
+  const activeTab = isRouted ? routeTab ?? tabs[0].label : stateTab;
   const selectTab = (label) => {
+    if (isRouted) {
+      if (label !== activeTab) router.push(getTabHref(label), { scroll: false });
+      return;
+    }
     if (label !== activeTab) setPanelKey((current) => current + 1);
-    setActiveTab(label);
+    setStateTab(label);
   };
 
   return (
     <section className="px-[4%] secGap">
       <div className="mx-auto max-w-(--content-width)">
         <h2 className="mb-2 md:mb-3 text-left md:text-center text-[clamp(1.5rem,1.2794rem+0.9804vw,1.75rem)] md:text-[36px] lg:text-[clamp(2rem,0.4589rem+1.8051vw,2.625rem)] leading-tight text-ink">
-          Know Your EMI{" "}
-          <strong className="font-bold text-primary">Before You Apply</strong>
+          {heading}
         </h2>
-        <p className="mx-auto mb-9 text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563]">
-          Use our free loan EMI calculators to plan your principal, interest, and tenure.  <br className="hidden md:inline" />With our redundant loan advisory services you get no surprises later.
+        <p className={`mx-auto mb-9 text-left md:text-center text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(1rem,0.3836rem+0.722vw,1.25rem)] text-[#4B5563] ${descriptionClassName}`}>
+          {description}
         </p>
 
         <div className="mb-4 lg:hidden">
@@ -612,22 +643,39 @@ export default function LoanCalculator() {
           <div className="flex w-fit justify-evenly gap-1">
             {tabs.map(({ label, icon: Icon }) => {
               const isActive = activeTab === label;
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => selectTab(label)}
-                  className={`relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0711rem+0.722vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
-                    isActive
-                      ? "text-primary "
-                      : "text-[#092B49] hover:text-primary"
-                  }`}
-                >
+              const tabClassName = `relative flex items-center gap-2 rounded-full px-4 lg:px-[] py-4 text-[12px] md:text-[14px] lg:text-[clamp(0.6875rem,0.0711rem+0.722vw,0.9375rem)] font-bold uppercase tracking-wide whitespace-nowrap cursor-pointer transition ${
+                isActive
+                  ? "text-primary "
+                  : "text-[#092B49] hover:text-primary"
+              }`;
+              const content = (
+                <>
                   <Icon size={18} />
                   {label}
                   {isActive ? (
                     <span className="absolute inset-x-4 bottom-0 h-0.75 rounded-full bg-[#134b96]" />
                   ) : null}
+                </>
+              );
+              // Routed tabs are real links (crawlable, open-in-new-tab) that keep the scroll position.
+              return isRouted ? (
+                <Link
+                  key={label}
+                  href={getTabHref(label)}
+                  scroll={false}
+                  aria-current={isActive ? "page" : undefined}
+                  className={tabClassName}
+                >
+                  {content}
+                </Link>
+              ) : (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => selectTab(label)}
+                  className={tabClassName}
+                >
+                  {content}
                 </button>
               );
             })}

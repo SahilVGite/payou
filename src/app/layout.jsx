@@ -2,6 +2,7 @@ import { Cairo, Inter, Nunito, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
+import { getFooterContent } from "../lib/services/footer.service";
 import PopupProvider from "../components/popup/PopupProvider";
 import StickyWhatsapp from "../components/common/StickyWhatsapp";
 
@@ -67,7 +68,8 @@ export const metadata = {
   manifest: "/images/favicon_io/site.webmanifest",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const footer = await getFooterContent();
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${nunito.variable} ${poppins.variable} ${cairo.variable} h-full antialiased scroll-smooth`}>
       <head>
@@ -93,7 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <PopupProvider>
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer content={footer} />
           <StickyWhatsapp />
         </PopupProvider>
       </body>

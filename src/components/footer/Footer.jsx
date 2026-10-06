@@ -1,10 +1,12 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import { pageNameFromPath, trackEvent } from "../../lib/analytics";
+import { FALLBACK_FOOTER } from "../../lib/services/footer.service";
 import FacebookIcon from "../../../public/icons/FacebookIcon";
 import GlobeIcon from "../../../public/icons/GlobeIcon";
 import InstagramIcon from "../../../public/icons/InstagramIcon";
@@ -19,22 +21,35 @@ const popularProducts = [
   ["Investments", "/"],
 ];
 
+const featureIcons = {
+  address: MapPin,
+  phone: Phone,
+  email: Mail,
+  hours: Clock3,
+  text: MapPin,
+};
+
+function socialIcon(label) {
+  const name = String(label || "").toLowerCase();
+  if (name.includes("facebook")) return FacebookIcon;
+  if (name.includes("linkedin")) return LinkedinIcon;
+  if (name.includes("instagram")) return InstagramIcon;
+  if (name.includes("youtube")) return YouTubeIcon;
+  return GlobeIcon;
+}
+
 const usefulLinks = [
   ["Home", "/"],
-  ["About", "/about-us"],
+["About", "/about-us"],
   ["Careers", "/career"],
   ["Contact", "/contact-us"],
-  // ["Calculators", "/"],
+  ["Calculators", "/calculator"],
   // ["Customer Care", "/"],
 ];
 
-const socialLinks = [
-  [FacebookIcon, "Facebook"],
-  [LinkedinIcon, "LinkedIn"],
-  [InstagramIcon, "Instagram"],
-  [YouTubeIcon, "YouTube"],
-  [GlobeIcon, "Website"],
-];
+function telHref(label) {
+  return `tel:${String(label || "").replace(/[^\d+]/g, "")}`;
+}
 
 // Same heading treatment for all three columns (matches the existing "GET IN TOUCH" /
 // "QUICK LINKS" heading styles already in this codebase).
@@ -44,12 +59,13 @@ const columnHeadingClassName =
 const columnLinkClassName =
   "py-1 font-inter text-[12px] md:text-[14px] lg:text-[clamp(0.8125rem,0.5043rem+0.361vw,0.9375rem)] font-normal text-white/75 transition hover:text-white";
 
-export default function Footer() {
+export default function Footer({ content }) {
   const page = pageNameFromPath(usePathname());
+  const data = content || FALLBACK_FOOTER;
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
       <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_29.82%] lg:justify-between">
-        {/* <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between"> */}
+      {/* <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between"> */}
         <div className="col-span-2 sm:col-span-1">
           <Link href="/" className="inline-block">
             <Image
@@ -61,9 +77,7 @@ export default function Footer() {
             />
           </Link>
           <p className="my-6 text-[clamp(0.875rem,0.6544rem+0.9804vw,1.125rem)] md:text-[18px] lg:text-[clamp(0.875rem,0.25rem+0.7813vw,1.1875rem)] leading-relaxed">
-            Leading loan advisory in Pune, connecting you with trusted banking
-            and financial partners for personal, business, home, and property
-            loans.
+            {data.blurb}
           </p>
         </div>
 
@@ -75,6 +89,29 @@ export default function Footer() {
                 {label}
               </Link>
             ))}
+          </div>
+        </div> */}
+
+        {/* <div>
+          <h3 className={columnHeadingClassName}>{data.linksTitle}</h3>
+          <div className="flex flex-col">
+            {data.links.map((link) =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={columnLinkClassName}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.label} href={link.href} className={columnLinkClassName}>
+                  {link.label}
+                </Link>
+              )
+            )}
           </div>
         </div> */}
 
@@ -90,71 +127,73 @@ export default function Footer() {
         </div>
 
         <div className="col-span-2 sm:col-span-1">
-          <h3 className={columnHeadingClassName}>GET IN TOUCH</h3>
+          <h3 className={columnHeadingClassName}>{data.contactTitle}</h3>
           <address className="grid grid-cols-[15px_1fr] gap-x-3 gap-y-4 not-italic font-inter text-[13px] md:text-[15px] lg:text-[clamp(0.8125rem,0.3125rem+0.625vw,1.0625rem)] leading-snug">
-            <MapPin size={18} className="mt-0.5" />
-            <p>
-              Office No. 3, 4, 5, 6, Vishal Arcade, Opp. to Sonigara Jewellers,
-              Pimple Chinchwad (Municipal Corporation), Haveli, Pune - 411019
-            </p>
-            <Phone size={18} className="mt-0.5" />
-            <p>
-              <a
-                href="tel:02027350055"
-                onClick={() =>
-                  trackEvent("click_to_call", {
-                    page,
-                    section: "Footer",
-                    button: "020 2735 0055",
-                  })
-                }
-              >
-                020 2735 0055 |{" "}
-              </a>
-              <a
-                href="tel:+91 91755 35555"
-                onClick={() =>
-                  trackEvent("click_to_call", {
-                    page,
-                    section: "Footer",
-                    button: "+91 91755 35555",
-                  })
-                }
-              >
-                +91 91755 35555
-              </a>
-            </p>
-            <Mail size={18} className="mt-0.5" />
-            <p>
-              <a href="mailto:info@payyouadvisory.com">
-                info@payyouadvisory.com
-              </a>
-            </p>
-            <Clock3 size={18} className="mt-0.5" />
-            <p>Mon - Sat: 9:30 AM - 6:30 PM</p>
+            {data.features.map((feature) => {
+              const Icon = featureIcons[feature.kind] || MapPin;
+              return (
+                <Fragment key={`${feature.kind}-${feature.text}`}>
+                  <Icon size={18} className="mt-0.5" />
+                  {feature.kind === "phone" ? (
+                    <p>
+                      {feature.parts.map((part, index) => (
+                        <a
+                          key={part}
+                          href={telHref(part)}
+                          onClick={() => trackEvent("click_to_call", { page, section: "Footer", button: part })}
+                        >
+                          {part}
+                          {index < feature.parts.length - 1 ? " | " : ""}
+                        </a>
+                      ))}
+                    </p>
+                  ) : feature.kind === "email" ? (
+                    <p>
+                      <a href={`mailto:${feature.text}`}>{feature.text}</a>
+                    </p>
+                  ) : (
+                    <p>{feature.text}</p>
+                  )}
+                </Fragment>
+              );
+            })}
           </address>
           <div className="mt-4 flex gap-2.5">
-            {socialLinks.map(([Icon, label]) => (
-              <a
-                key={label}
-                className="group flex h-10 w-10 items-center justify-center rounded-full border border-white bg-white text-primary transition-colors hover:bg-primary hover:text-white"
-                href="#"
-                aria-label={label}
-              >
-                <Icon
-                  size={24}
-                  color="currentColor"
-                  className="transition-colors"
-                />
-              </a>
-            ))}
+            {data.social.map((item) => {
+              const Icon = socialIcon(item.label);
+              return (
+                <a
+                  key={item.label}
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-white bg-white text-primary transition-colors hover:bg-primary hover:text-white"
+                  href={item.href}
+                  aria-label={item.label}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  <Icon
+                    size={24}
+                    color="currentColor"
+                    className="transition-colors"
+                  />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
       <div className="mx-auto max-w-(--content-width) flex w-full flex-wrap justify-between gap-2 border-t border-white/55 py-3 md:py-4 lg:py-6 text-white text-[13px] md:text-[14px] lg:text-[clamp(0.8125rem,0.3502rem+0.5415vw,1rem)] font-bold max-[800px]:flex-col">
-        <span>© 2026 Payyou Advisory Private Ltd. All rights reserved.</span>
+        <span>{data.copyright}</span>
         <span>
-          <Link href="/privacy-policy">Privacy Policy & Terms Conditions</Link>{" "}
+          {data.legalLinks.map((link) =>
+            link.external ? (
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.label} href={link.href}>
+                {link.label}
+              </Link>
+            )
+          )}{" "}
           {/* &nbsp;|&nbsp; <Link href="/">Cookie Policy</Link>{" "}
           &nbsp;|&nbsp; <Link href="/">Disclaimer</Link> */}
         </span>
