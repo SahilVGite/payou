@@ -21,8 +21,8 @@ const popularProducts = [
 
 const usefulLinks = [
   ["Home", "/"],
-  // ["About", "/"],
-  // ["Careers", "/"],
+  ["About", "/about-us"],
+  ["Careers", "/career"],
   ["Contact", "/contact-us"],
   // ["Calculators", "/"],
   // ["Customer Care", "/"],
@@ -49,7 +49,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary font-nunito text-white px-[4%]">
       <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_29.82%] lg:justify-between">
-      {/* <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between"> */}
+        {/* <div className="mx-auto max-w-(--content-width) grid grid-cols-2 gap-[clamp(1.25rem,0.7482rem+1.4599vw,2.5rem)] pb-8 secGapT sm:grid-cols-2 lg:grid-cols-[21.52%_15%_15%_29.82%] lg:justify-between"> */}
         <div className="col-span-2 sm:col-span-1">
           <Link href="/" className="inline-block">
             <Image
@@ -99,10 +99,28 @@ export default function Footer() {
             </p>
             <Phone size={18} className="mt-0.5" />
             <p>
-              <a href="tel:02027350055" onClick={() => trackEvent("click_to_call", { page, section: "Footer", button: "020 2735 0055" })}>
+              <a
+                href="tel:02027350055"
+                onClick={() =>
+                  trackEvent("click_to_call", {
+                    page,
+                    section: "Footer",
+                    button: "020 2735 0055",
+                  })
+                }
+              >
                 020 2735 0055 |{" "}
               </a>
-              <a href="tel:+91 91755 35555" onClick={() => trackEvent("click_to_call", { page, section: "Footer", button: "+91 91755 35555" })}>
+              <a
+                href="tel:+91 91755 35555"
+                onClick={() =>
+                  trackEvent("click_to_call", {
+                    page,
+                    section: "Footer",
+                    button: "+91 91755 35555",
+                  })
+                }
+              >
                 +91 91755 35555
               </a>
             </p>
